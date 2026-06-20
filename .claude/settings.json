@@ -1,0 +1,111 @@
+{
+  "outputStyle": "Base",
+  "permissions": {
+    "deny": [
+      "Bash(rm -rf *)",
+      "Bash(git reset --hard*)",
+      "Bash(git push --force*)",
+      "Bash(git checkout -- .)",
+      "Bash(git clean *)",
+      "Read(./.env*)",
+      "Read(./secrets/**)"
+    ],
+    "ask": [
+      "Bash(git push *)",
+      "Bash(*scripts/send_*)",
+      "Bash(*scripts/schedule_*)",
+      "Bash(*scripts/unsubscribe_*)",
+      "mcp__google-workspace__send_gmail_message"
+    ],
+    "allow": [
+      "Bash(git log *)",
+      "Bash(git status*)",
+      "Bash(git diff *)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git branch*)",
+      "Bash(git show *)",
+      "WebSearch",
+      "WebFetch",
+      "mcp__google-workspace__*"
+    ],
+    "defaultMode": "acceptEdits"
+  },
+  "sandbox": {
+    "enabled": true,
+    "autoAllowBashIfSandboxed": true,
+    "allowUnsandboxedCommands": true,
+    "filesystem": {
+      "allowWrite": [
+        "~/Desktop"
+      ]
+    },
+    "network": {
+      "allowedDomains": [
+        "*.anthropic.com",
+        "*.google.com",
+        "*.googleapis.com",
+        "pypi.org",
+        "*.pypi.org",
+        "files.pythonhosted.org",
+        "registry.npmjs.org",
+        "api.openai.com"
+      ]
+    }
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/no-newline-bash.sh"
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/notify.sh"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/done-enforcement.sh"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "matcher": "compact",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/compact-reinject.sh"
+          }
+        ]
+      },
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/cadence-check.sh"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,30 @@
+# Contact Registry
+# Primary consumer: /compose skill (email format)
+# Updated during client sessions when new contacts surface.
+#
+# accounts: maps engagement → send-from email
+# contacts: people you interact with
+
+accounts: {}
+  # example:
+  # client-name:
+  #   email: you@yourdomain.com
+  #   name: Your Name
+
+contacts: {}
+  # example (client contact):
+  # jane-doe:
+  #   name: Jane Doe
+  #   email: jane@company.com
+  #   role: VP Marketing
+  #   company: Acme Corp
+  #   engagements: [acme]
+  #   notes: "Primary contact for the engagement"
+  #
+  # example (teammate):
+  # alex-smith:
+  #   name: Alex Smith
+  #   email: alex@yourcompany.com
+  #   type: teammate
+  #   role: Account Manager
+  #   notes: "Manages Acme and BigCorp accounts"
