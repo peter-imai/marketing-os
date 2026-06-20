@@ -111,10 +111,10 @@ Flag any broken reference (file path that doesn't exist, convention that's chang
 
 ### Area 4: System Architecture Currency
 
-**Read:** `_system/system-architecture.md`
+**Read:** `_system/system-philosophy.md`
 
 **Check in both directions:**
-1. **Listed but missing:** For each entry in the Component Inventory and Folder Structure, verify the file exists. Flag entries pointing to files that don't exist.
+1. **Listed but missing:** For each component or folder the doc describes, verify the file exists. Flag entries pointing to files that don't exist.
 2. **Existing but unlisted:** Glob for significant files in key directories (`blueprints/`, `_system/`, `.claude/commands/`, `.claude/skills/`, `resources/`) and flag any that are missing from the inventory.
 3. **Conventions table:** Is each convention still accurate? Does the enforcement mechanism match reality?
 
@@ -171,7 +171,7 @@ Flag any broken reference (file path that doesn't exist, convention that's chang
 **Check:**
 - **Accuracy:** Is the information accurate to current system state? Cross-reference any file paths, convention names, or tool references against what actually exists.
 - **Staleness:** Is anything referencing things that have been removed, renamed, or superseded?
-- **Misrouted content:** Does it contain items that belong in proper homes instead? Conventions belong in `_system/decisions/` or `_system/system-architecture.md`. Methods belong in `blueprints/`. Tasks belong in backlogs. Only operational state (who the operator is, how they prefer to work, external references) belongs in memory.
+- **Misrouted content:** Does it contain items that belong in proper homes instead? Conventions belong in `_system/decisions/` or `_system/system-philosophy.md`. Methods belong in `blueprints/`. Tasks belong in backlogs. Only operational state (who the operator is, how they prefer to work, external references) belongs in memory.
 
 ---
 
@@ -200,7 +200,7 @@ Flag any broken reference (file path that doesn't exist, convention that's chang
 
 **Check against budgets:**
 - **Per-command startup reads:** Flag any command exceeding ~10K tokens (~650 lines combined)
-- **Individual file growth:** Flag `_system/backlog.md` > 200 lines, `_system/system-architecture.md` > 450 lines, core.md > 30 lines
+- **Individual file growth:** Flag `_system/backlog.md` > 200 lines, `_system/system-philosophy.md` > 450 lines, core.md > 30 lines
 - **Skill count:** Count skills in `.claude/skills/`. For each, check whether `disable-model-invocation: true` is set. Flag skills that load at startup but are only invoked manually — these waste description budget
 - **Backlog Done section:** Count entries. Flag if > 20 (should be rotated)
 

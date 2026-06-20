@@ -14,9 +14,8 @@ Build a new skill from a validated workflow. Two phases: build it right, then pr
 **References:**
 - [quality-checklist.md](quality-checklist.md) — review criteria for Phase 2 (13 structural + 6 output-quality)
 - [skill-template.md](skill-template.md) — starting skeleton for new SKILL.md files (includes step-file scaffold, subagent strategy section, progressive disclosure tiers)
-- `_system/skill-design-conventions.md` — full rationale behind the six skill design conventions (progressive disclosure, helpers, step-file sharding, subagent strategy, permission declaration, source material identification)
-- `blueprints/criteria-development.md` — criteria development blueprint (pattern menu, tiering, meta-evaluation). Reference for Step 4.
-- `.claude/helpers.md` — shared procedures available to all skills
+- The six skill design conventions: progressive disclosure, helpers, step-file sharding, subagent strategy, permission declaration, source material identification
+- `.claude/helpers.md` — shared procedures available to all skills, including the Build-Criteria procedure used in Step 4
 
 ---
 
@@ -90,11 +89,11 @@ This makes context precision AND degradation design explicit at design time. Eve
 
 Before building the skill, define what good output looks like. Criteria come first — they're a design tool, not a review gate.
 
-1. **What does this skill produce, and what job does that output do?** One sentence, job-focused. Not what the output IS — what it DOES for the person who receives it. (See `blueprints/criteria-development.md` Phase 1A for examples.)
+1. **What does this skill produce, and what job does that output do?** One sentence, job-focused. Not what the output IS — what it DOES for the person who receives it.
 
 2. **What are the top 3 ways that output fails?** Pull from observed failure modes if the workflow has been run manually. If not, generate 3 plausible failures by running a hypothetical invocation through the workflow analytically — "If someone used this skill with [realistic input], what would go wrong?" Consider both output failures (what goes wrong with the finished artifact) and input failures (what happens when source material is incomplete or low-quality — these often cause the output failures).
 
-3. **Draft 2-3 binary criteria that catch those failures.** Each criterion is a yes/no question an evaluator can answer without subjective judgment. For pattern inspiration, reference the pattern menu in `blueprints/criteria-development.md` Phase 2 (name-swap test, outcome test, negative-space, etc.) — skip Phases 3-4 (tiering and meta-evaluation are for deeper scored iteration, not skill self-audit). Keep it to 2-3 criteria.
+3. **Draft 2-3 binary criteria that catch those failures.** Each criterion is a yes/no question an evaluator can answer without subjective judgment. For pattern inspiration, common criteria patterns include the name-swap test, the outcome test, and negative-space checks. Keep it to 2-3 criteria — tiering and meta-evaluation are for deeper scored iteration, not skill self-audit.
 
 4. **Write the criteria file.** Save to `blueprints/criteria/[artifact-type].md` using the Build-Criteria helper format. Frontmatter: `type: criteria-rubric`, `spectrum-position`, `consumers` (list this skill). The criteria file is the single source of truth — criteria don't dissolve into skill prose. They're standalone, lockable, auditable artifacts. (Decision 091.)
 

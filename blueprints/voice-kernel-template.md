@@ -2,7 +2,7 @@
 type: blueprint
 description: "Template for creating client voice kernels. Client kernels extend the shared base (_system/voice-base.md) with audience-specific conventions."
 status: working-draft
-convention: blueprints/frontmatter-convention.md
+convention: _system/frontmatter-convention.md
 ---
 
 # Voice Kernel Template
@@ -49,7 +49,7 @@ type: voice-kernel
 description: "[Client name] editorial judgment patterns — how [operator] writes for this client's external content"
 status: working-draft
 client: [client-slug]
-convention: blueprints/frontmatter-convention.md
+convention: _system/frontmatter-convention.md
 ---
 
 # Voice Kernel — [Client Name]

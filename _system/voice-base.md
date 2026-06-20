@@ -2,7 +2,7 @@
 type: voice-infrastructure
 description: "Operator's universal voice constants — loaded before any composition, regardless of client. Client kernels extend this, never replace it."
 status: working-draft
-convention: blueprints/frontmatter-convention.md
+convention: _system/frontmatter-convention.md
 ---
 
 # Voice Base — Operator Constants

@@ -289,7 +289,7 @@ Each recipe declares what goes up, what runs, what comes back, and how long it t
 
 ### Hardcoded file paths in scripts
 **Precedent:** Enrichment scripts that write to fixed output paths break when reused across projects or when folder conventions change.
-**Rule:** Scripts that produce data files MUST accept `--input`/`--output` arguments. The agent passes convention-correct paths at invocation time. Scripts are dumb about where files live — the data project convention (`_system/data-workspace-convention.md`) owns that. `/connect-tool` enforces this for new connectors.
+**Rule:** Scripts that produce data files MUST accept `--input`/`--output` arguments. The agent passes convention-correct paths at invocation time. Scripts are dumb about where files live — the data project's own conventions own that. `/connect-tool` enforces this for new connectors.
 
 ---
 

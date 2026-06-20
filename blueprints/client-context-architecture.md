@@ -49,7 +49,7 @@ Conditional (produced if applicable)
 
 **Generation method:** Facilitated discovery (Dunford methodology). Operator-intensive — the agent facilitates, the operator makes the calls.
 
-**Methodology source:** `resources/april-dunford/positioning-sop-scale-partners.md` — 7-step process based on April Dunford's "Obviously Awesome."
+**Methodology:** positioning discovery — audience, competitive alternatives, unique value, market category (Dunford-style, based on April Dunford's "Obviously Awesome").
 
 **Key sections:**
 - **Best-fit customer** — Situational, not demographic. "Someone who is [situation] and needs [outcome]."

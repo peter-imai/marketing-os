@@ -18,7 +18,7 @@ Determine where a piece of knowledge belongs in the system and route it there. U
 1. Identify what kind of knowledge this is:
    - **Marketing domain knowledge** (how cold email works, campaign strategy, market dynamics) → Check `resources/marketing/index.md` for the relevant domain. Add to the domain file, or create one if it doesn't exist. Update the expertise index entry (depth, coverage, gaps).
    - **Practitioner convention** (a pattern for how to work, a session management technique, a quality pattern) → Route to a relevant blueprint or system doc. General patterns go in `blueprints/`.
-   - **Architecture insight** (a design decision, a principle, a system pattern) → Route to `_system/decisions/` if it's a decision, `_system/system-architecture.md` if it's a structural insight, CLAUDE.md if it's a behavioral rule.
+   - **Architecture insight** (a design decision, a principle, a system pattern) → Route to `_system/decisions/` if it's a decision, `_system/system-philosophy.md` if it's a structural insight, CLAUDE.md if it's a behavioral rule.
    - **Client intelligence** (what we learned about a specific client, their market, their preferences) → Route to the relevant context document (engagement-strategy.md, marketing-strategy.md, or context/ files).
    - **Tool learning** (how a tool behaves, limitations, cost data, gotchas) → Route to `tools/index.md` for selection-relevant info, or `tools/[name]/profile.md` for operational depth.
 
@@ -192,9 +192,9 @@ Build validated binary scoring criteria for a marketing artifact or workflow out
 
 **Procedure:**
 
-1. **Consult the decision matrix.** Read `blueprints/scored-iteration-decision-matrix.md` if it exists. Classify the application (artifact optimization / analytical sharpening / system infrastructure / adversarial resilience). Score the 5 heuristics. Determine spectrum level (2-3 self-audit / 10-20 scored / 50-100 overnight). Present recommendation to operator: "This looks like [family] at [level] because [reasons]. Worth building criteria?"
+1. **Classify the application** (artifact optimization / analytical sharpening / system infrastructure / adversarial resilience). Determine the spectrum level (2-3 self-audit / 10-20 scored / 50-100 overnight) based on how much the output quality matters and how cheaply it can be re-run. Present recommendation to operator: "This looks like [family] at [level] because [reasons]. Worth building criteria?"
 
-2. **Follow the criteria development blueprint.** Read `blueprints/criteria-development.md` if it exists. Execute all 4 phases in order:
+2. **Develop the criteria.** Execute all 4 phases in order:
    - Phase 1 (15 min): Define artifact job + 5 failure modes + spectrum position
    - Phase 2 (20 min): Select patterns from the 5-pattern menu, draft criteria
    - Phase 3 (15 min): Tier into prerequisites/optimizers, write in yes/no format
@@ -317,7 +317,7 @@ Create a new Claude Code hook — event-triggered shell script that runs at sess
 
 6. **Test manually:** `bash .claude/hooks/{name}.sh`
 
-7. **Update `_system/system-architecture.md`** — add the hook with a one-line description.
+7. **Update `_system/system-philosophy.md`** — add the hook with a one-line description.
 
 **Failure modes to avoid:**
 - Non-executable script (silent failure)

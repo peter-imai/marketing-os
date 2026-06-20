@@ -86,7 +86,7 @@ A skill ships when all applicable criteria pass. For each criterion: **Pass** or
 
 **How to evaluate:** Count the lines and estimate token count (~15 words/line × line count ÷ 0.75 ≈ tokens). If over budget, identify what can move to L2 step files (workflow detail) or L3 supporting files (reference material) without breaking the orchestration flow. The routing logic and quality gates stay in SKILL.md; everything else moves out.
 
-**Three-level model (see `_system/skill-design-conventions.md`):**
+**Three-level model (progressive disclosure):**
 - **L1: SKILL.md** (<5K tokens) — loaded on invoke. Orchestration only.
 - **L2: Step/phase files** — loaded on demand, one at a time. Detailed workflow.
 - **L3: Templates, resources** — loaded when a specific step needs them.

@@ -46,7 +46,7 @@ Ask these questions conversationally. Don't dump all 5 at once — ask 1-2 at a 
    The answer seeds the first backlog item.
 
 6. **"Will this involve working with data — list building, enrichment, CSV imports, that kind of thing?"**
-   - If yes → scaffold data project structure (`_sources/`, `_enrichment/`, `_working/`, `_output/`, `scripts/`, `data-state.md`). Convention: `_system/data-workspace-convention.md`.
+   - If yes → scaffold data project structure (`_sources/`, `_enrichment/`, `_working/`, `_output/`, `scripts/`, `data-state.md`). Write a simple `data-state.md` listing sources, enrichment passes, and outputs.
    - If no or unsure → skip. The fallback convention (CLAUDE.md routing) will scaffold on first touch if data files appear later.
 
 **After all questions answered:**
@@ -116,9 +116,9 @@ Create these folders and the two companion docs:
 - `projects/[name]/_output/`
 - `projects/[name]/scripts/`
 
-Write `data-state.md` using the template from `_system/data-workspace-convention.md` § State Doc Template. Populate the Project section with what we know from elicitation (goal from Q2/Q5, entity types if mentioned). Leave tables empty — they'll fill as work begins.
+Write a simple `data-state.md` listing data sources, enrichment passes, and outputs. Populate the Project section with what we know from elicitation (goal from Q2/Q5, entity types if mentioned). Leave tables empty — they'll fill as work begins.
 
-Write `data-story.md` using the template from `_system/data-workspace-convention.md` § Data Story → Template. Populate the Strategic Frame: Goal from Q2/Q5 (the business outcome, not pipeline mechanics), Arc set to "sourcing" (initial phase). Leave Standing Decisions empty and Log empty — they'll accumulate as work begins.
+Write a `data-story.md` capturing the strategic frame: Goal from Q2/Q5 (the business outcome, not pipeline mechanics), Arc set to "sourcing" (initial phase). Leave standing decisions and log empty — they'll accumulate as work begins.
 
 ### 2c. Write `context/positioning.md`
 
@@ -133,7 +133,7 @@ scope: client
 created: [current session number or date]
 last-updated: [current session number or date]
 updated-by: joint
-convention: _system/client-context-architecture.md
+convention: blueprints/client-context-architecture.md
 ---
 
 # Positioning: [Name]
@@ -148,15 +148,15 @@ convention: _system/client-context-architecture.md
 
 ## Why [Name] Over Alternatives
 
-[Answer from Q3 — the differentiator. If operator didn't have a clear answer, write: "To be developed. Run `/positioning` for facilitated Dunford discovery."]
+[Answer from Q3 — the differentiator. If operator didn't have a clear answer, write: "To be developed. Work through positioning with the agent: who it's for, the competitive alternatives, and your unique value."]
 
 ## Competitive Alternatives
 
-[If mentioned in Q3, list them. Otherwise: "Not yet mapped. Foundation doc sequence: positioning → ICP (if B2B) → market context → buyer personas. See `_system/client-context-architecture.md`."]
+[If mentioned in Q3, list them. Otherwise: "Not yet mapped. Foundation doc sequence: positioning → ICP (if B2B) → market context → buyer personas. See `blueprints/client-context-architecture.md`."]
 
 ---
 
-*Seed positioning from `/new-project` setup. For full positioning discovery, run `/positioning` (Dunford methodology).*
+*Seed positioning from `/new-project` setup. For full positioning discovery, work through it with the agent: audience, competitive alternatives, unique value, market category (Dunford-style).*
 *For market research (ICP, buyer personas, market context), see Crawford research prompts at `resources/jordan-crawford/market-research/`.*
 ```
 
@@ -173,7 +173,7 @@ scope: client
 created: [current session number or date]
 last-updated: [current session number or date]
 updated-by: agent
-convention: _system/client-context-architecture.md
+convention: blueprints/client-context-architecture.md
 ---
 
 # Marketing Strategy: [Name]
@@ -221,7 +221,6 @@ type: core
 description: "[Name] — intention, core documents, active direction, watches"
 governance: core-ref
 scope: client
-convention: _system/core-convention.md
 ---
 
 # Core — [Name]
@@ -249,7 +248,7 @@ convention: _system/core-convention.md
 - [Leave empty or seed one from Q8 concern if it maps to something observable]
 ```
 
-Convention: `_system/core-convention.md`. 30-line hard cap. The operator owns this document — the agent suggests changes but never writes without approval. For agency-pattern engagements (Q7 = yes), set `scope: engagement` instead of `scope: client`.
+30-line hard cap. The operator owns this document — the agent suggests changes but never writes without approval. For agency-pattern engagements (Q7 = yes), set `scope: engagement` instead of `scope: client`.
 
 ### 2g. Write `auth.yaml`
 
@@ -280,7 +279,7 @@ scope: engagement
 created: [current session number or date]
 last-updated: [current session number or date]
 updated-by: agent
-convention: _system/client-context-architecture.md
+convention: blueprints/client-context-architecture.md
 ---
 
 # Engagement Strategy: [Name]
@@ -341,7 +340,7 @@ Use the same format as your existing entries. If the operator said "client" duri
 Tell the operator:
 - What was created (list all files)
 - **"Run `/[name]` to start your first session."**
-- **"When you're ready for deeper positioning, run `/positioning`."**
+- **"When you're ready for deeper positioning, work through it with the agent: audience, competitive alternatives, unique value, market category."**
 - If B2B: **"For ICP and buyer personas, the system has Crawford research prompts at `resources/jordan-crawford/market-research/`."**
 
 ---

@@ -8,7 +8,7 @@ Execute this in order every session. No skipping.
 
 Read files directly using parallel Read tool calls. **No agents, no summarization.** The files are context to internalize, not research targets to analyze. Read them, hold them, move on. Include `git log --oneline -10` in this parallel batch (needed for Step 4).
 
-- `_system/system-architecture.md` — how the system is built, what the pieces do
+- `_system/system-philosophy.md` — how the system is built, what the pieces do, why key decisions were made
 - `_system/backlog.md` — what needs to happen
 
 **Reference context — load on demand, not at startup:**
@@ -58,9 +58,9 @@ You have strong opinions, loosely held. You help build a system that works for r
 
 ### System Articulation
 
-You are the system's expert witness. You should have working knowledge of the system's architecture — enough to answer high-level questions about what the system is, how the layers compose, and why key decisions were made. For detailed questions, load system-architecture.md on demand.
+You are the system's expert witness. You should have working knowledge of the system's architecture — enough to answer high-level questions about what the system is, how the layers compose, and why key decisions were made. For detailed questions, load `_system/system-philosophy.md` on demand.
 
-This means system-architecture.md must stay current. If this session changes the architecture, update the narrative and rationale sections before shutdown.
+This means `_system/system-philosophy.md` must stay current. If this session changes the architecture, update the narrative and rationale sections before shutdown.
 
 ### PM Responsibilities
 
@@ -75,7 +75,7 @@ This means system-architecture.md must stay current. If this session changes the
 
 - Design new workflows, conventions, and skills as the operator's practice demands them
 - Wire new components properly (read mechanism + update mechanism for everything)
-- Maintain `_system/system-architecture.md` when the system changes
+- Maintain `_system/system-philosophy.md` when the system changes
 - Log decisions to `_system/decisions/` with rationale and revisit triggers
 
 ---
@@ -233,7 +233,7 @@ If no: proceed to Step 4 with fresh discovery.
 
 Follow the production sequence from `blueprints/client-context-architecture.md`:
 
-1. **Positioning** — Facilitated discovery using `resources/april-dunford/positioning-sop-scale-partners.md` (Dunford 7-step method). Interactive — the operator makes the calls.
+1. **Positioning** — Facilitated discovery: audience, competitive alternatives, unique value, market category (Dunford-style). Interactive — the operator makes the calls.
 2. **ICP** (B2B only) — Use the Crawford research prompt at `resources/jordan-crawford/market-research/01-client-icp.md`. Feed it the client's positioning. Run in a desktop LLM with web search enabled.
 3. **Market Context** — Use the Crawford prompt at `resources/jordan-crawford/market-research/02-market-context.md`. Scoped by positioning + ICP.
 4. **Buyer Personas** — Use the Crawford prompt at `resources/jordan-crawford/market-research/03-buyer-persona.md`. Scoped by ICP (B2B) or positioning (B2C).

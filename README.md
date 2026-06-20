@@ -20,20 +20,14 @@ It grew out of thousands of hours running marketing for real companies, so the w
 | `tools/` | How it reaches external services. |
 | `blueprints/` | Reusable methods for recurring work. |
 
-## How to start
+## Getting started
 
-You'll need [Claude Code](https://claude.com/claude-code) installed.
+You'll need [Claude Code](https://claude.com/claude-code) installed. Then:
 
 1. **Open this folder in Claude Code.** This folder *is* your system — everything lives here.
-2. **Read `START-HERE.md`** — or just tell Claude *"walk me through START-HERE."* It sets things up and orients you.
-3. **Pick one thing you do that repeats.** Not your whole job — one piece. The thing you do every week with steps. The thing you dread.
-4. **Do it once, together.** Talk to Claude like a sharp new hire who needs context — tell it what you're doing and why.
-5. **Bank it:** say *"create a skill from what we just did."* Read what it writes — you're the guide.
-6. **Run it next time.** When the output's off, don't redo it — say *"fix the skill."* It sharpens every pass.
+2. **Run `/start`.** It sets up your output style, your profile, and your first workspace, explaining each step as it goes.
 
-Two rules that keep it smart: **one job, one chat** (start fresh when a task's done — long chats get slow and dull), and **don't ration tokens** (your time is worth more — use the good model and let it work).
-
-That's the whole start. One component. Next time you open it, that piece is already set up.
+That's the whole setup. For the full walkthrough — what to do in your first session and the habits that make the system compound — see **[START-HERE.md](START-HERE.md)**.
 
 ## Make it yours
 

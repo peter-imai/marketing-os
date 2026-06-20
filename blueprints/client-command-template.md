@@ -5,7 +5,7 @@ status: doctrine
 created: 411
 last-updated: 411
 updated-by: agent
-convention: blueprints/frontmatter-convention.md
+convention: _system/frontmatter-convention.md
 ---
 
 # Client Command Template

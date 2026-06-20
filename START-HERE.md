@@ -10,7 +10,7 @@ Read this once. Then start.
 
 ## Install
 
-1. **Unzip the folder somewhere stable.** `~/marketing-os/` is a sensible default.
+1. **Clone or download this repo somewhere stable.** Any folder you'll remember works — `~/marketing-os/` is a sensible default.
 2. **Open the folder in VS Code** (with the Claude Code extension installed). If you don't have Claude Code yet: [docs.claude.com/claude-code](https://docs.claude.com/claude-code).
 3. **Start a Claude Code session and run `/start`.**
 

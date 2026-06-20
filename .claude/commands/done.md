@@ -149,12 +149,12 @@ Hold the teaching message — deliver it in the wrap-up (Step 7).
 - **Update system backlog:** Add new items, update statuses. `_system/backlog.md`. Detailed design notes → `_system/task-notes.md`.
 - **Backlog maintenance:** Mark completed cluster tasks `[x]` with date. If all tasks in a cluster are done, move cluster to Done section. Move done standalone tasks to Done section. Unblock items whose blockers are done. **Done section rotation:** Keep 20 most recent, clear older.
 - **Cross-reference update:** For each task completed, check whether other items reference it (by ID, as blocker, or dependency). Update their status. Note next sequenced step in active cluster — surfaces in wrap-up.
-- **File growth check:** Flag if exceeded: `_system/backlog.md` > 200 lines, `_system/system-architecture.md` > 450 lines, any strategy doc > 100 lines. Trim before committing.
+- **File growth check:** Flag if exceeded: `_system/backlog.md` > 200 lines, `_system/system-philosophy.md` > 450 lines, any strategy doc > 100 lines. Trim before committing.
 - **Update client backlog (if operating session):** Mark completed tasks, update statuses, add new items. Move completed to Done table with date.
 
 ### Architecture sessions additionally:
 
-- **Update system architecture:** `_system/system-architecture.md` — component inventory, folder tree, conventions. If concepts/principles changed, update narrative sections.
+- **Update system architecture:** If the architecture narrative doc is present (`_system/system-philosophy.md`), update it — component inventory, folder tree, conventions. If concepts/principles changed, update narrative sections.
 
 ### Operating sessions additionally:
 

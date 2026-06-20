@@ -11,7 +11,7 @@ updated-by: joint
 
 # System Philosophy
 
-This is the thinking underneath the system. For WHAT exists and WHERE: `_system/system-map.md`. For design constraints: `_system/build-rules.md`. For daily operation: `_system/operators-guide.md`.
+This is the thinking underneath the system. For design constraints: `_system/build-rules.md`.
 
 ---
 
@@ -61,7 +61,7 @@ The architecture didn't start with a blueprint. It grew through 540+ sessions of
 
 ## How the Architecture Evolved
 
-Decision lineages (how early decisions led to later ones) are documented in `_system/plans/decision-themes.md`. The full synthesis identified 10 recurring themes from 118 decisions. Key arcs: knowledge (043→047), execution (044→045→053), enforcement (032→049→050→051→054), session memory (004→018→021→037).
+Decision lineages — how early decisions led to later ones — accumulate in the system's decision records over time, clustering into recurring themes: knowledge routing, execution discipline, enforcement, and session memory. Each evolved across many decisions rather than landing fully formed.
 
 The main divergence from established patterns like BMAD: in their model, the agent owns the context and the workflow together — they're bundled. In ours, they're separated. A command loads the context (which client, which strategy, which state). Skills are the workflows. Because they're decoupled, the same skill runs across any client. The skill is portable because it doesn't carry its own context.
 
@@ -106,7 +106,7 @@ The defense-in-depth principle applies across these three layers. If a hook fail
 
 ### Knowledge Types
 
-- **Resources** — External reference material. Domain catalogs: marketing expertise (`resources/marketing/index.md`) and LLM engineering (`resources/llm-engineering/index.md`). Full library at `resources/index.md`.
+- **Resources** — External reference material. Domain catalog: marketing expertise (`resources/marketing/index.md`).
 - **Frameworks** — Thinking tools for recurring judgment calls (`frameworks/`). How to think about a class of problem.
 - **Blueprints** — Reusable methods for recurring operations. Conventions, templates, workflows, design guides.
 - **Skills** — Executable workflow packages that turn blueprints into reliable, repeatable operations. The promotion path: ad hoc → notice the pattern → blueprint → skill.
@@ -132,7 +132,7 @@ Forces is an **atomic framework** (D124) — a structural primitive applicable a
 - **Domain forces** live in framework files at the domain level — the tensions inherent to the domain itself (sample-size-vs-speed in experimentation, kernel-vs-playbook in voice engineering)
 - **Pattern forces** live in marketing-pattern files at the specific level — the tensions a particular pattern's solution is resolving, often inheriting from a parent framework's domain forces
 
-The build rule "Articulate Forces at Creation, Not Retrofitted" is load-bearing here: the tensions that drove a pattern disappear into the solution once the solution exists. Capturing forces at creation time is cheap; retrofitting them is epistemically fragile (you're guessing at reasoning that was in the author's head). Authoritative source: `frameworks/forces.md`.
+The build rule "Articulate Forces at Creation, Not Retrofitted" is load-bearing here: the tensions that drove a pattern disappear into the solution once the solution exists. Capturing forces at creation time is cheap; retrofitting them is epistemically fragile (you're guessing at reasoning that was in the author's head).
 
 ### Stamps
 
@@ -144,7 +144,7 @@ Stamps are the first specimen of a more general atomic framework: **desire paths
 
 ### Desire Paths
 
-The **desire paths** atomic framework (D124, `frameworks/desire-paths.md`): operator actions create traces; the system follows traces; frequently-traveled paths get reinforced; unused paths fade. Curation falls out of use, not from manual maintenance.
+The **desire paths** atomic framework (D124): operator actions create traces; the system follows traces; frequently-traveled paths get reinforced; unused paths fade. Curation falls out of use, not from manual maintenance.
 
 The principle: any artifact that benefits from accumulation should expose a structural slot for traces of its own use. Stamps on marketing patterns are one specimen. Feedback corrections on skills are another. Voice corrections on voice kernels are another. The pattern generalizes: when designing a new accumulating artifact, ask "where does the use leave a trace, and how does the trace shape future reads?" If neither has an answer, the artifact won't compound — it'll just exist.
 
@@ -160,11 +160,11 @@ Desire paths are how the system stays curated as it grows without operator labor
 6. The system studies its own operator — the corpus pipeline extracts behavioral patterns from session data, surfaces them for review, and routes validated findings to curriculum, content, and build rules
 7. Every session leaves the system smarter — not by accident, but by design
 
-**Pending elevation (S570 reframe — T-405):** The compounding mechanism is being elevated to a full atomic framework: **frontmatter is the stacking contract.** Stackable components are ones with declared shapes (`type` field in frontmatter). Shapes enable compounding because they let knowledge stack instead of pile up. Every typed artifact follows the same three-verb lifecycle: **set it up** (create per type convention) → **wire it up** (catalog + cross-reference + consumer wiring) → **learn it up** (accumulate knowledge from use over time). The framework will live at `frameworks/stacking.md` (T-405, atomic framework per D124, forces to be drafted from source material). This section will be updated to point at the framework once it ships. Captured: `_system/core-log.md` 2026-04-06 S570 Shift entry. Cross-references: `resources/operator-patterns.md` Pattern #29 (Design for Stacking — three-verb sub-practice) + Pattern #35 (deep walk-throughs as the agent-side discipline that produces stacking-quality work).
+**The stacking contract (S570 reframe):** The compounding mechanism rests on a single idea — **frontmatter is the stacking contract.** Stackable components are ones with declared shapes (`type` field in frontmatter). Shapes enable compounding because they let knowledge stack instead of pile up. Every typed artifact follows the same three-verb lifecycle: **set it up** (create per type convention) → **wire it up** (catalog + cross-reference + consumer wiring) → **learn it up** (accumulate knowledge from use over time). Captured: `_system/core-log.md` 2026-04-06 S570 Shift entry.
 
 ### The Self-Awareness Loop
 
-The system doesn't just execute — it observes how it's used and learns from the observation. Every operator prompt is archived. Periodically, an automated pipeline analyzes the accumulated prompts against the current pattern model, extracts what expert operators do that novices don't, and surfaces the findings for operator review. What gets confirmed routes to: the pattern model (institutional knowledge), the playbook (teaching material), content ideas (product marketing), and build rules (system constraints). The operator's daily work IS the training data. Workflow: `blueprints/workflows/corpus-analysis-pipeline.md`.
+The system doesn't just execute — it observes how it's used and learns from the observation. Every operator prompt is archived. Periodically, an automated pipeline analyzes the accumulated prompts against the current pattern model, extracts what expert operators do that novices don't, and surfaces the findings for operator review. What gets confirmed routes to: the pattern model (institutional knowledge), the playbook (teaching material), content ideas (product marketing), and build rules (system constraints). The operator's daily work IS the training data. The self-annealing loop pattern (Capture → Trigger → Analyze → Backlog → Operator) is documented at `blueprints/workflows/background-agent.md`.
 
 ### Protocols
 
@@ -177,6 +177,6 @@ Non-negotiable habits wired into startup and shutdown — the only two guarantee
 
 ---
 
-*For the structural inventory of what exists: `_system/system-map.md`. For design constraints: `_system/build-rules.md`. For daily operation: `_system/operators-guide.md`.*
+*For design constraints: `_system/build-rules.md`.*
 
 *Last updated: Session 552 (2026-04-05). Structured Context Streams added as core concept (D125 — `log` type, T-380, first specimen `_system/core-log.md`). Concept slots between Classification Backbone and Forces because logs extend classification with operational history, distinct from the bidirectional-link compounding theme of Stamps/Desire Paths. Previously S553: Forces, Stamps, and Desire Paths added (D124 — marketing-pattern type as first-class). S548: Classification Backbone added (D121 Type Lifecycle).*

@@ -23,7 +23,7 @@ updated-by: joint
 | v1.1 | 2026-04-05 | Added `governance` and `scope` fields. Moved from `blueprints/` to `_system/` — this is a system-level standard, not a reusable method. Added to core.md Core Documents. | Session 544 — T-340 |
 | v1.2 | 2026-04-05 | Added `index` type. Principle shift: type classifies function, not location. Indexes live at the root of the folder they catalog regardless of that folder's primary type. Tier C exempt list tightened — "Backlogs" blanket exemption replaced with specific files (backlog.md, task-notes.md). | Session 551 — T-361, Decision 123 |
 | v1.3 | 2026-04-05 | Added `log` type. Logs are structured context streams (not human-readable history) — companion files to a parent doc that record meaningful changes for downstream agent consumption. New `parent` field declares which doc a log records changes to. First specimen: `_system/core-log.md`. | Session 552 — T-380 |
-| v1.4 | 2026-04-05 | **Added `marketing-pattern` type** (Tier B with required sections — first new type since `log`). Added the **atomic vs. domain framework** sub-classification within the `framework` type. Added **Marketing Pattern Required Sections** subsection (13 sections including Forces and Stamps). **Refined the methodology routing rule** per D124 (discipline-specific stays in practice area doc; named, attributed, cross-cutting methods earn their own marketing-pattern). **Stamps** introduced as the bidirectional-link compounding mechanism for marketing-patterns — see `frameworks/desire-paths.md`. **Forces** introduced as a structural concept — required section in marketing-pattern, required for new frameworks (existing frameworks: backlog retrofit T-384). New build rule cross-referenced: "Articulate Forces at Creation, Not Retrofitted" (`_system/build-rules.md`). | Session 553 — D124 |
+| v1.4 | 2026-04-05 | **Added `marketing-pattern` type** (Tier B with required sections — first new type since `log`). Added the **atomic vs. domain framework** sub-classification within the `framework` type. Added **Marketing Pattern Required Sections** subsection (13 sections including Forces and Stamps). **Refined the methodology routing rule** per D124 (discipline-specific stays in practice area doc; named, attributed, cross-cutting methods earn their own marketing-pattern). **Stamps** introduced as the bidirectional-link compounding mechanism for marketing-patterns. **Forces** introduced as a structural concept — required section in marketing-pattern, required for new frameworks (existing frameworks: backlog retrofit T-384). New build rule cross-referenced: "Articulate Forces at Creation, Not Retrofitted" (`_system/build-rules.md`). | Session 553 — D124 |
 | v1.5 | 2026-04-22 | **Added `campaign` type** (Tier B with required sections). Channel-bound, time-bound marketing executions with setup → run → end phases. Flat `.md` per campaign at `clients/{client}/campaigns/` (direct) or `clients/{client}/engagements/{eng}/campaigns/` (agency). Required frontmatter: `type`, `channel`, `status`, `started`/`ended` when applicable. Optional `motion`, `parent-pattern`, `data-sources`, `engagement`. 9 required body sections (Intent, Audience, Setup Checklist, Active Protocol, Live System State, Build Log, Learnings, Pattern Candidates, Open/Activation Checklist) + 3 optional (Traps & Escapes, Corrections, Meta). **Campaign vs. Operations boundary** articulated: `campaign` = time-bound with start/end; `operations` = ongoing running state. **`parent-pattern`** field extended from `operations`/`artifact` to `campaign` (bidirectional stamp link). **Rejected as types**: `experiment` (nests inside campaign), `initiative` (shape-emergent by definition, stays folder-only). **Pattern Candidates promotion rule**: default ≥2 runs confirm before promotion; N=1 escape hatch requires operator approval at `/done`. | Session 666 — D150 |
 
 ## Purpose
@@ -46,7 +46,7 @@ Frontmatter isn't just classification — it's the mechanism that lets knowledge
 
 All three verbs are required. Skip set-up and you have orphaned notes. Skip wire-up and you have hidden competence. Skip learn-up and you have dead capability. **This is why frontmatter matters** — it's not classification for its own sake, it's the contract that makes compounding possible.
 
-Canonical home for the full stacking framework: pending at `frameworks/stacking.md` (T-405, atomic framework per D124, forces to be drafted from source material). Captured: `_system/core-log.md` 2026-04-06 S570 Shift entry. Related patterns: `resources/operator-patterns.md` Pattern #29 (Design for Stacking — umbrella) + Pattern #30 (Tool Fluency — specific instance) + OP74 curriculum entry (Wire up tool references).
+Captured: `_system/core-log.md` 2026-04-06 S570 Shift entry.
 
 ### What Frontmatter Is NOT
 
@@ -69,7 +69,6 @@ client: acme
 created: 152
 last-updated: 515
 updated-by: joint
-convention: _system/core-convention.md
 related:
   - clients/acme/engagement-strategy.md
   - clients/acme/marketing-strategy.md
@@ -118,11 +117,11 @@ These types have **defined section templates**. The agent can validate structure
 
 | Type | Home | Staleness | Convention | Required Sections |
 |------|------|-----------|------------|-------------------|
-| `core` | `{scope}/core.md` | 5 sessions | `_system/core-convention.md` | Intention, Core Documents, Active Direction, Watches |
-| `engagement-strategy` | `{client}/engagement-strategy.md` | 15 sessions | `_system/client-context-architecture.md` | Per convention |
-| `marketing-strategy` | `{client}/marketing-strategy.md` | 15 sessions | `_system/client-context-architecture.md` | Per convention |
-| `data-state` | `{scope}/data/**/data-state.md` | 10 sessions | `_system/data-workspace-convention.md` | Index, pipeline status |
-| `data-story` | `{scope}/data/**/data-story.md` | 10 sessions | `_system/data-workspace-convention.md` | Strategic frame, standing decisions, log |
+| `core` | `{scope}/core.md` | 5 sessions | — | Intention, Core Documents, Active Direction, Watches |
+| `engagement-strategy` | `{client}/engagement-strategy.md` | 15 sessions | `blueprints/client-context-architecture.md` | Per convention |
+| `marketing-strategy` | `{client}/marketing-strategy.md` | 15 sessions | `blueprints/client-context-architecture.md` | Per convention |
+| `data-state` | `{scope}/data/**/data-state.md` | 10 sessions | — | Index, pipeline status |
+| `data-story` | `{scope}/data/**/data-story.md` | 10 sessions | — | Strategic frame, standing decisions, log |
 | `voice-kernel` | `{client}/context/voice-kernel.md` | 40 sessions | `blueprints/voice-kernel-template.md` | Per template |
 | `decision` | `_system/decisions/` | N/A (write-once) | — | Decision, Rationale, Alternatives Considered, What Would Make Us Revisit |
 
@@ -197,7 +196,7 @@ The type vocabulary defines **what** each type is. This section defines **how** 
 | Dimension | Question | Example (well-wired) |
 |-----------|----------|---------------------|
 | **Creation** | What prompts the system to create an instance? | `core` → `/new-project` scaffolds one automatically |
-| **Structure** | What sections or shape make a good instance? | `core` → core-convention defines required sections |
+| **Structure** | What sections or shape make a good instance? | `core` → required sections: Intention, Core Documents, Active Direction, Watches |
 | **Read path** | How does it get loaded into sessions that need it? | `core` → every command reads it at startup |
 | **Write path** | What maintains the instance over time? | `engagement-strategy` → `/done` and `/debrief` route updates |
 
@@ -207,11 +206,11 @@ When adding a new type, define all four dimensions. A dimension can be "operator
 
 | Type | Creation | Structure | Read Path | Write Path |
 |------|----------|-----------|-----------|------------|
-| `core` | `/new-project` | core-convention.md | Command startup | `/done` (suggests), operator approves |
-| `engagement-strategy` | `/new-project` | client-context-architecture.md | Command startup (helper) | `/done`, `/debrief` |
-| `marketing-strategy` | `/new-project` | client-context-architecture.md | Command startup (helper) | `/done`, `/debrief` |
-| `data-state` | Convention guides when data work starts | data-workspace-convention.md | Command startup (data activity) | `/done` |
-| `data-story` | Convention guides when data work starts | data-workspace-convention.md | On demand | `/done` |
+| `core` | `/new-project` | Required sections (above) | Command startup | `/done` (suggests), operator approves |
+| `engagement-strategy` | `/new-project` | blueprints/client-context-architecture.md | Command startup (helper) | `/done`, `/debrief` |
+| `marketing-strategy` | `/new-project` | blueprints/client-context-architecture.md | Command startup (helper) | `/done`, `/debrief` |
+| `data-state` | Convention guides when data work starts | Sources, enrichment passes, outputs | Command startup (data activity) | `/done` |
+| `data-story` | Convention guides when data work starts | Strategic frame, standing decisions, log | On demand | `/done` |
 | `voice-kernel` | `/new-project` | voice-kernel-template.md | `/compose` (layered: base → client) | `/done`, feedback loop |
 | `decision` | `/architect` when design decisions made | Required sections in type definition | On demand; `/architect` revisit scans | `/architect` |
 
@@ -234,7 +233,7 @@ When adding a new type, define all four dimensions. A dimension can be "operator
 | `index` | Operator-initiated when a domain earns navigation | — (no required sections; discovery, not verification) | Referenced from CLAUDE.md routing table; on demand | `/done`, `/ingest`, content-routing sessions |
 | `log` | Stamped alongside parent doc, OR retroactively when a parent earns a log (Snapshot entry preserves state at stamp moment) | **Required** (see below) | Explicit on demand (v1) — no auto-load. Loaded when an agent or operator asks for historical context for the parent doc, or when future consumers (T-369 system annealing, T-370 content ideation) read log streams as input. Auto-load deferred until consumers prove value. | `/done` Step 4c (session-driven entries when parent touched), `/debrief` Step 8c (meeting-driven entries), manual append. Detection unified via `Check-For-Doc-Logs` helper. |
 | `marketing-pattern` | `/architect` (via this convention's routing); `/ingest benchmark` promoting practitioner techniques to pattern candidates; recognized in session work when a method earns naming. Per the build rule "Articulate Forces at Creation," forces MUST be drafted at creation time, not retrofitted. | **Required** (see Marketing Pattern Required Sections below) | Catalog at `blueprints/marketing-patterns/index.md`; cross-referenced from practice area docs in `resources/marketing/`; loaded on demand by problem class | `/done` (stamp routing on execution — when a session executes a pattern, route a stamp back to the pattern file); `/architect` (pattern refinement based on accumulated stamps); session work |
-| `campaign` | Launching a marketing campaign. Current path: manual scaffold from channel template in `blueprints/campaign-templates/{channel}.md` (email first; others as they earn the slot). Future: `/campaign-start` skill walks the elicitation and scaffolds the file (backlog T-459). Required `channel:` field at creation selects the Setup Checklist template. | **Required** (see Campaign Required Sections below) | Client/engagement command surfaces `status: planning` and `status: running` campaigns at session start; `ended` and `archived` load on demand. Rollout of this read path across client commands is backlog T-463 — until it lands, read path is "agent reads `campaigns/` when a session touches campaign work." | `/done` sweeps active campaigns and prompts a Build Log entry when the session touched one. Hook to enforce this is backlog T-460 (F-65 family — instruction-only pre-hook). Pattern Candidates promotion: default ≥2 runs confirm; N=1 escape hatch requires operator approval at `/done`. |
+| `campaign` | Launching a marketing campaign. Manual scaffold: the agent walks the elicitation and scaffolds the file. Required `channel:` field at creation selects the Setup Checklist template. | **Required** (see Campaign Required Sections below) | Client/engagement command surfaces `status: planning` and `status: running` campaigns at session start; `ended` and `archived` load on demand. Rollout of this read path across client commands is backlog T-463 — until it lands, read path is "agent reads `campaigns/` when a session touches campaign work." | `/done` sweeps active campaigns and prompts a Build Log entry when the session touched one. Hook to enforce this is backlog T-460 (F-65 family — instruction-only pre-hook). Pattern Candidates promotion: default ≥2 runs confirm; N=1 escape hatch requires operator approval at `/done`. |
 
 ### Workflow Required Sections
 
@@ -244,7 +243,7 @@ Workflows are Tier B but have required sections derived from the type definition
 2. **The Loop** — Visual cycle diagram + numbered steps. Each step: Input, Output, What it produces. Tribal knowledge (gotchas, rate limits, edge cases) goes inline with the relevant step.
 3. **Economics** — What it costs per run (time, money, credits, tokens). Enables ROI reasoning and cost-aware sequencing.
 
-Reference specimens: `blueprints/workflows/corpus-analysis-pipeline.md`, `blueprints/workflows/substack-scraping-pipeline.md`.
+Reference specimen: `blueprints/workflows/background-agent.md`.
 
 ### Log Required Sections
 
@@ -292,14 +291,14 @@ Marketing patterns are Tier B but have required sections derived from the type d
 2. **Intent** — One sentence. The move the pattern makes. Functions like the intention section in core.md — orients the reader before any detail.
 3. **Context** — When to apply. Scale requirements, preconditions, channel scope, what has to be true for the pattern to make sense.
 4. **Problem** — The fuzzy question the pattern makes answerable. What uncertainty does it reduce?
-5. **Forces** — The competing values the pattern's solution resolves. **Required at creation time, not retrofitted** — the build rule "Articulate Forces at Creation, Not Retrofitted" applies. Each force names a specific value that pulls one direction and a specific value that pulls the other; the pattern's procedure is readable as a resolution. Pattern forces may inherit from a parent framework's domain forces (declared via the `parent-framework` field — future T-383). Canonical treatment: `frameworks/forces.md`.
+5. **Forces** — The competing values the pattern's solution resolves. **Required at creation time, not retrofitted** — the build rule "Articulate Forces at Creation, Not Retrofitted" applies. Each force names a specific value that pulls one direction and a specific value that pulls the other; the pattern's procedure is readable as a resolution. Pattern forces may inherit from a parent framework's domain forces (declared via the `parent-framework` field).
 6. **Core Opinions** — Epistemic commitments — the specific definitional moves that separate this pattern from generic advice. ("A situation is something that changes the copy" is a definitional commitment, not a procedure step.)
 7. **Procedure** — Mechanical steps. Specific numbers, specific decisions, specific thresholds. The "how to actually do it" layer.
 8. **What It Produces** — Outputs that drop out of applying it. What you walk away holding.
 9. **Known Variants & Limits** — How practitioners adapt. Where the pattern breaks. What scale it stops working at. The honesty layer.
 10. **What It Is NOT** — Sharpens identity against adjacent patterns. The negative space is doing real work — it's how you tell siblings apart.
 11. **Related Patterns** — Family. Ancestors, siblings, children (specializations). Cross-references to other marketing-patterns when they exist.
-12. **Known Uses / Stamps** — Bidirectional links to executions of this pattern. Each stamp is one line: `[S{n}, {client}] {one-sentence calibration} → {link to execution artifact}`. Starts empty on creation; accumulates over time. **The compounding mechanism** for patterns — see `frameworks/desire-paths.md` for the canonical treatment of stamps as desire-path infrastructure.
+12. **Known Uses / Stamps** — Bidirectional links to executions of this pattern. Each stamp is one line: `[S{n}, {client}] {one-sentence calibration} → {link to execution artifact}`. Starts empty on creation; accumulates over time. **The compounding mechanism** for patterns — stamps are desire-path infrastructure: frequently-traveled paths get reinforced.
 13. **Provenance** — Where the captured material came from. Source documents, sessions, ingestion history.
 
 **Required frontmatter on the marketing-pattern itself:**
@@ -308,7 +307,7 @@ Marketing patterns are Tier B but have required sections derived from the type d
 - `description` — one-line classifier
 - `attribution` — author/origin (e.g., "Author Name / Their Organization")
 - `disciplines` — array of disciplines/channels the pattern applies to (cross-cutting nature must be explicit)
-- `parent-framework` — optional. When present, declares which framework the pattern inherits domain-level forces from (e.g., `parent-framework: frameworks/experimentation.md` once that framework exists). Formalized via T-383. Omit the field entirely until a parent framework exists; do not write `null`.
+- `parent-framework` — optional. When present, declares which framework the pattern inherits domain-level forces from. Omit the field entirely until a parent framework exists; do not write `null`.
 
 **Bidirectional stamp link — `parent-pattern` field on execution artifacts:**
 
@@ -316,7 +315,7 @@ When a session executes a marketing-pattern in client work, the execution artifa
 
 - `parent-pattern: blueprints/marketing-patterns/{slug}.md` — path to the canonical pattern card
 
-This is the inbound half of the bidirectional stamp link defined in `frameworks/desire-paths.md`. The outbound half is the entry in the pattern's "Known Uses / Stamps" section pointing back at the execution artifact. **Both must exist for the link to count.** `/audit` Area 12 verifies bidirectionality (per T-387). `/done` routes new stamps when a session executes a pattern (per T-386). Stamp format convention is canonicalized in T-388. Until those tasks ship, both halves are maintained manually at `/done`.
+This is the inbound half of the bidirectional stamp link. The outbound half is the entry in the pattern's "Known Uses / Stamps" section pointing back at the execution artifact. **Both must exist for the link to count.** `/audit` Area 12 verifies bidirectionality (per T-387). `/done` routes new stamps when a session executes a pattern (per T-386). Stamp format convention is canonicalized in T-388. Until those tasks ship, both halves are maintained manually at `/done`.
 
 The `parent-pattern` field is canonical across `operations` and `artifact` types — any execution artifact that applies a marketing-pattern declares it the same way. The convention is forward-looking on purpose: by establishing the field now, future patterns and execution artifacts have a stable schema to write against, and the audit infrastructure has a stable field to verify.
 
@@ -359,19 +358,19 @@ Campaigns are Tier B but have required sections derived from the type definition
 
 1. **Intent** — One paragraph. What this campaign is trying to do and for whom. Orients the reader in one breath.
 2. **Audience** — Who this targets. Link(s) into `data/` for the list(s). No list duplication in the campaign doc.
-3. **Setup Checklist** — Channel-specific pre-launch discipline. Email: domain/deliverability, list hygiene, schedule, send limits, tracking setup, reply routing. Ads: account, budget, pixel/conversion tracking, creative pipeline. Social: account, voice calibration, schedule, amplification plan. Populated from channel template at scaffold time (`blueprints/campaign-templates/{channel}.md`). First template ships with email; others as they earn the slot.
+3. **Setup Checklist** — Channel-specific pre-launch discipline. Email: domain/deliverability, list hygiene, schedule, send limits, tracking setup, reply routing. Ads: account, budget, pixel/conversion tracking, creative pipeline. Social: account, voice calibration, schedule, amplification plan. Tailor the checklist to the campaign's channel at scaffold time.
 4. **Active Protocol** — Current execution plan. What's running now, next action, stop criterion. This is the "if I open this campaign today, what am I supposed to do" answer.
 5. **Live System State** — **Mandatory.** Non-file state required to re-enter the work. External-system IDs (e.g., Instantly campaign IDs, Google Ads account IDs), domain/subdomain allocations, tool-level field IDs (e.g., Clay column field IDs), segment vocabulary, schedule JSON. **Update discipline:** when a Build Log entry records activity that changed external state, update Live System State in the same pass. The section lies if it goes stale; lying is worse than empty. API keys and secrets do NOT live here — those live in `_system/credentials/` per D131.
 6. **Build Log** — **Mandatory. Never skip.** Dated session entries. Shape: `### S{n} — YYYY-MM-DD`, then bullets covering activity, outcomes, decisions. Written at `/done` when the session touched the campaign. **Enforcement mechanism is backlog T-460** — instruction-only pre-hook, decays under pressure; honest risk named here and in D150. Interim defense: `/done` Pattern #35 Step 8 fresh-eyes sweep.
 7. **Learnings** — Campaign-local findings, operator-categorized. Most learnings stay here until they earn promotion to Pattern Candidates, then to a marketing-pattern or discipline doc. Not every learning is a pattern; don't force promotion.
-8. **Pattern Candidates** — Seeds for promotion to `blueprints/marketing-patterns/` or to a discipline practice area doc in `resources/marketing/`. **Promotion rule (refines `frameworks/desire-paths.md`):** default — promote at ≥2 runs confirm the pattern. **Escape hatch — promote at N=1** when a candidate is clearly load-bearing: solves a named problem, not speculative, and the agent flags it at `/done` for **operator approval**. Operator-gated to prevent premature pattern-making while preventing the opposite failure (deferring a real pattern forever and making the operator re-invent it). Deferring a real pattern is a bigger failure than promoting one that later proves thin; the latter is correctable via pattern deprecation, the former burns operator attention every time the problem recurs.
+8. **Pattern Candidates** — Seeds for promotion to `blueprints/marketing-patterns/` or to a discipline practice area doc in `resources/marketing/`. **Promotion rule:** default — promote at ≥2 runs confirm the pattern. **Escape hatch — promote at N=1** when a candidate is clearly load-bearing: solves a named problem, not speculative, and the agent flags it at `/done` for **operator approval**. Operator-gated to prevent premature pattern-making while preventing the opposite failure (deferring a real pattern forever and making the operator re-invent it). Deferring a real pattern is a bigger failure than promoting one that later proves thin; the latter is correctable via pattern deprecation, the former burns operator attention every time the problem recurs.
 9. **Open / Activation Checklist** — Next-session hand-off state. What's waiting, what's blocked, what a cold-context agent needs to re-enter fast. The "I picked this up after a week away" answer.
 
 **Optional sections (add when evidence earns it):**
 
 - **Traps & Escapes** — Failure modes encountered + fixes. Pattern-candidate seed.
 - **Corrections Received** — Operator-voice corrections during campaign execution. Feeder for voice-kernel and discipline-doc updates.
-- **Meta — How We Worked** — Agent tendencies + what worked procedurally. Feeder for `resources/operator-patterns.md` and `resources/agent-conventions.md`.
+- **Meta — How We Worked** — Agent tendencies + what worked procedurally. Feeder for operator-pattern and agent-convention learnings.
 
 **Filename convention:** short human-readable slug, no date prefix. Dates live in frontmatter. Examples: `aen-man-variants.md`, `q2-launch-nurture.md`.
 
@@ -390,7 +389,7 @@ Existing files with non-canonical type values should be remapped to canonical ty
 | `positioning-foundation`, `buyer-psychology`, `buyer-brief`, `competitive-intelligence`, `market-intelligence`, `targeting-reference`, `product-foundation`, `product-overview`, `product-design` | `context` | These describe content topic, not document function. They orient the agent. |
 | `deliverable`, `concept-doc` | `artifact` | Durable docs that cement conclusions. |
 | `analysis`, `brainstorm-output`, `synthesis`, `marketing-knowledge` | `research` | Explorations and syntheses. |
-| `process`, `plan`, `launch-plan`, `process-plan`, `planning` | `operations` | How we run things at the client level. **Sub-case — quarterly plans:** files with `type: plan` representing a quarterly cadence plan live at `clients/{client}/quarterly-plans/{YYYY-QN}/`, overriding the default `operations/` location. Produced via `blueprints/workflows/plan-elicitation-method.md`. |
+| `process`, `plan`, `launch-plan`, `process-plan`, `planning` | `operations` | How we run things at the client level. **Sub-case — quarterly plans:** files with `type: plan` representing a quarterly cadence plan live at `clients/{client}/quarterly-plans/{YYYY-QN}/`, overriding the default `operations/` location. Produced through a facilitated planning session with the agent. |
 | `methodology` | `operations` (client-applied) OR `marketing-pattern` (cross-cutting attributed) | Client-applied execution plans (e.g., "outbound testing plan for a specific client") are `operations`. Named cross-channel attributed methods are `marketing-pattern`. |
 | `criteria-rubric` | `criteria` | Evaluation rubric — near-match. |
 | `convention`, `design-decision` | `decision` | Architectural choices. |
@@ -545,9 +544,8 @@ Five layers (defense in depth):
 
 ## Integration
 
-- **`_system/system-map.md`** — Structural inventory organized by frontmatter type
 - **`CLAUDE.md`** — File Placement section requires frontmatter on governed files
-- **`_system/client-context-architecture.md`** — strategy doc frontmatter requirements
+- **`blueprints/client-context-architecture.md`** — strategy doc frontmatter requirements
 - **`.claude/helpers.md#Load-Client-Strategy-Context`** — primary consumer (parses frontmatter, flags staleness)
 - **`.claude/commands/done.md`** — maintains Tier 1 frontmatter at shutdown
 - **`.claude/hooks/done-enforcement.sh`** — check 8 (frontmatter compliance)

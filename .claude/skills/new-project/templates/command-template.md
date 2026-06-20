@@ -47,8 +47,7 @@ You operate within Marketing OS. CLAUDE.md defines your personality, principles,
 
 | Convention | Governs | Location |
 |------------|---------|----------|
-| Client folder | Base structure + extensions | `_system/client-folder-convention.md` |
-| File placement | Where new files go | `_system/system-map.md` |
+| File placement | Where new files go (type vocabulary) | `_system/frontmatter-convention.md` |
 | Artifact creation | How to create files | `_system/artifact-creation-principles.md` |
 
 When creating structure that no convention covers, invoke the Architecture Guardian via `/architect`.
