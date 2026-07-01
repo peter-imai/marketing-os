@@ -2,7 +2,7 @@
 
 For client emails: meeting recaps, follow-ups, introductions, status updates, operational messages. Loaded by `/compose` when the email format is selected.
 
-**Voice stack at this point:** Voice base (loaded) → client kernel (loaded) → THIS playbook.
+**Voice stack at this point:** Voice base (loaded) → workspace kernel (loaded) → THIS playbook.
 
 ---
 
@@ -123,8 +123,8 @@ Jump straight to substance. No preamble. Numbers, costs, steps. Clear next actio
 | Instead of... | Use... |
 |--------------|--------|
 | "We've made good progress" | "We sized the TAM at 80,000-120,000 companies across eight verticals" |
-| "Several companies match" | "~20,000 manufacturing companies with active DoD contracts" |
-| "The timeline works well" | "November 2026 CMMC deadline gives us 8 months of lead time" |
+| "Several companies match" | "~20,000 mid-market companies in the target ICP" |
+| "The timeline works well" | "the Q1 budget cycle gives us 8 months of lead time" |
 | "We'll look into it" | "I'll have the vertical scoring framework to you by Thursday" |
 
 **Name people in the body.** "As Julianne noted..." "In order to build Rhonda's dream..."

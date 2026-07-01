@@ -15,12 +15,12 @@ Read end-to-end once. Come back to individual sections as questions surface in r
 Slash commands are how you invoke the system — type `/` in any session and pick one. These are the stable core; you'll learn others as you go.
 
 **Setup**
-- `/start` — first-time setup. Walks you through your profile and onboards your first client.
-- `/new-project` — onboard an additional client. You'll run this each time you add one.
+- `/start` — first-time setup. Walks you through your profile and onboards your first workspace.
+- `/new-workspace` — onboard an additional workspace. You'll run this each time you add one.
 
 **Every session starts with one of these**
-- `/[client-name]` — when you're working for a client (e.g., `/acme`). You get one command per onboarded client. Loads that client's strategy, backlog, and where you left off.
-- `/architect` — when you're working on the system itself. Loads the system backlog and reference docs.
+- `/[workspace-name]` — when you're working in a workspace (e.g., `/acme`). You get one command per onboarded workspace. Loads that workspace's strategy, backlog, and where you left off.
+- **System work** — when you're working on the system itself, just open a session and edit `_system/` directly. The system backlog (`_system/backlog.md`) and reference docs are yours to change.
 
 **Every session ends with this**
 - `/done` — captures what happened, routes learnings to their permanent homes, sets up the next session.
@@ -31,9 +31,9 @@ Slash commands are how you invoke the system — type `/` in any session and pic
 - `/llm-research` — deep research across multiple models. Use when one perspective isn't enough and you want to cross-pollinate.
 - `/market-research` — structured research on an ICP, market, competitive landscape, or buyer persona. Phased — produces a synthesis you can act on.
 - `/connect-tool` — when you want to wire up a new external tool or API. It researches the tool, evaluates alternatives, and generates a convention-compliant connector and profile.
-- `/build-skill` — when you've done something three times the same way and want to mechanize it. Criteria-first — defines what good output looks like, then builds the skill, then verifies.
+- **Add a skill** — when you've done something three times the same way and want to mechanize it. Create `.claude/skills/[name]/SKILL.md` yourself — define what good output looks like, write the skill, then verify.
 - `/align` — when you want the system to interrogate your thinking before you commit to a direction. Useful before a strategy writeup, a campaign launch, or any decision you'll have to live with.
-- `/status-line` — turn on the indicator that shows your session's context usage (green / orange / red).
+- `/statusline` — set up a status line that shows your session's context usage, so you can see when it's filling up.
 
 **Health**
 - `/system` — quick status check, shows where you are.
@@ -43,9 +43,9 @@ Slash commands are how you invoke the system — type `/` in any session and pic
 
 ## What the System Knows
 
-Each client folder has a structure the system reads at startup:
+Each workspace folder has a structure the system reads at startup:
 
-- **Context docs** (`context/`) — market, audience, product, voice, positioning. If the system keeps getting something wrong about a client, the context docs don't say otherwise. The fix is always: write it down.
+- **Context docs** (`context/`) — market, audience, product, voice, positioning. If the system keeps getting something wrong about a workspace, the context docs don't say otherwise. The fix is always: write it down.
 - **Strategy docs** — engagement strategy (the relationship layer: goals, stakeholders, dynamics) and marketing strategy (the execution layer: positioning, hypotheses, approach). The two governing docs new information gets checked against.
 - **Backlog** — what needs to happen next. Carries forward between sessions.
 - **Artifacts** (`artifacts/`) — what you've built and shipped.
@@ -53,23 +53,23 @@ Each client folder has a structure the system reads at startup:
 - **Operations** (`operations/`) — working docs, SOPs, staging areas.
 - **Meetings** (`meetings/`) — transcripts and debrief state.
 
-`/[client-name]` reads context, strategy, and backlog so you start with full awareness. The `_system/` layer has its own backlog and conventions — that's what `/architect` loads.
+`/[workspace-name]` reads context, strategy, and backlog so you start with full awareness. The `_system/` layer has its own backlog and conventions — edit them directly when you work on the system.
 
 ---
 
 ## Sessions Have a Shape
 
-A session is a bounded unit of work, not a drifting conversation. The shape: load a client (or system), box one piece of work, close with `/done`.
+A session is a bounded unit of work, not a drifting conversation. The shape: load a workspace (or the system), box one piece of work, close with `/done`.
 
-**Start with a command.** `/[client-name]` for client work, `/architect` for system work. Startup pulls in your strategy, backlog, and where you left off. Without it, every session starts from zero.
+**Start with a command.** `/[workspace-name]` for workspace work; for system work, just open a session and edit `_system/` directly. Startup pulls in your strategy, backlog, and where you left off. Without it, every session starts from zero.
 
 **One focus per session.** Strategy OR content OR tooling. Mixing degrades quality fastest — the system loses the thread, you lose the compound benefit of context loaded for one purpose. Switching? Close out and start fresh.
 
 **Finish with `/done`. Every time.** The single most-skipped practice and the one that decides whether a system gets smarter over time or stays flat. It routes what you learned to permanent homes, updates state, leaves breadcrumbs. Skip it and the work stays trapped in the conversation — useful today, invisible tomorrow.
 
-**Start fresh often.** Switching activities, switching clients, finished a deliverable — open a new session. The work lives in your files, not the conversation.
+**Start fresh often.** Switching activities, switching workspaces, finished a deliverable — open a new session. The work lives in your files, not the conversation.
 
-**Watch your conversation length.** Quality degrades as conversations stretch. Turn on the status line (`/status-line`) — green / orange / red. When it turns orange, capture remaining work as backlog items and run `/done`. Don't push into red — by the time quality visibly degrades, you've already lost ground. Splitting long work into multiple sessions is a core skill, not a workaround.
+**Watch your conversation length.** Quality degrades as conversations stretch. Set up a status line (`/statusline`) that shows context usage and keep an eye on it. When context is getting full, capture remaining work as backlog items and run `/done`. Don't push it to the limit — by the time quality visibly degrades, you've already lost ground. Splitting long work into multiple sessions is a core skill, not a workaround.
 
 Session boundaries are deliberate. "Let's wrap and start fresh" is a quality move, not a concession.
 
@@ -79,7 +79,7 @@ Session boundaries are deliberate. "Let's wrap and start fresh" is a quality mov
 
 The backlog is the most important file in the system. Not a task list — a persistent memory of what matters, with enough context that a fresh session can pick it up without you re-explaining anything.
 
-You have one **system backlog** (`_system/backlog.md`) for improving the system itself, plus one **client backlog** inside every onboarded client's folder — one per client. The relevant one surfaces at startup, depending on whether you ran `/architect` or `/[client-name]`.
+You have one **system backlog** (`_system/backlog.md`) for improving the system itself, plus one **workspace backlog** inside every onboarded workspace's folder — one per workspace. The relevant one surfaces at startup, depending on whether you're working on the system or in a workspace (`/[workspace-name]`).
 
 **Write items as session briefs, not reminders.** The standard: enough context that a fresh session can pick it up and execute from a clean slate. "Fix the email sequence" fails that test. "Fix the email sequence — open rates dropped after we changed the subject line formula; test whether the old pattern performs better on the new segment" passes it. Specific enough to run, open enough to let the session find its shape.
 
@@ -89,7 +89,7 @@ You don't have to hand-write these. The session already has the context — just
 
 **Cluster related work.** When three or four items are clearly part of the same effort, group them — a named cluster with a one-line goal and an ordered sequence. Clusters keep the backlog from becoming a flat list of disconnected items.
 
-**Audit regularly.** Backlogs accumulate stale entries, redundant tasks, and items overtaken by events across days of work. Periodically run `/architect` and clean house — cluster, reorder, retire what's dead. The longer between audits, the more the backlog misleads you.
+**Audit regularly.** Backlogs accumulate stale entries, redundant tasks, and items overtaken by events across days of work. Periodically clean house — cluster, reorder, retire what's dead. The longer between audits, the more the backlog misleads you.
 
 ---
 
@@ -130,7 +130,7 @@ Each step is a piece. Each piece can be codified independently.
 
 **CLAUDE.md is living config.** It's the system's operating instructions and it's yours to edit. If the system keeps drafting emails in the wrong tone for a client, add a rule: "When writing for [client], lead with the metric, keep it under 3 sentences, no hedging." Next session, it just works. After any session where something went wrong, ask: could a rule have prevented this? If yes, add it.
 
-**Wire new pieces up.** When you create something new — a process, a command, a set of instructions — make sure the system can find it. Add it to CLAUDE.md, reference it from the relevant client doc, or link it from your backlog. Built but unreferenced = invisible next session.
+**Wire new pieces up.** When you create something new — a process, a command, a set of instructions — make sure the system can find it. Add it to CLAUDE.md, reference it from the relevant workspace doc, or link it from your backlog. Built but unreferenced = invisible next session.
 
 One process running well teaches more about system-building than five sketched out.
 
@@ -138,9 +138,9 @@ One process running well teaches more about system-building than five sketched o
 
 ## When Things Go Wrong
 
-The system will confidently produce things that are wrong. It will misunderstand positioning, apply one client's conventions to another, present assumptions as facts. This isn't a bug — it's the nature of the tool. Handling it is a core skill.
+The system will confidently produce things that are wrong. It will misunderstand positioning, apply one workspace's conventions to another, present assumptions as facts. This isn't a bug — it's the nature of the tool. Handling it is a core skill.
 
-**Immediate fix: undo or correct.** Escape to cancel, Escape again to rewind. Try from a clean state. If the output is subtly wrong — tone off, facts invented, strategy drifted — correct with a reason. The correction, added to the client's strategy doc or CLAUDE.md, prevents the same mistake forever.
+**Immediate fix: undo or correct.** Escape to cancel, Escape again to rewind. Try from a clean state. If the output is subtly wrong — tone off, facts invented, strategy drifted — correct with a reason. The correction, added to the workspace's strategy doc or CLAUDE.md, prevents the same mistake forever.
 
 **Structural fix: something is missing.** If the system keeps getting the same thing wrong, it's correctly following incomplete instructions. Make the implicit explicit. Every closed gap is a permanent improvement.
 
@@ -152,7 +152,7 @@ The system will confidently produce things that are wrong. It will misunderstand
 
 ## As You Get Comfortable
 
-**Run multiple terminals.** Once the session rhythm is second nature, run two or three terminals at once — one per client or activity. While the system works in one, start something in another. Each terminal stays bounded: one client, one task. Don't have two terminals touching the same files.
+**Run multiple terminals.** Once the session rhythm is second nature, run two or three terminals at once — one per workspace or activity. While the system works in one, start something in another. Each terminal stays bounded: one workspace, one task. Don't have two terminals touching the same files.
 
 **Bridge context between sessions.** When a result in one terminal matters to another, paste it across with a note. You start directing work across parallel tracks — while the system builds in one terminal, you're thinking in another.
 

@@ -12,7 +12,7 @@ Every persistent document in a governed location declares **what it is** via a `
 
 Why it matters: a typed document has a *shape*, and a shape is what lets knowledge **stack** instead of pile up. Unstructured notes accumulate; structured documents compound. Frontmatter is that contract.
 
-Governed locations: `clients/`, `_system/`, `blueprints/`, `resources/`, `tools/`. (Skills and commands have their own frontmatter schema — see Tier C.)
+Governed locations: `workspaces/`, `_system/`, `blueprints/`, `resources/`, `tools/`. (Skills and commands have their own frontmatter schema — see Tier C.)
 
 ---
 
@@ -25,13 +25,13 @@ A YAML block at the very top of the document, before any markdown:
 type: core
 description: "Acme identity — who we are, who we serve, how we create value, what we do"
 governance: core-ref
-scope: client
+scope: workspace
 status: operator-reviewed
-client: acme
+workspace: acme
 created: 12
 last-updated: 40
 updated-by: joint
-convention: _system/client-folder-convention.md
+convention: _system/workspace-folder-convention.md
 ---
 ```
 
@@ -43,11 +43,11 @@ convention: _system/client-folder-convention.md
 | `description` | Yes | One-line summary (~80 chars). Lets the agent scan metadata without reading the body. |
 | `status` | Yes | Maturity — how much latitude the agent has with the content (see vocab below). |
 | `governance` | If applicable | Role in governance (`core-ref` = listed in a `core.md`). Enables reverse lookups. |
-| `scope` | Recommended | Which scope level: `system`, `client`, `engagement`. |
+| `scope` | Recommended | Which scope level: `system`, `workspace`, `engagement`. |
 | `created` | Yes | Session number when first created. Never changes. |
 | `last-updated` | Yes | Session number of the last *meaningful* update. |
 | `updated-by` | Yes | Who made the last meaningful update: `operator`, `agent`, `joint`. Trust signal. |
-| `client` | If client-specific | Slug matching a directory in `clients/`. |
+| `workspace` | If workspace-specific | Slug matching a directory in `workspaces/`. |
 | `convention` | For Tier A | Which doc defines this type's required sections. Enables structural verification. |
 | `related` | Optional | Links to related docs — a discovery safety net if folder placement isn't perfect. |
 
@@ -74,7 +74,7 @@ These have a `convention` field pointing to the doc that defines their required 
 |------|------|-----------|-------------------|
 | `core` | `{scope}/core.md` | 40 sessions | Who we are, Who we serve, How we create value, What we do |
 | `operating-lens` | `{scope}/operating-lens.md` | 5 sessions | What's happening now, Active direction, Watches |
-| `voice-kernel` | `{client}/context/voice-kernel.md` | 40 sessions | Per `blueprints/voice-kernel-template.md` |
+| `voice-kernel` | `{workspace}/context/voice-kernel.md` | 40 sessions | Per `blueprints/voice-kernel-template.md` |
 | `decision` | `_system/decisions/` | write-once | Decision, Rationale, Alternatives, What Would Make Us Revisit |
 
 ### Tier B — Typed (folder home + purpose, no mandatory sections)
@@ -83,10 +83,10 @@ The system validates placement (type ↔ folder), not internal structure.
 
 | Type | Home | Routing Test |
 |------|------|-------------|
-| `context` | `{client}/context/` | Situational, market, or product context that orients the agent |
-| `artifact` | `{client}/artifacts/` | A durable doc that cements a conclusion, state, or deliverable |
-| `research` | `{client}/research/` | Exploration that informed a decision |
-| `operations` | `{client}/operations/` | How we run things — working docs, SOPs, staging areas |
+| `context` | `{workspace}/context/` | Situational, market, or product context that orients the agent |
+| `artifact` | `{workspace}/artifacts/` | A durable doc that cements a conclusion, state, or deliverable |
+| `research` | `{workspace}/research/` | Exploration that informed a decision |
+| `operations` | `{workspace}/operations/` | How we run things — working docs, SOPs, staging areas |
 | `blueprint` | `blueprints/` | A reusable method for a recurring operation |
 | `workflow` | `blueprints/workflows/` | The operational map of a recurring activity — the loop, its economics, what compounds |
 | `framework` | `frameworks/` | Teaches how to *think* about a class of problem |
@@ -96,7 +96,7 @@ The system validates placement (type ↔ folder), not internal structure.
 | `tool-profile` | `tools/[name]/profile.md` | Operational knowledge about an external tool — capabilities, costs, gotchas |
 | `index` | `{folder}/index.md` | A catalog or navigation doc pointing to the content it indexes |
 | `marketing-pattern` | `blueprints/marketing-patterns/` | A named, attributed, cross-channel marketing method (see below) |
-| `campaign` | `clients/{client}/campaigns/` | A channel-bound, time-bound execution with setup → run → end phases |
+| `campaign` | `workspaces/{workspace}/campaigns/` | A channel-bound, time-bound execution with setup → run → end phases |
 
 ### Tier C — Exempt (no frontmatter)
 
@@ -134,7 +134,7 @@ Then fill the remaining sections. Reference specimen: `blueprints/marketing-patt
 | `operator-reviewed` | Operator has read and corrected it | Medium — treat as current unless contradicted |
 | `doctrine` | Operator-ratified | High — treat as ground truth |
 
-**`scope`:** `system` (applies across all clients) · `client` (one client) · `engagement` (one engagement within a client).
+**`scope`:** `system` (applies across all workspaces) · `workspace` (one workspace) · `engagement` (one engagement within a workspace).
 
 **`updated-by`:** `operator` (operator drove the change — higher trust) · `agent` (agent synthesized it — may need validation) · `joint` (collaborative).
 
@@ -150,7 +150,7 @@ The convention is real because things read it:
 - **`/done`** updates `last-updated` + `updated-by` on docs it meaningfully changed, and checks new docs for valid frontmatter + correct placement.
 - **`/audit`** periodically scans governed locations for missing frontmatter, type↔folder mismatches, and missing required sections.
 
-New docs in governed locations get frontmatter at creation: `type`, `description`, `status` (usually `working-notes`), `created` + `last-updated` (current session), `updated-by`, plus `client` if client-specific and `convention` if Tier A.
+New docs in governed locations get frontmatter at creation: `type`, `description`, `status` (usually `working-notes`), `created` + `last-updated` (current session), `updated-by`, plus `workspace` if workspace-specific and `convention` if Tier A.
 
 ---
 

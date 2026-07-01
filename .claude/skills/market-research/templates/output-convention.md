@@ -7,26 +7,26 @@
 
 ## Determining the Output Directory
 
-Market research output goes into the client's context directory. The exact path depends on client structure:
+Market research output goes into the workspace's context directory. The exact path depends on workspace structure:
 
-**Simple engagement structure** (single engagement per client):
+**Simple engagement structure** (single engagement per workspace):
 ```
-clients/[name]/context/
+workspaces/[name]/context/
 ```
 
 **Multi-engagement structure** (multiple engagements):
 ```
-clients/[name]/engagements/[engagement]/context/
+workspaces/[name]/engagements/[engagement]/context/
 ```
 
-At skill start, check which structure the client uses:
-1. Look for `clients/[name]/engagements/` — if it exists, ask the operator which engagement this research is for.
-2. If no engagements directory, use `clients/[name]/context/`.
-3. If the client directory doesn't exist yet, create it with the simple structure unless the operator specifies otherwise.
+At skill start, check which structure the workspace uses:
+1. Look for `workspaces/[name]/engagements/` — if it exists, ask the operator which engagement this research is for.
+2. If no engagements directory, use `workspaces/[name]/context/`.
+3. If the workspace directory doesn't exist yet, create it with the simple structure unless the operator specifies otherwise.
 
 ## File Map
 
-### Deliverables (client context directory)
+### Deliverables (workspace context directory)
 
 | File | Phase | Description | Loaded in sessions? |
 |------|-------|-------------|-------------------|

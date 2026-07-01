@@ -36,7 +36,7 @@ Three rules:
 
 ## Every session has a shape
 
-**Open with a command.** `/start` if you work with one company, `/[client-name]` if you've set up several, `/architect` for system improvements. Startup loads that workspace's identity, current state, backlog, and where you left off.
+**Open with a command.** `/start` if you work with one company, `/[workspace-name]` if you've set up several. (System work needs no command — just edit `_system/` directly.) Startup loads that workspace's identity, current state, backlog, and where you left off.
 
 **Box one piece of work.** Pick the focus before you start.
 
@@ -44,7 +44,7 @@ Three rules:
 
 **Close with `/done`.** Every time.
 
-Adding a second company or a separate area of work? Run `/new-project`. It scaffolds the light workspace (identity + current state + backlog) and a `/[client-name]` command. No foundation-doc homework — it fills as you work. Next session you open it by name.
+Adding a second company or a separate area of work? Run `/new-workspace`. It scaffolds the light workspace (identity + current state + backlog) and a `/[workspace-name]` command. No foundation-doc homework — it fills as you work. Next session you open it by name.
 
 ---
 
@@ -53,9 +53,8 @@ Adding a second company or a separate area of work? Run `/new-project`. It scaff
 | Command | When |
 |---|---|
 | `/start` | First-time setup — and your daily entry if you work with one company |
-| `/[your-client-name]` | Every session for a given workspace, once you've set up several (e.g., `/acme`) |
-| `/new-project` | Add a second company or separate area of work |
-| `/architect` | Improving the system itself |
+| `/[your-workspace-name]` | Every session for a given workspace, once you've set up several (e.g., `/acme`) |
+| `/new-workspace` | Add a second company or separate area of work |
 | `/done` | Every session, always |
 | `/teach-me` | Walk the core concepts, self-paced — run it anytime |
 | `/debrief` | After a meeting — drop the transcript, get signals routed |

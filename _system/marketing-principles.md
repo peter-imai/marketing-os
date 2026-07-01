@@ -4,8 +4,6 @@ governance: core-ref
 scope: system
 description: "Operator's marketing principles — first-person declarations, ground truth for strategy"
 status: doctrine
-created: 1
-last-updated: 515
 updated-by: operator
 ---
 
@@ -21,7 +19,7 @@ Grows through operator discussion and design decisions captured in `_system/deci
 
 ---
 
-## Session 9 (2026-02-02) — Product Identity + Core Concepts
+## Product Identity and Core Concepts
 
 ### What Marketing OS Is
 
@@ -35,8 +33,6 @@ The core claim is leverage (Naval Ravikant's framework): you get leverage from s
 
 The person who does this is the **GTM Engineer**. Every workflow you codify stays and keeps working — engineered once, runs reliably forever. The leverage compounds. The analogy: you start with two arms and two legs. Each codified workflow is another robotic octopus arm. Each arm does one thing predictably when you press a button.
 
-*(Sharpened Session 11 from "software engineering for go-to-market" — the principle is about building leverage machines, not importing engineering practices. GTM Engineer identity folded in — was a separate section, but it's the same claim.)*
-
 ### What You're Building Is Engineered Context
 
 The model is already powerful — like Cyclops without the visor. Raw power, no precision, potentially destructive. Context engineering is the visor. It doesn't add power. It focuses what's already there.
@@ -47,19 +43,11 @@ Marketing OS is not a collection of prompts or a folder structure. It's the engi
 
 > "The model is Cyclops. Context engineering is the visor. Same power, now aimed."
 
-*(Sharpened Session 11 — reframed from "elite context engineering is the point" to what context engineering actually does: focuses existing power. Cyclops analogy from operator.)*
-
-### ~~The Differentiation from Workspace-Setup Content~~ *(Moved to positioning — not a principle)*
-
-*Session 11: Cut from core principles. "We show what you DO with it, not how to set up a workspace" is a positioning statement, not a design principle. Useful for messaging docs when we write them. Original quote preserved: "He's not a marketer. He's an engineer. We want to say this is what you fucking do with it."*
-
 ### Expertise Is Built Client-First, Abstracted Later
 
 When you sit down to work, you're working on a specific client — not "email marketing in general." Expertise starts at the client level. Client-level context loads the world you need.
 
 Generic functional expertise (email basics, funnel metrics, list building fundamentals) does exist and applies across clients. But it gets abstracted over time as patterns emerge from real client work — it doesn't start generic. Build for the client in front of you. Notice when something repeats across clients. Then promote it.
-
-*(Sharpened Session 11 — renamed from "On Expertise and Client Context." The principle is directional: bottom-up, not top-down.)*
 
 ### On Workflows and Consistency
 
@@ -67,7 +55,7 @@ A workflow isn't real until it's planned, step-explicit, has success criteria, a
 
 ---
 
-## Session 12 (2026-02-02) — Foundational Documents Principle
+## Foundational Documents Principle
 
 ### Foundational Context Documents Deserve Disproportionate Investment
 
@@ -79,8 +67,6 @@ Implication: when building or updating foundational context documents, invest th
 
 > "There are atomic units that are absolutely critical. We should spend time doing the work to get them at the level of detail that's important."
 
-*(From Session 12 — operator response to Dex's error hierarchy: bad research = thousands of bad lines of code. Applied to marketing: bad foundational context = every downstream output compromised.)*
-
 ### Define "What Good Looks Like" — Then Trust the Output
 
 The leverage isn't in reviewing every piece of content. It's in defining the quality criteria upfront — the tests, the acceptance standards, the specs that separate good from bad. If the criteria are well-designed, outputs that pass them are trustworthy. If the criteria are sloppy, reviewing every output won't save you.
@@ -91,11 +77,9 @@ Practically: before generating, define what a good output looks like. Explicit c
 
 > "Invest in defining 'what good looks like' rather than reviewing every output. That's where the leverage is."
 
-*(From Session 12 — operator response to Arceni's "only review tests, not code" pattern applied to marketing. Connected to multi-model comparison blueprint and agent swarms discussion.)*
-
 ---
 
-## Session 11 (2026-02-02) — Principle Questions Walkthrough
+## Principle Questions
 
 ### In Professional Marketing, Learning Is a Primary Output
 
@@ -120,8 +104,6 @@ Design implication: the system should surface decisions to the operator, not hid
 But the relationship isn't one-directional. The system doesn't just preserve judgment — it builds a learning loop. The LLM identifies patterns from research, data, and cross-engagement experience. It teaches the operator those patterns. The operator confirms, challenges, redirects, or adds context. Only confirmed patterns get cemented into system knowledge. This is the cementation protocol — the mechanism that separates a system that compounds real expertise from one that accumulates LLM-generated patterns of unknown quality. The operator's confirmation is what turns observation into knowledge.
 
 > "Taste and judgment are the atomic units. Everything the system produces stems from these."
-
-*(From principle question Q18 — "Is taste the irreducible input?" Confirmed and reframed as amplification. Bidirectional learning framing added Session 162 — the system teaches and the operator confirms, creating a cementation loop. Theme 6 from decision themes synthesis.)*
 
 ---
 

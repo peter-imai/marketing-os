@@ -55,7 +55,7 @@ After teaching a concept, update `_system/onboard-log.md`: mark that concept **I
 
 ### 5. Close
 
-When they stop (whether after one concept or all six):
+When they stop (whether after one concept or all five):
 
 > "That's where we'll pick up next time — run `/teach-me` whenever. The full how-it-works doc is `curriculum/playbook.md`, and `/system` is your reference hub anytime you're unsure where something lives."
 

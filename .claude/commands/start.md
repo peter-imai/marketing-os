@@ -95,9 +95,9 @@ If they don't know yet: "No problem — when we set up a tool later, I'll add it
 
 ## Step 4: Seed the workspace
 
-Write the workspace base per `_system/client-folder-convention.md` (the light base — `core.md` + `operating-lens.md` + `backlog.md` + `context/`).
+Write the workspace base per `_system/workspace-folder-convention.md` (the light base — `core.md` + `operating-lens.md` + `backlog.md` + `context/`).
 
-1. **Write `core.md`** at the system root, from the Step 2 answers, using the `core.md` template in `_system/client-folder-convention.md`. Who we are · who we serve · how we create value · what we do. Keep it short — identity, not a strategy treatise.
+1. **Write `core.md`** at the system root, from the Step 2 answers, using the `core.md` template in `_system/workspace-folder-convention.md`. Who we are · who we serve · how we create value · what we do. Keep it short — identity, not a strategy treatise.
 
 2. **Write `operating-lens.md`** at the system root, using the template. Seed it lightly: "What's happening now" = "Just set up — about to run a first piece of work." Active Direction and Watches can start near-empty; they fill through use.
 
@@ -123,14 +123,14 @@ Write the workspace base per `_system/client-folder-convention.md` (the light ba
 Ask: **"Do you work with just this one company/practice, or several?"**
 
 - **One** → teach it, don't just configure it:
-  > "Then you don't need anything fancier than this. **`/start` is your entry, `/done` is your exit.** Every working session: open with `/start` — it'll show you where you left off and tee up the next thing — and close with `/done`. That's the whole rhythm. No per-client commands to juggle."
+  > "Then you don't need anything fancier than this. **`/start` is your entry, `/done` is your exit.** Every working session: open with `/start` — it'll show you where you left off and tee up the next thing — and close with `/done`. That's the whole rhythm. No per-workspace commands to juggle."
 
-  No `/[client]` command is created. `/start`'s Orient Mode (below) becomes their daily entry.
+  No `/[workspace]` command is created. `/start`'s Orient Mode (below) becomes their daily entry.
 
 - **Several** → 
-  > "Then each company gets its own workspace so they don't bleed into each other. Run `/new-project` when you're ready to add the next one — it scaffolds a clean workspace and a `/[name]` command to drop into it. We'll set up this first one now and you can add the others as you need them."
+  > "Then each company gets its own workspace so they don't bleed into each other. Run `/new-workspace` when you're ready to add the next one — it scaffolds a clean workspace and a `/[name]` command to drop into it. We'll set up this first one now and you can add the others as you need them."
 
-  Note one `/new-project` task per additional company in `backlog.md` (light — a one-line charter each, not foundation-doc homework).
+  Note one `/new-workspace` task per additional company in `backlog.md` (light — a one-line charter each, not foundation-doc homework).
 
 ## Step 6: The first-work invitation (the make-or-break)
 
@@ -181,8 +181,7 @@ Concept definitions: `curriculum/concepts.md`. This log tracks which concepts ha
 | 2 | The backlog is your brain | — | — | |
 | 3 | Quality gates — how to talk to the system | — | — | |
 | 4 | You direct it — pitch before the work | — | — | |
-| 5 | Cross-loop compounding | — | — | |
-| 6 | System hygiene | — | — | |
+| 5 | System hygiene | — | — | |
 
 (Concepts, definitions, and triggers live in `curriculum/concepts.md` — the single registry, shared with `/teach-me` and `/done` micro-teaching. Concepts 1–3 are core/graduation-gating.)
 

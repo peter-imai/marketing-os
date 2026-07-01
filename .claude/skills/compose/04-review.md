@@ -4,10 +4,10 @@ title: "Review — self-audit against voice rubric + correction capture"
 next: 05-deliver.md
 reads:
   - blueprints/criteria/voice.md
-  - clients/[client]/measure/voice/index.md (if exists)
+  - workspaces/[workspace]/measure/voice/index.md (if exists)
 writes:
-  - clients/[client]/measure/voice/index.md (score log entry)
-  - clients/[client]/context/voice-kernel.md (if corrections warrant update)
+  - workspaces/[workspace]/measure/voice/index.md (score log entry)
+  - workspaces/[workspace]/context/voice-kernel.md (if corrections warrant update)
   - Playbook file (if corrections warrant update)
 ---
 
@@ -20,7 +20,7 @@ writes:
 ## Rules
 
 - **Every draft gets scored.** Not optional, not just for experiments. This is the system's quality telemetry.
-- **Scores are logged persistently.** They go to `clients/[client]/measure/voice/index.md`. If this file doesn't exist, create it (see below).
+- **Scores are logged persistently.** They go to `workspaces/[workspace]/measure/voice/index.md`. If this file doesn't exist, create it (see below).
 - **Operator corrections are ground truth.** No graduation threshold. If the operator says the voice is wrong, that's a fact.
 - **Route corrections immediately.** Don't defer to `/done`. The correction should improve the NEXT composition in this session.
 
@@ -90,7 +90,7 @@ If the operator made corrections during the review (or during Step 3 composition
 
 ### 5. Log Scores
 
-Add a row to the client's Score Trajectory at `clients/[client]/measure/voice/index.md`.
+Add a row to the workspace's Score Trajectory at `workspaces/[workspace]/measure/voice/index.md`.
 
 **If the file doesn't exist:** Create it with this header structure:
 
@@ -98,7 +98,7 @@ Add a row to the client's Score Trajectory at `clients/[client]/measure/voice/in
 # Voice Evaluation — Score Trajectory
 
 **Rubric:** `blueprints/criteria/voice.md`
-**Voice kernel:** `clients/[client]/context/voice-kernel.md`
+**Voice kernel:** `workspaces/[workspace]/context/voice-kernel.md`
 
 ---
 

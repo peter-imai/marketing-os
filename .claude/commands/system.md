@@ -59,7 +59,6 @@ SYSTEM STATUS
 SYSTEM STATUS
 
   Sessions: [count from session log]
-  Last architect: [date]
   Last audit: [date, or "none — consider running /audit"]
   Last /done: [date]
 

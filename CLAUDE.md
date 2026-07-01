@@ -42,10 +42,10 @@ Operator owns the problem — what to solve, how users should feel, what good lo
 | Intent | Action |
 |--------|--------|
 | First-time setup | `/start` command |
-| Client work | `/[your-client-name]` command (created via `/new-project`) |
-| Add a new project or client | `/new-project` |
-| Build / architecture work | `/architect` |
-| Build a new skill | `/build-skill` |
+| Workspace work | `/[your-workspace-name]` command (created via `/new-workspace`) |
+| Add a new project or workspace | `/new-workspace` |
+| System work | Edit `_system/` directly — CLAUDE.md, rules, folders (no command) |
+| Build a new skill | Create `.claude/skills/[name]/SKILL.md` (no command) |
 | Connect a new external tool | `/connect-tool` |
 | Knowledge intake / research | `/market-research` |
 | Multi-LLM strategic research | `/llm-research` |
@@ -62,8 +62,8 @@ Operator owns the problem — what to solve, how users should feel, what good lo
 | Named cross-channel marketing method | `blueprints/marketing-patterns/index.md` |
 | Capture a marketing pattern from source | `_system/frontmatter-convention.md` § Pattern Capture Protocol |
 | Execute a marketing pattern | Stamp execution back at `/done` |
-| Marketing campaign | `clients/{client}/campaigns/` |
-| Initiative (shape-emergent workstream) | `clients/{client}/initiatives/` |
+| Marketing campaign | `workspaces/{workspace}/campaigns/` |
+| Initiative (shape-emergent workstream) | `workspaces/{workspace}/initiatives/` |
 | Data files (CSV, JSONL, enrichment) | Read `data/data-state.md` first |
 | Action items with external deadlines | `.claude/helpers.md#Route-Action-Items-To-Tasks` |
 | Publish to Google Docs | `.claude/helpers.md#Publish-To-Google-Docs` |
@@ -78,7 +78,7 @@ Operator owns the problem — what to solve, how users should feel, what good lo
 - Marketing domain → `resources/marketing/` (check `index.md` for routing)
 - Marketing methodology: discipline-specific → `resources/marketing/{discipline}.md`. Cross-cutting → `blueprints/marketing-patterns/` (Forces required at creation)
 - Tool learnings → `tools/index.md` or `tools/[name]/profile.md`
-- Voice corrections → `clients/{client}/context/voice-kernel.md`
+- Voice corrections → `workspaces/{workspace}/context/voice-kernel.md`
 - System failures → `_system/system-failures.md`
 
 If no destination fits, name the routing gap — don't default to memory.

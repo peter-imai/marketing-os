@@ -48,7 +48,7 @@ A new kernel will be thin — 5-7 entries extracted from real evidence. That's c
 type: voice-kernel
 description: "[Client name] editorial judgment patterns — how [operator] writes for this client's external content"
 status: working-draft
-client: [client-slug]
+workspace: [workspace-slug]
 convention: blueprints/frontmatter-convention.md
 ---
 

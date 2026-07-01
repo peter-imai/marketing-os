@@ -62,7 +62,3 @@ These principles are embedded in output styles that involve artifact creation. T
 When creating any file or folder:
 1. Check: does this follow the six principles?
 2. If not: adjust before creating, not after
-
----
-
-*v0 — 2026-02-06 (Session 30). Canonical source for output style embedding.*

@@ -1,6 +1,6 @@
-# Command Template for `/new-project`
+# Command Template for `/new-workspace`
 
-This template generates a client/project command. Fill in `[placeholders]` from the elicitation answers. Modeled on the lightest command pattern — minimal startup, no heavy context loading.
+This template generates a workspace command. Fill in `[placeholders]` from the elicitation answers. Modeled on the lightest command pattern — minimal startup, no heavy context loading.
 
 ---
 
@@ -11,16 +11,16 @@ You are operating Marketing OS for **[Name]** — [one-sentence description from
 
 ## Startup
 
-0. **Activate client auth.** Read `projects/[slug]/auth.yaml`. For the rest of this session:
-   - Prefix any tool script invocations with `tools/with-auth.sh [slug]` (e.g., `tools/with-auth.sh [slug] python3 tools/blitzapi/client.py ...`).
+0. **Activate workspace auth.** Read `workspaces/[slug]/auth.yaml`. For the rest of this session:
+   - If the workspace declares any tools, prefix tool script invocations with your auth wrapper, if you've set one up (so credentials scope to this workspace).
    - If MCP workspaces are declared, call the relevant workspace selection tools when first needed.
    - Note any declared tool accounts for contextual reference.
 
-1. **Read `core.md`.** Read `projects/[slug]/core.md` — the durable identity (who this is, who it serves, how it creates value, what it does). The ground the session stands on.
+1. **Read `core.md`.** Read `workspaces/[slug]/core.md` — the durable identity (who this is, who it serves, how it creates value, what it does). The ground the session stands on.
 
-2. **Read `operating-lens.md`.** Read `projects/[slug]/operating-lens.md` — current state, active direction, watches. This is where you left off; lead orientation from it.
+2. **Read `operating-lens.md`.** Read `workspaces/[slug]/operating-lens.md` — current state, active direction, watches. This is where you left off; lead orientation from it.
 
-3. **Read the backlog.** Read `projects/[slug]/backlog.md`. If the operator comes in with a specific task, go straight to it. If they're looking for direction, surface the active thread + open tasks — don't make them re-decide what's already captured.
+3. **Read the backlog.** Read `workspaces/[slug]/backlog.md`. If the operator comes in with a specific task, go straight to it. If they're looking for direction, surface the active thread + open tasks — don't make them re-decide what's already captured.
 
 4. **Identify the activity.** Ask the operator what they're working on, or infer from their first message. Then load ONLY the context that activity needs.
 
@@ -28,8 +28,8 @@ You are operating Marketing OS for **[Name]** — [one-sentence description from
 
 | Activity | Read these files |
 |----------|-----------------|
-| **[First activity from Q6]** | relevant `projects/[slug]/context/` docs (as they accumulate) |
-| **Meeting processing** | `projects/[slug]/meetings/log.md` (when it exists) |
+| **[First activity from Q6]** | relevant `workspaces/[slug]/context/` docs (as they accumulate) |
+| **Meeting processing** | `workspaces/[slug]/meetings/log.md` (when it exists) |
 
 The `context/` folder starts empty and fills through real work. Load the lightest relevant set; ask before loading more. **Do not load everything upfront.**
 
@@ -43,7 +43,7 @@ You operate within Marketing OS. CLAUDE.md defines your personality, principles,
 
 | Convention | Governs | Location |
 |------------|---------|----------|
-| Client folder | Base structure + extensions | `_system/client-folder-convention.md` |
+| Workspace folder | Base structure + extensions | `_system/workspace-folder-convention.md` |
 | File placement | Where new files go, by type | `_system/frontmatter-convention.md` |
 | Artifact creation | How to create files | `_system/artifact-creation-principles.md` |
 
@@ -72,7 +72,7 @@ Invoke the `/debrief` skill. It handles context detection, signal analysis, oper
 When a brainstorming thread reaches a natural conclusion, offer to save the output. The operator decides what's worth keeping.
 
 ### Stay in scope
-This is a [Name] operating session, not a system build session. If something needs global architecture work, capture it to the backlog and flag it for `/architect`.
+This is a [Name] operating session, not a system build session. If something needs global architecture work, capture it to the backlog and handle it separately as direct system work.
 ```
 
 ---
@@ -81,4 +81,4 @@ This is a [Name] operating session, not a system build session. If something nee
 
 - **Activity routing table:** Seed with the activity from Q6 + meeting processing. The operator expands it as the workspace grows.
 - **Content brainstorm setup:** Don't include at scaffold time. Add when the operator starts doing content work — it's an extension, not a default.
-- **[slug]** is the kebab-case folder name derived from the project name.
+- **[slug]** is the kebab-case folder name derived from the workspace name.

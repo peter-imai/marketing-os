@@ -7,6 +7,12 @@ Read at startup. Updated at shutdown and mid-session when new items surface.
 
 ---
 
+## Focus Queue
+
+*The 1–3 things to do next, in order. `/start` and `/system` surface the top item as "where you left off." Keep it short — this is the front of the line, not the whole backlog. Add items as `- [ ] Do X`.*
+
+---
+
 ## Tasks
 
 | # | Pri | Task | Status | Related | Added |

@@ -26,7 +26,7 @@ STRUCTURAL ENFORCEMENT (hook: done-enforcement) — Critical shutdown checks:
    - Backlog — Are task statuses current? New items captured? Completed items moved to Done?
    - data-state.md — If data work happened (list building, enrichment, exports), does it reflect current reality?
 
-4. SYSTEM MAP: Did this session create new files, directories, conventions, or change system structure? If yes, update _system/system-architecture.md — component inventory, folder tree, conventions. If architecture changed, also update narrative sections. The system's self-description must stay current.
+4. SYSTEM MAP: Did this session create new files, directories, conventions, or change system structure? If yes, update _system/system-philosophy.md — component inventory, folder tree, conventions. If architecture changed, also update narrative sections. The system's self-description must stay current.
 
 5. STRATEGIC AWARENESS: If this was a workspace session — did new information arrive? Was it weighed against the workspace's current state (operating-lens.md) and identity (core.md), not just filed? A stale operating-lens.md actively misleads the next session.
 

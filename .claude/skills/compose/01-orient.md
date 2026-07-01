@@ -4,9 +4,9 @@ title: "Orient — load voice stack, select format, load source material"
 next: 02-intent.md
 reads:
   - _system/voice-base.md
-  - clients/[client]/context/voice-kernel.md
+  - workspaces/[workspace]/context/voice-kernel.md
   - playbooks/[format].md
-  - Client source material
+  - Workspace source material
   - contacts.yaml (email format)
 writes: []
 ---
@@ -21,19 +21,19 @@ writes: []
 
 - Load files in parallel where possible (voice base + kernel + source material in one batch).
 - Never proceed to intent development without operator confirmation of the foundation.
-- If a client is missing a voice kernel, note it: "No voice kernel for [client] yet. I'll compose from the voice base only. Corrections this session will seed the kernel."
+- If a workspace is missing a voice kernel, note it: "No voice kernel for [workspace] yet. I'll compose from the voice base only. Corrections this session will seed the kernel."
 
 ---
 
 ## Instructions
 
-### 1. Identify the active client
+### 1. Identify the active workspace
 
-If already in a client command session, use that client. If invoked standalone, ask: "Which client is this for?"
+If already in a workspace command session, use that workspace. If invoked standalone, ask: "Which workspace is this for?"
 
 ### 2. Confirm or select format
 
-Apply the format inference logic from SKILL.md. If the format is already determined (context inference or argument hint), confirm it: "Composing an email for [client]. Right?"
+Apply the format inference logic from SKILL.md. If the format is already determined (context inference or argument hint), confirm it: "Composing an email for [workspace]. Right?"
 
 If not determined, present the menu: "What are we composing? **Email** / **data writeup** / **persuasive long-form**?"
 
@@ -42,22 +42,22 @@ If not determined, present the menu: "What are we composing? **Email** / **data 
 Read in parallel:
 
 1. **Voice base:** `_system/voice-base.md`
-2. **Client voice kernel:** `clients/[client]/context/voice-kernel.md`
+2. **Workspace voice kernel:** `workspaces/[workspace]/context/voice-kernel.md`
 3. **Format playbook:** `.claude/skills/compose/playbooks/[format].md`
 
-If the voice kernel doesn't exist for this client, load only the voice base. Flag it but don't block.
+If the voice kernel doesn't exist for this workspace, load only the voice base. Flag it but don't block.
 
 ### 4. Load source material
 
-Load the client's foundation docs:
+Load the workspace's foundation docs:
 
-- `clients/[client]/context/positioning.md` — required. If missing: "Copy without positioning produces generic output. Consider building this first."
-- `clients/[client]/context/buyer-personas.md` or audience doc
+- `workspaces/[workspace]/context/positioning.md` — required. If missing: "Copy without positioning produces generic output. Consider building this first."
+- `workspaces/[workspace]/context/buyer-personas.md` or audience doc
 - Product description or overview doc
 - Messaging candidates or sharp language doc (if it exists)
-- Any convictions or voice doc specific to this client
+- Any convictions or voice doc specific to this workspace
 
-If the client is missing multiple foundation docs, don't work around it: "This client needs [missing docs] before we can write effective copy. Consider building them first."
+If the workspace is missing multiple foundation docs, don't work around it: "This workspace needs [missing docs] before we can write effective copy. Consider building them first."
 
 **For email format, additionally:**
 - Read `contacts.yaml` — look up recipients by name. Get email addresses, roles, company.

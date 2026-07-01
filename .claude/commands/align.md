@@ -1,6 +1,6 @@
 Switch to **alignment mode** — interview the operator until shared understanding is reached, with a recommended answer for every question.
 
-This command layers on top of any operating-mode command. It does NOT load client or system context — assume that's already loaded. Use to re-engage alignment mid-session if drift is suspected, or as an explicit handle when the default Drafting rule's "Align first" gate didn't fire.
+This command layers on top of any operating-mode command. It does NOT load workspace or system context — assume that's already loaded. Use to re-engage alignment mid-session if drift is suspected, or as an explicit handle when the default Drafting rule's "Align first" gate didn't fire.
 
 ## Invocation phrases
 

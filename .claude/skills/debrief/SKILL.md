@@ -1,6 +1,6 @@
 # /debrief — Meeting Debrief Skill
 
-Process a meeting transcript into actionable intelligence through interactive discussion with the operator. The standard for all clients, all transcripts, without exception.
+Process a meeting transcript into actionable intelligence through interactive discussion with the operator. The standard for all workspaces, all transcripts, without exception.
 
 **Why this exists:** A solo agent processing a transcript produces adequate summaries but misses nuance. Five minutes of interactive processing while the conversation is still warm captures context, subtext, and operator judgment that no amount of post-hoc analysis can replicate.
 
@@ -12,7 +12,7 @@ Process a meeting transcript into actionable intelligence through interactive di
 
 | Category | Requirement | Purpose |
 |----------|-------------|---------|
-| Files | Read: `clients/*/meetings/transcripts/**` | Transcript access |
+| Files | Read: `workspaces/*/meetings/transcripts/**` | Transcript access |
 | Files | Write: `**/meetings/**`, `**/backlog.md`, `**/operating-lens.md`, `**/core.md`, `**/context/**` | Update routing targets |
 | Files | Write: `_system/backlog.md` | System-level backlog updates |
 | MCP | `mcp__google-workspace__manage_task` | Route action items with external deadlines to Google Tasks |
@@ -39,7 +39,7 @@ This skill produces internal intelligence and routing, not external-facing conte
 
 Accept the transcript. Three paths, one interface:
 
-1. **File path as argument** — `/debrief clients/[client-name]/meetings/transcripts/2026-03-20.md`. Read the file.
+1. **File path as argument** — `/debrief workspaces/[name]/meetings/transcripts/2026-03-20.md`. Read the file.
 2. **File path provided after invocation** — `/debrief` then operator provides a path. Read the file.
 3. **Pasted text** — operator pastes transcript content directly into the conversation.
 
@@ -49,38 +49,38 @@ If a file path is provided, confirm the file exists before proceeding. If it doe
 
 ### Step 2: Context Detection
 
-Determine which client this debrief is for. Try in order:
+Determine which workspace this debrief is for. Try in order:
 
-1. **Active client command** — if a client command was run earlier in this session, use that client. The strategy context is already loaded.
-2. **File path inference** — if the transcript path is `clients/[name]/meetings/transcripts/...`, extract the client name.
+1. **Active workspace command** — if a workspace command was run earlier in this session, use that workspace. The strategy context is already loaded.
+2. **File path inference** — if the transcript path is `workspaces/[name]/meetings/transcripts/...`, extract the workspace name.
 3. **Transcript content** — scan the transcript for obvious client/company identifiers.
-4. **Ask the operator** — if none of the above resolves it: "Which client is this meeting for?"
+4. **Ask the operator** — if none of the above resolves it: "Which workspace is this meeting for?"
 
-Once the client is identified, set the routing targets:
-- **Client directory:** `clients/[client]/` (or `clients/[client]/engagements/[engagement]/` if applicable)
-- **Backlog:** `[client-dir]/backlog.md`
-- **Operating lens (now-state):** `[client-dir]/operating-lens.md` — the primary routing target for what a meeting changes
-- **Core (identity):** `[client-dir]/core.md` — only if the meeting changed who/what the workspace is (rare)
-- **Context:** `[client-dir]/context/` — durable knowledge the meeting surfaced (voice, what works, stakeholder reads)
-- **Meeting log:** `[client-dir]/meetings/log.md` (if it exists)
+Once the workspace is identified, set the routing targets:
+- **Workspace directory:** `workspaces/[workspace]/` (or `workspaces/[workspace]/engagements/[engagement]/` if applicable)
+- **Backlog:** `[workspace-dir]/backlog.md`
+- **Operating lens (now-state):** `[workspace-dir]/operating-lens.md` — the primary routing target for what a meeting changes
+- **Core (identity):** `[workspace-dir]/core.md` — only if the meeting changed who/what the workspace is (rare)
+- **Context:** `[workspace-dir]/context/` — durable knowledge the meeting surfaced (voice, what works, stakeholder reads)
+- **Meeting log:** `[workspace-dir]/meetings/log.md` (if it exists)
 
-Not all routing targets will exist for every client (especially first run). That's fine — route to what exists, skip what doesn't, note what's missing.
+Not all routing targets will exist for every workspace (especially first run). That's fine — route to what exists, skip what doesn't, note what's missing.
 
 ### Step 3: Context Loading
 
-If workspace context **is not already loaded** in this session (i.e., no client command was run):
+If workspace context **is not already loaded** in this session (i.e., no workspace command was run):
 
-1. Read `[client-dir]/core.md` (identity) and `[client-dir]/operating-lens.md` (current state) if they exist — they frame what the meeting changes.
+1. Read `[workspace-dir]/core.md` (identity) and `[workspace-dir]/operating-lens.md` (current state) if they exist — they frame what the meeting changes.
 2. If they don't exist (new workspace, first run), proceed without. The debrief protocol works regardless — routing is less targeted, but signal analysis and update capture still function.
 
 If workspace context **is already loaded**, skip this step entirely.
 
 ### Step 4: Preference Loading
 
-Check if `[client-dir]/meetings/debrief-preferences.md` exists.
+Check if `[workspace-dir]/meetings/debrief-preferences.md` exists.
 
 - **If it exists:** Read it. Apply the preferences to how you handle the remaining steps (emphasis areas, email behavior, special context to load, routing patterns).
-- **If it doesn't exist:** Use defaults. Flag that this is a first run for this client — Step 10 will capture preferences after the debrief.
+- **If it doesn't exist:** Use defaults. Flag that this is a first run for this workspace — Step 10 will capture preferences after the debrief.
 
 ### Step 5: Signal Analysis
 
@@ -123,7 +123,7 @@ Together with the operator, identify all updates across these categories:
 
 **d. Operating-lens updates.** Anything that moves the current state: a shift in what's happening now, a change in active direction, a new thing to watch. If a signal changes how we see the engagement *right now*, flag it for `operating-lens.md`. (If it changes the workspace's identity — who it is, who it serves — that's a `core.md` change, flagged separately and rare.)
 
-**e. Growth hypotheses.** Market signals, new audiences, channel opportunities, activation ideas. Route to `growth-hypotheses.md` if one exists for this client.
+**e. Growth hypotheses.** Market signals, new audiences, channel opportunities, activation ideas. Route to `growth-hypotheses.md` if one exists for this workspace.
 
 **f. Action items.** Distinguish two types:
 - *Internal work* (no hard external deadline) → backlog items (captured in a/b above)
@@ -145,7 +145,7 @@ Execute all confirmed updates:
 
 ### Step 8b: Operating-lens + Core Check
 
-Check if `operating-lens.md` exists for the active workspace (root or `projects/[name]/`).
+Check if `operating-lens.md` exists for the active workspace (root or `workspaces/[name]/`).
 
 **If it exists:** Read it. Compare against what this meeting revealed:
 - Did the meeting surface a new concern or risk? → Suggest adding to **Watches**: "This meeting surfaced [X]. Add it to operating-lens.md Watches?"
@@ -167,28 +167,28 @@ Check if `operating-lens.md` exists for the active workspace (root or `projects/
 - If no preferences: use judgment. If the meeting produced commitments, deliverable handoffs, or open questions for the client, suggest: "This looks like it needs a follow-up email. Use `/compose` to draft it — it'll auto-select email format with recipients from this debrief."
 - The email is a suggestion, not an automatic trigger. The operator invokes `/compose` separately if they want it.
 
-### Step 10: Preference Capture (First Run Per Client)
+### Step 10: Preference Capture (First Run Per Workspace)
 
-**Only runs if no `debrief-preferences.md` exists for this client.** On subsequent runs, skip this step entirely.
+**Only runs if no `debrief-preferences.md` exists for this workspace.** On subsequent runs, skip this step entirely.
 
 After the debrief completes, propose defaults based on what you just observed:
 
-> "First debrief for [client]. Here's what I'd default to for future runs based on what just happened:"
+> "First debrief for [workspace]. Here's what I'd default to for future runs based on what just happened:"
 
 Propose recommendations across these dimensions:
 - **Email follow-up:** Always suggest / skip unless asked / ask each time *(infer from whether this meeting warranted one)*
 - **Emphasis:** Action items vs. strategic analysis vs. balanced *(infer from what the operator focused on in Step 6)*
 - **Standard routing targets:** List the docs that were updated — propose those as the default routing set
-- **Special context:** Any domain-specific docs that should load for this client's debriefs
-- **Anything else the debrief revealed** about how this client's meetings should be processed
+- **Special context:** Any domain-specific docs that should load for this workspace's debriefs
+- **Anything else the debrief revealed** about how this workspace's meetings should be processed
 
 Ask: "Anything to change or add?"
 
-On confirmation, write `[client-dir]/meetings/debrief-preferences.md`:
+On confirmation, write `[workspace-dir]/meetings/debrief-preferences.md`:
 
 ```yaml
 ---
-client: [client name]
+workspace: [workspace name]
 created: [session number]
 last-updated: [session number]
 ---

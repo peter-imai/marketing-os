@@ -9,7 +9,7 @@ disable-model-invocation: true
 Multi-phase market research workflow. Builds deep understanding of a client's market, buyers, competitors, and targeting opportunities. Each phase builds on the last. Teaching checkpoints between phases ensure the operator learns and reacts before the next phase runs.
 
 **Input:** A client to research. The operator must know enough about the client to answer the Phase 0 interview.
-**Output:** `market-research.md` (primary synthesis) plus detailed deliverables (`icp.md`, `competitive-landscape.md`, `buyer-personas.md`) in the client's context directory.
+**Output:** `market-research.md` (primary synthesis) plus detailed deliverables (`icp.md`, `competitive-landscape.md`, `buyer-personas.md`) in the workspace's context directory.
 
 **References:**
 - [phases/00-engagement-brief.md](phases/00-engagement-brief.md) — Phase 0 interview framework
@@ -33,10 +33,10 @@ Research subagents produce confident-sounding output whether or not it's well-gr
 ## Step 0: Setup
 
 1. Read [templates/output-convention.md](templates/output-convention.md).
-2. Determine the client context directory:
-   - Check if `clients/[name]/engagements/` exists. If yes, ask the operator which engagement.
-   - Otherwise use `clients/[name]/context/`.
-   - If the client directory doesn't exist, create it.
+2. Determine the workspace context directory:
+   - Check if `workspaces/[name]/engagements/` exists. If yes, ask the operator which engagement.
+   - Otherwise use `workspaces/[name]/context/`.
+   - If the workspace directory doesn't exist, create it.
 3. Create `_inputs/research/` inside the context directory.
 4. Confirm with the operator: "Starting market research for [client]. Output goes to [path]. Ready to begin with the engagement brief?"
 
@@ -256,7 +256,7 @@ Brief checkpoint: "Identified [N] high-signal data sources. Here's what each giv
 
 **Operator doesn't know answers in Phase 0:** This is expected for some questions. Mark unknown areas as "Key Questions to Investigate" in the engagement brief. These become explicit research targets for subsequent phases.
 
-**Client directory structure unclear:** If you can't determine whether the client uses simple or multi-engagement structure, ask the operator. Don't guess.
+**Workspace directory structure unclear:** If you can't determine whether the workspace uses simple or multi-engagement structure, ask the operator. Don't guess.
 
 **Phase outputs contradict each other:** Surface the contradiction to the operator at the next teaching checkpoint. "Phase 1 suggested [X] but Phase 3 found [Y]. Which aligns with what you're seeing?" Contradictions are valuable signals, not errors.
 
@@ -291,9 +291,9 @@ Present to the operator:
 |----------|-------------|---------|
 | Tools | `WebSearch` | Research queries in Phases 1-6 (via Opus and Sonnet subagents) |
 | Tools | `Task` | Launch subagents for parallel research phases |
-| Files | Write: `clients/*/context/**` | Research deliverables (icp.md, competitive-landscape.md, buyer-personas.md, market-research.md) |
-| Files | Write: `clients/*/context/_inputs/research/**` | Raw subagent outputs |
-| Files | Write: `clients/*/engagements/*/context/**` | Alternate path for multi-engagement clients |
+| Files | Write: `workspaces/*/context/**` | Research deliverables (icp.md, competitive-landscape.md, buyer-personas.md, market-research.md) |
+| Files | Write: `workspaces/*/context/_inputs/research/**` | Raw subagent outputs |
+| Files | Write: `workspaces/*/engagements/*/context/**` | Alternate path for multi-engagement clients |
 
 ---
 

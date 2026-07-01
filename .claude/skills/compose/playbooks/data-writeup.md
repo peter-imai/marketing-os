@@ -2,7 +2,7 @@
 
 For data-driven internal documents shared with colleagues or clients: pilot results, audit findings, analysis summaries. Working documents — the reader needs enough to make decisions, not a narrative journey through your methodology.
 
-**Voice stack at this point:** Voice base (loaded) → client kernel (loaded) → THIS playbook.
+**Voice stack at this point:** Voice base (loaded) → workspace kernel (loaded) → THIS playbook.
 
 ---
 

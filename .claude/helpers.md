@@ -18,7 +18,7 @@ Determine where a piece of knowledge belongs in the system and route it there. U
 1. Identify what kind of knowledge this is:
    - **Marketing domain knowledge** (how cold email works, campaign strategy, market dynamics) → Check `resources/marketing/index.md` for the relevant domain. Add to the domain file, or create one if it doesn't exist. Update the expertise index entry (depth, coverage, gaps).
    - **Practitioner convention** (a pattern for how to work, a session management technique, a quality pattern) → Route to a relevant blueprint or system doc. General patterns go in `blueprints/`.
-   - **Architecture insight** (a design decision, a principle, a system pattern) → Route to `_system/decisions/` if it's a decision, `_system/system-architecture.md` if it's a structural insight, CLAUDE.md if it's a behavioral rule.
+   - **Architecture insight** (a design decision, a principle, a system pattern) → Route to `_system/decisions/` if it's a decision, `_system/system-philosophy.md` if it's a structural insight, CLAUDE.md if it's a behavioral rule.
    - **Workspace intelligence** (what we learned about a specific workspace, its market, its people) → durable knowledge goes to `context/` files; a change in current state goes to `operating-lens.md`; a change in identity goes to `core.md` (rare).
    - **Tool learning** (how a tool behaves, limitations, cost data, gotchas) → Route to `tools/index.md` for selection-relevant info, or `tools/[name]/profile.md` for operational depth.
 
@@ -38,7 +38,7 @@ Add a new task to the appropriate backlog with proper formatting.
 
 1. Determine which backlog:
    - **System-level** (architecture, conventions, skills) → `_system/backlog.md`
-   - **Workspace-level** (deliverables, campaigns, workspace-specific work) → the root `backlog.md` (single-company) or `projects/[client]/backlog.md` (multi-workspace)
+   - **Workspace-level** (deliverables, campaigns, workspace-specific work) → the root `backlog.md` (single-company) or `workspaces/[workspace]/backlog.md` (multi-workspace)
 
 2. Assign the next task number (check the task counter at the bottom of the backlog). Include: priority (P0-P3), status (`ready` unless it has dependencies), date added.
 
@@ -56,10 +56,10 @@ Add a new task to the appropriate backlog with proper formatting.
 
 ## Load-Workspace-Context
 
-Load the light base for the active workspace — durable identity + current state. Commands supply the workspace path; this helper provides the read procedure and the staleness/trust calibration. (Replaces the old strategy-doc loader; the kit's base is `core.md` + `operating-lens.md`, per `_system/client-folder-convention.md`.)
+Load the light base for the active workspace — durable identity + current state. Commands supply the workspace path; this helper provides the read procedure and the staleness/trust calibration. (Replaces the old strategy-doc loader; the kit's base is `core.md` + `operating-lens.md`, per `_system/workspace-folder-convention.md`.)
 
 **Inputs (provided by the calling command):**
-- Workspace path (root for single-company; `projects/[name]/` for multi-workspace)
+- Workspace path (root for single-company; `workspaces/[name]/` for multi-workspace)
 
 **Procedure:**
 
@@ -132,6 +132,8 @@ Before presenting any deliverable, critique your own work first. This is the mov
 ## Route-Action-Items-To-Tasks
 
 Extract action items with external deadlines and create Google Tasks. Distinction: **backlog items** are internal work. **Tasks** are commitments to other humans.
+
+**Prerequisite:** the Google Workspace MCP (`mcp__google-workspace__*`), authorized for the operator's Google account. If it isn't connected, capture the action items as dated backlog entries instead and note that Google Tasks sync needs the MCP.
 
 **Procedure:**
 
@@ -273,7 +275,7 @@ Create a new Claude Code hook — event-triggered shell script that runs at sess
 
 6. **Test manually:** `bash .claude/hooks/{name}.sh`
 
-7. **Update `_system/system-architecture.md`** — add the hook with a one-line description.
+7. **Update `_system/system-philosophy.md`** — add the hook with a one-line description.
 
 **Failure modes to avoid:**
 - Non-executable script (silent failure)

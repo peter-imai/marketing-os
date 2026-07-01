@@ -2,8 +2,6 @@
 type: blueprint
 description: "How the system integrates with external tools — connector shape, auth scoping, enrichment composition, documentation standard"
 status: working-draft
-created: 459
-last-updated: 468
 updated-by: joint
 convention: _system/frontmatter-convention.md
 ---
@@ -16,7 +14,7 @@ How external tools connect to the system. Covers connector architecture, auth sc
 
 ## Purpose
 
-The system uses external tools for enrichment, outreach, CRM, and research. 14 integrations exist today, built ad hoc. They independently reinvented the same patterns — env var auth, rate limiting, typed responses, JSONL caching, resume. This convention standardizes those patterns so the next connector takes hours, not days, and behaves predictably.
+The system uses external tools for enrichment, outreach, CRM, and research. When you add external tools, it's easy for each connector to independently reinvent the same patterns — env var auth, rate limiting, typed responses, JSONL caching, resume. This convention standardizes those patterns so the next connector takes hours, not days, and behaves predictably.
 
 **This convention governs:**
 - How tool intelligence is documented (`tools/index.md` + per-tool `profile.md`)
@@ -37,7 +35,7 @@ Every tool integration falls into one of two variants. Both get the same tool pr
 
 Code we write and control. The connector wraps an external API with auth, rate limiting, typed responses, and batch support.
 
-**Examples:** BlitzAPI, Pako, Serper, Instantly
+**Examples:** an enrichment API, a classification API, a search API, an outreach platform.
 
 **What we own:** Auth loading, rate limiting, response types, batch orchestration.
 
@@ -58,15 +56,15 @@ tools/[name]/
 5. **Client class** — methods map 1:1 to API endpoints. Each method: builds payload, calls `_post`/`_get`, returns typed response. No business logic in the client.
 6. **Batch support** — if the tool supports concurrent calls, provide a `batch_*()` function. The caller should never loop sequentially when parallelism is available.
 
-**What stays OUT of the client:** Retry logic (callers wrap with a RetryClient), JSONL caching (callers own persistence), pipeline orchestration (separate scripts).
+**What stays OUT of the client:** Retry logic (callers wrap with a retry wrapper class), JSONL caching (callers own persistence), pipeline orchestration (separate scripts).
 
-**Reference implementation:** `tools/blitzapi/client.py`
+**Reference implementation:** the first Python connector you build becomes the reference the next one copies.
 
 ### MCP Connectors
 
 Tools the agent calls directly via MCP protocol. We don't control the interface. We document how to use them well.
 
-**Examples:** Clay/Schematics (`mcp__schematics__*`)
+**Examples:** a data-enrichment platform exposed over MCP (`mcp__[platform]__*`)
 
 **What we own:** Documentation, usage patterns, gotcha tracking, cost awareness. NOT the API shape.
 
@@ -89,7 +87,7 @@ Tools the agent calls directly via MCP protocol. We don't control the interface.
 | Is it a platform the client's team will use directly? | Build Python for our use | Yes — document MCP for interactive building |
 | Does an MCP server already exist for it? | Only if we need script-level control | Yes — use MCP |
 
-**The primary split:** Python connectors are for programmatic batch work that runs in scripts. MCP connectors are for agent-mediated interactive work. Some tools (Clay) serve both roles — MCP for interactive building, Python if we need bulk data push/pull.
+**The primary split:** Python connectors are for programmatic batch work that runs in scripts. MCP connectors are for agent-mediated interactive work. Some tools serve both roles — MCP for interactive building, Python if we need bulk data push/pull.
 
 ---
 
@@ -136,7 +134,7 @@ Profiles get smarter over time. When a session reveals something real — a capa
 
 ### The Rule
 
-**Commands own tool auth scope.** `/[your-agency]` = one set of API keys for all of that agency's engagements. `/[your-client]` = that client's keys. One client's API key never touches another client's work. This is non-negotiable — it's about costs and trust.
+**Commands own tool auth scope.** `/[your-agency]` = one set of API keys for all of that agency's engagements. `/[your-workspace]` = that workspace's keys. One workspace's API key never touches another workspace's work. This is non-negotiable — it's about costs and trust.
 
 ### Auth Loading Standard
 
@@ -161,36 +159,36 @@ def _load_env():
         current = os.path.dirname(current)
 ```
 
-**Env var naming convention:** `[TOOL]_API_KEY` (e.g., `BLITZ_API_KEY`, `SERPER_API_KEY`, `PAKO_API_KEY`).
+**Env var naming convention:** `[TOOL]_API_KEY` (e.g., `ENRICH_API_KEY`, `SEARCH_API_KEY`).
 
-### Per-Client Auth Mechanics (C1, Decision 105)
+### Per-Workspace Auth Mechanics
 
-Each client has its own `.env` file and an `auth.yaml` manifest declaring what tools and credentials it needs.
+Each workspace has its own `.env` file and an `auth.yaml` manifest declaring what tools and credentials it needs.
 
-**Auth manifest — `clients/[name]/auth.yaml`:**
-Declares tool env var names, MCP workspace selections, and contextual account info. Machine-readable — `/audit` can verify, `/connect-tool` can populate, `/new-project` can scaffold. Does NOT contain secrets.
+**Auth manifest — `workspaces/[name]/auth.yaml`:**
+Declares tool env var names, MCP workspace selections, and contextual account info. Machine-readable — `/audit` can verify, `/connect-tool` can populate, `/new-workspace` can scaffold. Does NOT contain secrets.
 
-**Shell wrapper — `tools/with-auth.sh`:**
-Sources the client's `.env` before running any command. Agent never sees raw secrets.
+**Shell wrapper — your auth wrapper (`with-auth.sh`):**
+Sources the workspace's `.env` before running any command. Agent never sees raw secrets.
 
 ```bash
-# Flat client
-tools/with-auth.sh acme python3 tools/serper/client.py ...
+# Flat workspace
+with-auth.sh acme python3 tools/[name]/client.py ...
 
 # Agency + engagement (layered pattern)
-tools/with-auth.sh your-agency/engagement-name python3 tools/instantly/client.py ...
+with-auth.sh your-agency/engagement-name python3 tools/[name]/client.py ...
 ```
 
 **Layered sourcing (agency pattern):**
-Agency clients have shared credentials across engagements, plus engagement-specific overrides. `with-auth.sh` handles this by sourcing two `.env` files in order:
-1. `clients/your-agency/.env` — agency-level keys (shared APIs)
-2. `clients/your-agency/engagements/engagement-name/.env` — engagement-specific overrides
+Agency workspaces have shared credentials across engagements, plus engagement-specific overrides. `with-auth.sh` handles this by sourcing two `.env` files in order:
+1. `workspaces/your-agency/.env` — agency-level keys (shared APIs)
+2. `workspaces/your-agency/engagements/engagement-name/.env` — engagement-specific overrides
 
-Later values override earlier ones. Unoverridden vars inherit from the client level.
+Later values override earlier ones. Unoverridden vars inherit from the workspace level.
 
-**Command activation:** Each client command reads `auth.yaml` at startup (Step 0) and uses `with-auth.sh` for all tool script invocations. MCP workspace selection happens lazily — when the first MCP tool is needed, not eagerly at startup.
+**Command activation:** Each workspace command reads `auth.yaml` at startup (Step 0) and uses `with-auth.sh` for all tool script invocations. MCP workspace selection happens lazily — when the first MCP tool is needed, not eagerly at startup.
 
-**Existing `_load_env()` in connectors:** Still works as a fallback. `with-auth.sh` sets env vars before the script runs; `_load_env()` only sets vars not already in the environment. So client `.env` wins over project root `.env` without changing any connector code.
+**Existing `_load_env()` in connectors:** Still works as a fallback. `with-auth.sh` sets env vars before the script runs; `_load_env()` only sets vars not already in the environment. So workspace `.env` wins over project root `.env` without changing any connector code.
 
 ---
 
@@ -204,13 +202,13 @@ Enrichment is composable pieces, not monolithic pipelines.
 - Takes defined input (domain, LinkedIn URL, email, company name + location)
 - Uses one connector
 - Returns defined output (company profile, email address, industry classification)
-- Examples: "domain → LinkedIn URL" (BlitzAPI), "classify industry from website" (Pako), "find street address" (Serper Maps)
+- Examples: "domain → LinkedIn URL", "classify industry from website", "find street address"
 
 **Layer 2: Provider Waterfalls.** Multiple providers for the same operation, tried in priority order.
 - First success wins — stop calling providers once one returns data
 - Same input/output contract regardless of which provider fulfills it
-- Example: "find work email" → BlitzAPI Find Work Email → Clay email waterfall → Apollo
-- Clay's waterfall columns are this pattern natively
+- Example: "find work email" → primary provider → fallback waterfall → last-resort provider
+- Some enrichment platforms expose waterfall columns as this pattern natively
 
 **Layer 3: Pipeline Waterfalls.** A sequence of operations with fallthrough logic.
 - Each step feeds the next: search → email → phone → validate
@@ -226,7 +224,7 @@ Enrichment is composable pieces, not monolithic pipelines.
 
 3. **Pipeline waterfalls own sequencing and caching.** Each step writes results to JSONL. Resume reads the cache and picks up where it left off. The pipeline script is the orchestrator.
 
-4. **Tool selection is data-subject-first.** Before picking a tool, ask: "What kind of business is this, and where does the data I need naturally live?" Local service businesses → Google Maps (Serper). Enterprise B2B → LinkedIn (BlitzAPI) + website (Pako). The business context determines the tool. (Validated in practice — Serper 87% vs Pako 3% for interior designer addresses.)
+4. **Tool selection is data-subject-first.** Before picking a tool, ask: "What kind of business is this, and where does the data I need naturally live?" Local service businesses → Google Maps. Enterprise B2B → LinkedIn + website enrichment. The business context determines the tool — the right source for one subject can massively outperform the wrong one.
 
 ### The Recipe Pattern
 
@@ -240,7 +238,7 @@ RECIPES = {
         "args": ["--phase", "search"],
         "upload": ["input-file.csv", ".cache.jsonl"],
         "download": [".output-cache.jsonl"],
-        "deps": ["tools/blitzapi/client.py"],
+        "deps": ["tools/[name]/client.py"],
         "est_minutes": 300,
     },
 }
@@ -259,7 +257,7 @@ Each recipe declares what goes up, what runs, what comes back, and how long it t
 | Python connector code | `tools/[name]/client.py` | The connector — auth, rate limit, types, batch |
 | Processing pipelines | `tools/[domain]/[pipeline].py` | Orchestration that composes connectors |
 | Remote runner + recipes | `tools/remote/run.py` | Deploy long-running jobs to remote infrastructure |
-| Platform expertise docs | `resources/marketing/[platform].md` | Deep knowledge beyond the profile (e.g., Clay architecture patterns) |
+| Platform expertise docs | `resources/marketing/[platform].md` | Deep knowledge beyond the profile (e.g., platform architecture patterns) |
 | Auth credentials | `.env` (project root, gitignored) | API keys loaded by `_load_env()` |
 | MCP server config | `.claude/settings.json` | MCP server connections and permissions |
 
@@ -268,25 +266,25 @@ Each recipe declares what goes up, what runs, what comes back, and how long it t
 ## Anti-Patterns
 
 ### Hardcoded credentials
-**Precedent:** `tools/pako/client.py` — API key was hardcoded in source until a later conformance pass. Key was in git, couldn't be rotated without a code change, couldn't be scoped per-client. Fixed: migrated to `PAKO_API_KEY` env var with standard `_load_env()`.
+**Why it bites:** A hardcoded key ends up committed to git, can't be rotated without a code change, and can't be scoped per workspace.
 **Rule:** All credentials in env vars via `_load_env()`. No exceptions.
 
 ### Rate limit discovery in production
-**Precedent:** BlitzAPI email endpoint. Default 4.5 req/sec caused constant 429s; sustainable rate was 2.5 req/sec. ~30% of a long run wasted on retry overhead.
+**Why it bites:** Guessing a rate limit high causes constant 429s and wastes a large share of a long run on retry overhead.
 **Rule:** Start at 50% of documented limit. Record production-validated rates in the tool profile. Add per-endpoint overrides when endpoints have different limits.
 
 ### Duplicated retry logic
-**Precedent:** `RetryBlitzClient` in `contact_enrichment.py` wraps `BlitzClient` — correct separation. But `bulk.py` has its own inline retry logic doing the same thing.
+**Why it bites:** When one caller wraps the client with a retry class but another caller inlines its own retry logic, the same behavior gets reimplemented and drifts.
 **Rule:** The client handles rate limiting. The caller handles retry via a wrapper class. Don't duplicate retry logic across callers — extract a reusable wrapper.
 
 ### Sequential calls when batch is available
-**Precedent:** Pako's `batch_enrich()` runs 200 concurrent requests. At 846 records: parallel = 3 minutes, sequential would be ~14 hours.
+**Why it bites:** For large record counts, a batch method running concurrent requests finishes in minutes where sequential calls would take hours.
 **Rule:** If the tool supports concurrency, the connector MUST expose a batch method. Callers MUST use batch for 2+ records.
 
 ### Monolithic pipeline scripts
-**Precedent:** `crm-cleanup/bulk.py` — full CRM validation in one file. Later work extracted phases into separate scripts (`contact_enrichment.py`, `pako_classify.py`, `contact_reconcile.py`), which proved more maintainable and composable.
+**Why it bites:** A single script doing an entire multi-phase job is hard to maintain and resume. Splitting the phases into separate scripts that compose proves more maintainable.
 **Rule:** One pipeline script per logical phase. Pipelines compose through JSONL handoff, not function calls within a monolith.
 
 ### Hardcoded file paths in scripts
-**Precedent:** Enrichment scripts that write to fixed output paths break when reused across projects or when folder conventions change.
-**Rule:** Scripts that produce data files MUST accept `--input`/`--output` arguments. The agent passes convention-correct paths at invocation time. Scripts are dumb about where files live — the data project convention (`_system/data-workspace-convention.md`) owns that. `/connect-tool` enforces this for new connectors.
+**Why it bites:** Scripts that write to fixed output paths break when reused across projects or when folder conventions change.
+**Rule:** Scripts that produce data files MUST accept `--input`/`--output` arguments. The agent passes convention-correct paths at invocation time. Scripts are dumb about where files live — the workspace's own data folder conventions own that. `/connect-tool` enforces this for new connectors.

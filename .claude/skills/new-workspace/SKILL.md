@@ -1,20 +1,20 @@
 ---
-name: new-project
-description: "Add a new project or client to Marketing OS. Interactive setup — creates the light workspace base (core.md identity + operating-lens.md + backlog + context) and a slash command. No foundation-doc homework — the workspace fills through real work.\nTRIGGER when: operator mentions a new client, new project, new engagement, or onboarding someone new; work references a workspace that doesn't exist yet.\nDO NOT TRIGGER when: working within an existing project, or operator is just discussing a potential client without committing."
+name: new-workspace
+description: "Add a new workspace to Marketing OS. Interactive setup — creates the light workspace base (core.md identity + operating-lens.md + backlog + context) and a slash command. No foundation-doc homework — the workspace fills through real work.\nTRIGGER when: operator mentions a new client, new project, new engagement, or onboarding someone new; work references a workspace that doesn't exist yet.\nDO NOT TRIGGER when: working within an existing project, or operator is just discussing a potential client without committing."
 ---
 
-# New Project
+# New Workspace
 
-Add a project or client to Marketing OS. Interactive elicitation → scaffold the **light base** + slash command.
+Add a workspace to Marketing OS. Interactive elicitation → scaffold the **light base** + slash command.
 
-The base is deliberately thin: `core.md` (identity) + `operating-lens.md` (now-state) + `backlog.md` + an empty `context/`. You do **not** front-load positioning, ICP, market context, and personas — that knowledge accumulates in `context/` as real work surfaces it, routed by `/done`. Convention: `_system/client-folder-convention.md`.
+The base is deliberately thin: `core.md` (identity) + `operating-lens.md` (now-state) + `backlog.md` + an empty `context/`. You do **not** front-load positioning, ICP, market context, and personas — that knowledge accumulates in `context/` as real work surfaces it, routed by `/done`. Convention: `_system/workspace-folder-convention.md`.
 
 **Input:** Operator answers to a short interview.
-**Output:** Workspace at `projects/[name]/` (light base) + slash command at `.claude/commands/[name].md`.
+**Output:** Workspace at `workspaces/[name]/` (light base) + slash command at `.claude/commands/[name].md`.
 
 **References:**
-- [templates/command-template.md](templates/command-template.md) — template for the project's slash command
-- `_system/client-folder-convention.md` — the light base + the `core.md` / `operating-lens.md` templates
+- [templates/command-template.md](templates/command-template.md) — template for the workspace's slash command
+- `_system/workspace-folder-convention.md` — the light base + the `core.md` / `operating-lens.md` templates
 
 **Subagent strategy:** All operations are sequential — no subagent strategy needed.
 
@@ -24,7 +24,7 @@ The base is deliberately thin: `core.md` (identity) + `operating-lens.md` (now-s
 
 Ask conversationally — 1-2 questions at a time, respond, continue. This is the same light identity interview `/start` runs; it seeds `core.md`.
 
-1. **"What's the name of this project?"**
+1. **"What's the name of this workspace?"**
    - Derive the kebab-case folder/command name. Convert spaces/capitals silently ("Acme Corp" → `acme-corp`).
 
 **What the work is** (seeds `core.md`):
@@ -43,7 +43,7 @@ Ask conversationally — 1-2 questions at a time, respond, continue. This is the
 
 **Optional extensions** (only if they come up):
 7. **"Will this involve data work — list building, enrichment, CSV imports?"**
-   - If yes → scaffold the data workspace (`_sources/`, `_enrichment/`, `_working/`, `_output/`, `scripts/`, `data-state.md`, `data-story.md`). Convention: `_system/data-workspace-convention.md`.
+   - If yes → scaffold the data workspace (`_sources/`, `_enrichment/`, `_working/`, `_output/`, `scripts/`, `data-state.md`, `data-story.md`).
    - If no/unsure → skip. It scaffolds on first touch if data appears later.
 
 8. **"Is this a client where you'll manage a relationship — stakeholders, how you show up?"**
@@ -54,7 +54,7 @@ Ask conversationally — 1-2 questions at a time, respond, continue. This is the
 > Here's what I'll create for **[name]** — the light base. It fills as you work; nothing is required up front:
 >
 > ```
-> projects/[name]/
+> workspaces/[name]/
 > ├── core.md             ← identity, seeded from what you told me
 > ├── operating-lens.md   ← now-state; what you're starting on
 > ├── backlog.md          ← first task: [from Q6]
@@ -81,28 +81,28 @@ Create files in this order, populated from Step 1.
 
 ### 2a. Folder + empty homes
 
-Create `projects/[name]/context/`. Add a one-line charter so the home is obvious: a `context/README.md` containing *"Workspace-specific knowledge accumulates here as you work — voice notes, what's worked, reference material. Routed by `/done`."*
+Create `workspaces/[name]/context/`. Add a one-line charter so the home is obvious: a `context/README.md` containing *"Workspace-specific knowledge accumulates here as you work — voice notes, what's worked, reference material. Routed by `/done`."*
 
 ### 2b. Data workspace (only if Q7 = yes)
 
-Create `_sources/`, `_enrichment/`, `_working/`, `_output/`, `scripts/`. Write `data-state.md` and `data-story.md` from the templates in `_system/data-workspace-convention.md` (§ State Doc Template, § Data Story → Template). Populate the Goal from Q2/Q6; leave tables/logs empty — they fill as work begins.
+Create `_sources/`, `_enrichment/`, `_working/`, `_output/`, `scripts/`. Write a simple `data-state.md` (what data exists and its current state) and `data-story.md` (what you're doing with the data and why). Populate the Goal from Q2/Q6; leave tables/logs empty — they fill as work begins.
 
 ### 2c. Write `core.md` (identity)
 
-Use the `core.md` template in `_system/client-folder-convention.md`:
+Use the `core.md` template in `_system/workspace-folder-convention.md`:
 
 ```markdown
 ---
 type: core
 description: "[Name] identity — who we are, who we serve, how we create value"
 status: operator-reviewed
-client: [name]
+workspace: [name]
 governance: core-ref
 scope: workspace
 created: [session]
 last-updated: [session]
 updated-by: joint
-convention: _system/client-folder-convention.md
+convention: _system/workspace-folder-convention.md
 ---
 
 # Core — [Name]
@@ -124,20 +124,20 @@ Keep it short. If an answer was thin, take it and move on — `core.md` sharpens
 
 ### 2d. Write `operating-lens.md` (now-state)
 
-Use the `operating-lens.md` template in `_system/client-folder-convention.md`:
+Use the `operating-lens.md` template in `_system/workspace-folder-convention.md`:
 
 ```markdown
 ---
 type: operating-lens
 description: "[Name] current state — what's happening now, what to watch"
 status: operator-reviewed
-client: [name]
+workspace: [name]
 governance: core-ref
 scope: workspace
 created: [session]
 last-updated: [session]
 updated-by: joint
-convention: _system/client-folder-convention.md
+convention: _system/workspace-folder-convention.md
 ---
 
 # Operating Lens — [Name]
@@ -169,9 +169,9 @@ convention: _system/client-folder-convention.md
 ### 2f. Write `auth.yaml`
 
 ```yaml
-# [Name] — Client Auth Manifest
+# [Name] — Workspace Auth Manifest
 # Convention: see _system/tool-integration-convention.md § Auth Scoping.
-# Secrets: projects/[name]/.env (gitignored). This file declares WHAT — .env holds values.
+# Secrets: workspaces/[name]/.env (gitignored). This file declares WHAT — .env holds values.
 
 env_file: .env  # relative to this directory
 
@@ -193,7 +193,7 @@ Scaffolded empty — tools get added via `/connect-tool`.
 ### 3a. Generate the slash command
 
 Read [templates/command-template.md](templates/command-template.md). Generate `.claude/commands/[name].md` filled with:
-- Project name + file paths (`projects/[name]/...`)
+- Workspace name + file paths (`workspaces/[name]/...`)
 - Startup that reads `core.md` (identity) + `operating-lens.md` (now-state) + `backlog.md`
 - Activity routing seeded from Q6 + 2-3 generic activities
 
@@ -202,7 +202,7 @@ Read [templates/command-template.md](templates/command-template.md). Generate `.
 Add a row:
 
 ```
-| [Name] project work | Use `/[name]` command. Routes by activity, loads context on demand. |
+| [Name] workspace work | Use `/[name]` command. Routes by activity, loads context on demand. |
 ```
 
 Match existing entry format. Use "client work" if the operator framed it as a client.
@@ -217,8 +217,8 @@ Match existing entry format. Use "client work" if the operator framed it as a cl
 
 ## After Completion
 
-The project is set up when all are true:
-- [ ] `projects/[name]/` exists with: `core.md`, `operating-lens.md`, `backlog.md`, `context/` (+ charter), `auth.yaml`
+The workspace is set up when all are true:
+- [ ] `workspaces/[name]/` exists with: `core.md`, `operating-lens.md`, `backlog.md`, `context/` (+ charter), `auth.yaml`
 - [ ] If data work: `_sources/`, `_enrichment/`, `_working/`, `_output/`, `scripts/`, `data-state.md`, `data-story.md`
 - [ ] `.claude/commands/[name].md` exists and follows the template
 - [ ] CLAUDE.md routing table has a `/[name]` row
@@ -228,7 +228,7 @@ The project is set up when all are true:
 
 ## Error Handling
 
-- **Name collision:** Check if `projects/[name]/` exists before creating. If it does — rename, merge, or abort.
+- **Name collision:** Check if `workspaces/[name]/` exists before creating. If it does — rename, merge, or abort.
 - **Vague answers:** Thin answers are fine. Take what you get; `core.md` is `operator-reviewed` but allowed to start light and sharpen through use. Don't pad with "To be developed" sections — a short honest `core.md` beats a long hedged one.
 - **CLAUDE.md routing table not found:** If the format changed, tell the operator the line to add manually rather than risk a bad edit.
 
@@ -238,7 +238,7 @@ The project is set up when all are true:
 
 | Category | Requirement | Purpose |
 |----------|-------------|---------|
-| Files | Write: `projects/**` | Create workspace + light base |
+| Files | Write: `workspaces/**` | Create workspace + light base |
 | Files | Write: `.claude/commands/**` | Create the project slash command |
 | Files | Edit: `CLAUDE.md` | Add routing table entry |
 

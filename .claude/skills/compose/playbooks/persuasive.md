@@ -2,7 +2,7 @@
 
 For external-facing persuasive content: landing pages, sales pages, nurture sequences, marketing collateral. Content that needs to move a reader from one belief to another.
 
-**Voice stack at this point:** Voice base (loaded) → client kernel (loaded) → THIS playbook.
+**Voice stack at this point:** Voice base (loaded) → workspace kernel (loaded) → THIS playbook.
 
 ---
 

@@ -35,7 +35,7 @@ Check before scoring. If this fails, fix it before evaluating voice quality.
 
 ## Criteria
 
-Score each criterion 1-5. Definitions are grounded in the voice kernel (`clients/[client]/context/voice-kernel.md`) and voice base (`_system/voice-base.md`). Reference the kernel's decision rules and transformation examples for calibration.
+Score each criterion 1-5. Definitions are grounded in the voice kernel (`workspaces/[workspace]/context/voice-kernel.md`) and voice base (`_system/voice-base.md`). Reference the kernel's decision rules and transformation examples for calibration.
 
 ### 1. Consequence-First Opening
 

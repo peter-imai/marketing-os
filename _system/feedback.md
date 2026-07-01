@@ -21,11 +21,11 @@ Structured feedback about your experience with Marketing OS. This file captures 
 
 ---
 
-## Client Onboard Feedback
+## Workspace Setup Feedback
 
-*Captured after each client onboard via `/architect`.*
+*Captured after each workspace is set up via `/new-workspace`.*
 
-### Client: [name]
+### Workspace: [name]
 
 **Date:**
 **How long did the onboard take?**

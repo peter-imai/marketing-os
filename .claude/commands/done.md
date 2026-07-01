@@ -12,11 +12,11 @@ Before executing updates, classify everything that surfaced this session. Each i
 |---------------|---------------|----------|
 | **Design decision** (we chose X over Y) | Decision doc (`_system/decisions/`) | Memory |
 | **Convention** (how to name/structure things) | Decision doc or system docs | Memory |
-| **Task** (something that needs doing) | Backlog (system or client) | — |
+| **Task** (something that needs doing) | Backlog (system or workspace) | — |
 | **System gap** (system couldn't handle X) | Backlog as a task (or explicitly parked) | — |
 | **Method** (how to do a recurring thing) | Blueprint (`blueprints/`) | Memory |
 | **Operational activity with a loop** (recurring multi-step process) | Workflow (`blueprints/workflows/`) — required sections: Pattern, Loop, Economics | Blueprint (workflows are more specific) |
-| **Learning about client** | Strategy docs or context files | Memory |
+| **Learning about workspace** | Strategy docs or context files | Memory |
 | **Learning about how to operate the system** | Memory (if truly operational) | — |
 | **Marketing domain knowledge** (tool, technique, insight, methodology) | Marketing expertise index (`resources/marketing/`) | Memory |
 
@@ -62,7 +62,7 @@ Specifically check:
 - **Methods discovered or refined** → Create or update the relevant blueprint in `blueprints/`.
 - **Workflow tribal knowledge** → Did this session involve a recurring multi-step operational activity? Check `blueprints/workflows/` for an existing doc. If one exists, route tribal knowledge (gotchas, timing, costs, edge cases) there. If none exists and this activity has been done before, propose creating one.
 - **Marketing knowledge** → Did this session produce marketing knowledge that applies beyond one client? Update `resources/marketing/index.md` — the relevant domain entry.
-- **Engagement playbook patterns** → Did this session produce engagement work that would be done again for the next client? Capture observations.
+- **Engagement playbook patterns** → Did this session produce engagement work that would be done again for the next workspace? Capture observations.
 - **New system artifacts** → Wire new artifacts: name their read mechanism + update mechanism. Update startup sequences of affected commands. Unwired components don't exist to the system.
 - **System failures** → Did the system violate its own principles this session? Log what happened, which principle was violated, what should have prevented it, and what was done.
 
@@ -128,8 +128,7 @@ Concepts, definitions, and triggers live in **`curriculum/concepts.md`** (the si
 | 2 | The backlog is your brain | Operator captured/referenced a backlog item | Backlog interaction in 2+ sessions |
 | 3 | Quality gates — how to talk to the system | Operator corrected/pushed back on output | Session count ≥ 5 |
 | 4 | You direct it — pitch before the work | System pitched a task, or operator redirected a dive-in | Across 2+ sessions |
-| 5 | Cross-loop compounding | 2+ workspaces/contexts exist | Intelligence flowed between pieces |
-| 6 | System hygiene | Session count ≥ 8 | First `/audit` run |
+| 5 | System hygiene | Session count ≥ 8 | First `/audit` run |
 
 **Fallback:** If core concepts (1-3) haven't been introduced by session ~5, deliver with general framing.
 
@@ -152,12 +151,12 @@ Hold the teaching message — deliver it in the wrap-up (Step 7).
 - **Update system backlog:** Add new items, update statuses. `_system/backlog.md`. Detailed design notes → `_system/task-notes.md`.
 - **Backlog maintenance:** Mark completed cluster tasks `[x]` with date. If all tasks in a cluster are done, move cluster to Done section. Move done standalone tasks to Done section. Unblock items whose blockers are done. **Done section rotation:** Keep 20 most recent, clear older.
 - **Cross-reference update:** For each task completed, check whether other items reference it (by ID, as blocker, or dependency). Update their status. Note next sequenced step in active cluster — surfaces in wrap-up.
-- **File growth check:** Flag if exceeded: `_system/backlog.md` > 200 lines, `_system/system-architecture.md` > 450 lines, any strategy doc > 100 lines. Trim before committing.
-- **Update client backlog (if operating session):** Mark completed tasks, update statuses, add new items. Move completed to Done table with date.
+- **File growth check:** Flag if exceeded: `_system/backlog.md` > 200 lines, `_system/system-philosophy.md` > 450 lines, any strategy doc > 100 lines. Trim before committing.
+- **Update workspace backlog (if operating session):** Mark completed tasks, update statuses, add new items. Move completed to Done table with date.
 
 ### Architecture sessions additionally:
 
-- **Update system architecture:** `_system/system-architecture.md` — component inventory, folder tree, conventions. If concepts/principles changed, update narrative sections.
+- **Update system architecture:** `_system/system-philosophy.md` — component inventory, folder tree, conventions. If concepts/principles changed, update narrative sections.
 
 ### Operating sessions additionally:
 

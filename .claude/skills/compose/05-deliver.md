@@ -6,7 +6,7 @@ reads:
   - contacts.yaml (email — already in context)
 writes:
   - Gmail draft or sent message (email format)
-  - File in clients/[client]/artifacts/ (doc/persuasive format)
+  - File in workspaces/[workspace]/artifacts/ (doc/persuasive format)
 ---
 
 # Step 5: Deliver
@@ -46,14 +46,14 @@ writes:
    ```
 
 4. **Fallback: File-based delivery** (Gmail MCP unavailable):
-   - Save the full email (metadata header + body) to `clients/[client]/artifacts/YYYY-MM-DD-[topic]-email.md`
+   - Save the full email (metadata header + body) to `workspaces/[workspace]/artifacts/YYYY-MM-DD-[topic]-email.md`
    - Tell the operator: "Gmail MCP isn't available. Email saved as a file — copy the body into your email client to send."
 
 5. **After delivery:** Confirm with message/draft ID (Gmail path) or file path (fallback). If the operator wants a local copy after Gmail delivery, save to artifacts.
 
 ### Data Writeup Format
 
-1. **Save to file.** Default: `clients/[client]/artifacts/YYYY-MM-DD-[topic].md`
+1. **Save to file.** Default: `workspaces/[workspace]/artifacts/YYYY-MM-DD-[topic].md`
    - If the operator specified a different path (e.g., updating an existing doc), use that.
 
 2. **Offer Google Docs publish:** "Want me to push this to Google Docs?"
@@ -64,8 +64,8 @@ writes:
 
 ### Persuasive Format
 
-1. **Save to file.** Default: `clients/[client]/artifacts/YYYY-MM-DD-[topic].md`
-   - For landing page copy specifically: `clients/[client]/landing-page/copy.md`
+1. **Save to file.** Default: `workspaces/[workspace]/artifacts/YYYY-MM-DD-[topic].md`
+   - For landing page copy specifically: `workspaces/[workspace]/landing-page/copy.md`
    - **Separate copy from layout.** The copy document is the argument in prose form. How it maps to a web page or email template is a separate decision.
 
 2. **Offer Google Docs publish:** Same as data writeup.
@@ -80,7 +80,7 @@ After delivery, briefly note:
 - What was delivered and where
 - Voice scores from Step 4 (one line: "Voice: 32/40")
 - Any corrections that were applied to kernel/playbook
-- If this was the first composition for a new client: "First `/compose` run for [client]. The voice kernel will grow as we run more compositions and capture corrections."
+- If this was the first composition for a new workspace: "First `/compose` run for [workspace]. The voice kernel will grow as we run more compositions and capture corrections."
 
 ---
 

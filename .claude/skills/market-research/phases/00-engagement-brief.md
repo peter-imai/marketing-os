@@ -81,4 +81,4 @@ After the interview, synthesize responses into a structured brief:
 [Explicit list of assumptions to test against research findings]
 ```
 
-Save to: `_inputs/research/00-engagement-brief.md` in the client context directory.
+Save to: `_inputs/research/00-engagement-brief.md` in the workspace context directory.

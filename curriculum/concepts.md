@@ -1,12 +1,10 @@
 ---
 type: reference
 description: "The concept registry — the single source of the core ideas the system teaches. Read by /teach-me (pull) and /done micro-teaching (push)."
-status: draft
+status: operator-reviewed
 ---
 
 # Concepts
-
-> **LLM-drafted, not operator-vetted.** This is a first-pass concept set. The concept *selection* is the operator's call — trim, add, or rewrite freely. Marked `status: draft` until reviewed.
 
 The few ideas that make this system click. Most people who bounce off Claude Code do so because they're missing one of these — not because the tool is hard.
 
@@ -18,7 +16,7 @@ Both mark progress in `_system/onboard-log.md` so a concept is never taught twic
 
 **For the deep version,** `curriculum/playbook.md` is the read-end-to-end "how to work" doc. This registry is the atomic version — one idea at a time.
 
-Concepts 1–3 are **core** (graduation-gating: once introduced *and* reinforced, the operator is off training wheels). 4–6 deepen.
+Concepts 1–3 are **core** (graduation-gating: once introduced *and* reinforced, the operator is off training wheels). 4–5 deepen.
 
 ---
 
@@ -70,19 +68,7 @@ Concepts 1–3 are **core** (graduation-gating: once introduced *and* reinforced
 
 ---
 
-## 5. Cross-loop compounding
-
-**What it is:** Context built in one workspace can feed another. What the system learns about your voice, your market, your patterns doesn't stay siloed — it compounds across everything you run. The more you work in it, the more each new piece starts from somewhere instead of zero.
-
-**Example:** The voice the system learned drafting your emails shows up when you later write a landing page — you didn't re-teach it. A market insight from one client's research sharpens how you frame another's.
-
-**When it matters:** Once you're running more than one workspace, or returning to related work weeks later.
-- *First exposure trigger:* a second workspace/context exists, or intelligence flows between pieces.
-- *Reinforcement:* observed compounding.
-
----
-
-## 6. System hygiene — keep it healthy as it grows
+## 5. System hygiene — keep it healthy as it grows
 
 **What it is:** A system that grows through use also accumulates cruft — stale notes, half-finished structure, drift. `/audit` is the periodic health check that catches it. You don't need it early; you need it once the system is big enough to hide problems from you.
 

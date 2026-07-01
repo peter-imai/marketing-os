@@ -4,8 +4,6 @@ governance: core-ref
 scope: system
 description: "The light workspace convention — what every workspace gets from day one (core.md identity + operating-lens.md now-state + backlog + context), and how it grows through real work via the Extension Catalog."
 status: operator-reviewed
-created: 1
-last-updated: 1
 updated-by: joint
 ---
 
@@ -151,7 +149,7 @@ Extensions get added when the work justifies them — not before. Each row docum
 | `context/voice-kernel.md` | The system needs to write in your voice | Voice corrections accumulate here; `/compose` reads it |
 | `meetings/` + `meetings/log.md` | Meeting transcripts start flowing | `log.md` is rolling synthesis; individual files are per-meeting records |
 | `content/` | Content production work begins | Subfolders emerge from the content types you actually produce |
-| `data/` | Data work starts (audiences, enrichment, exports) | `_system/data-workspace-convention.md` governs it |
+| `data/` | Data work starts (audiences, enrichment, exports) | Add a `data-state.md` inside to track what data exists and its state |
 | `campaigns/` | A marketing campaign kicks off | One folder per campaign |
 | `operations/` | Recurring processes or working docs need a home | SOPs, staging areas, frequently-changing working docs |
 | `scripts/` | Custom automation is built | Include a venv if Python |
@@ -177,7 +175,7 @@ The catalog documents what's *available*. It does not mean build it all. An empt
 
 If you work with one company, you don't need a per-workspace command — `/start` *is* your entry. Open with `/start`, close with `/done`. The single workspace lives at the system root.
 
-When you take on a second company or a genuinely separate area of work, run `/new-project`. It scaffolds a new workspace with this light base and (if useful) a `/[workspace]` command so you can drop straight into it. You add structure only when the second workspace earns it — same rule as everything else.
+When you take on a second company or a genuinely separate area of work, run `/new-workspace`. It scaffolds a new workspace with this light base and (if useful) a `/[workspace]` command so you can drop straight into it. You add structure only when the second workspace earns it — same rule as everything else.
 
 ---
 

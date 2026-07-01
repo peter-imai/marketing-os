@@ -4,8 +4,6 @@ governance: core-ref
 scope: system
 description: "Before picking up a task, the agent aligns on three things — the task, the deliverable, the keystone references — and waits for the go. The forcing function for active grounding at session start."
 status: operator-reviewed
-created: 1
-last-updated: 1
 updated-by: joint
 ---
 

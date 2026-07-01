@@ -1,17 +1,17 @@
 ---
 type: voice-infrastructure
-description: "Operator's universal voice constants — loaded before any composition, regardless of client. Client kernels extend this, never replace it."
+description: "Operator's universal voice constants — loaded before any composition, regardless of workspace. Workspace kernels extend this, never replace it."
 status: working-draft
 convention: blueprints/frontmatter-convention.md
 ---
 
 # Voice Base — Operator Constants
 
-These patterns apply to everything you write, regardless of client, format, or audience. Client voice kernels extend this foundation with audience-specific conventions. Both files load before composition — base first, then client overlay.
+These patterns apply to everything you write, regardless of workspace, format, or audience. Workspace voice kernels extend this foundation with audience-specific conventions. Both files load before composition — base first, then workspace overlay.
 
-**What belongs here:** Editorial instincts that don't change between clients. If it's true for Client A deliverables AND Client B reports, it's a base constant.
+**What belongs here:** Editorial instincts that don't change between workspaces. If it's true for one client's deliverables AND another client's reports, it's a base constant.
 
-**What doesn't belong here:** Audience models, pronoun conventions, canonical phrases, domain vocabulary, format-specific patterns. Those are client-specific — they go in the client kernel.
+**What doesn't belong here:** Audience models, pronoun conventions, canonical phrases, domain vocabulary, format-specific patterns. Those are workspace-specific — they go in the workspace kernel.
 
 ---
 
@@ -42,7 +42,7 @@ Don't: Construct a case. "Studies show..." "It's widely recognized..."
 **3. Active voice, named actors.**
 Do: Name who did what. "I built the pipeline." "Sarah flagged the sync issue."
 Don't: Passive corporate voice. "It was determined that..." "The pipeline was built..."
-*Note: Pronoun convention (I/we/they) is client-specific. This rule is about active voice and attribution, not which pronoun.*
+*Note: Pronoun convention (I/we/they) is workspace-specific. This rule is about active voice and attribution, not which pronoun.*
 
 **4. Real specifics only.**
 Do: Numbers from real work. Named tools. Concrete scenarios.
@@ -107,4 +107,4 @@ Run before writing. Not after.
 
 ---
 
-*Loaded by: `/compose` (all formats). Client kernels extend — never duplicate — this content.*
+*Loaded by: `/compose` (all formats). Workspace kernels extend — never duplicate — this content.*

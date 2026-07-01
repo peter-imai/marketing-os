@@ -15,7 +15,7 @@ operator evaluates each per-instance. Exit code is always 0.
 Usage:
   python3 tools/hygiene/check-state-caps.py            # human report
   python3 tools/hygiene/check-state-caps.py --quiet    # only print if problems (hook mode)
-  python3 tools/hygiene/check-state-caps.py --client acme   # also check a client's state files
+  python3 tools/hygiene/check-state-caps.py --workspace acme   # also check a workspace's state files
 """
 import os, re, sys, glob
 
@@ -105,10 +105,10 @@ def check_file(relpath, fallback_cap, counts_toward_budget):
     }
 
 
-def run(client=None, quiet=False):
+def run(workspace=None, quiet=False):
     targets = list(SYSTEM_FILES)
-    if client:
-        base = f"projects/{client}"
+    if workspace:
+        base = f"workspaces/{workspace}"
         targets += [
             (f"{base}/core.md", 60, True),
             (f"{base}/operating-lens.md", 40, True),
@@ -123,7 +123,7 @@ def run(client=None, quiet=False):
         return 0
 
     out = []
-    scope = f" (client: {client})" if client else ""
+    scope = f" (workspace: {workspace})" if workspace else ""
     out.append(f"STATE-LAYER HYGIENE{scope} — caps + register (reporting, not blocking):")
     flag = "OVER" if agg > AGGREGATE_TOKEN_TARGET else "ok"
     out.append(f"- Aggregate auto-loaded: ~{agg} tokens / {AGGREGATE_TOKEN_TARGET} target [{flag}]")
@@ -144,7 +144,7 @@ def run(client=None, quiet=False):
 if __name__ == "__main__":
     args = sys.argv[1:]
     quiet = "--quiet" in args
-    client = None
-    if "--client" in args:
-        client = args[args.index("--client") + 1]
-    sys.exit(run(client=client, quiet=quiet))
+    workspace = None
+    if "--workspace" in args:
+        workspace = args[args.index("--workspace") + 1]
+    sys.exit(run(workspace=workspace, quiet=quiet))

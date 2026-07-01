@@ -56,7 +56,7 @@ List which concepts are missing introduction or reinforcement.
 Read these files. They are the standards you check against.
 
 - `_system/marketing-principles.md`
-- CLAUDE.md (already loaded — review the Workflow Practices and Core Principles sections)
+- CLAUDE.md (already loaded — review the Hard Rules and Routing sections)
 
 Hold these in mind for all subsequent checks.
 
@@ -78,8 +78,7 @@ Tag each finding:
 **Check:**
 - **Growth:** Has CLAUDE.md grown since install? Count sections and routing table entries. Flag if routing table has entries that don't correspond to actual commands/skills, or if new sections have been added that belong in a command instead.
 - **Universality:** Does every section serve ALL sessions, not just specific activities? Activity-specific instructions belong in commands, not CLAUDE.md.
-- **Routing coverage:** Does the routing table cover the main entry points? (architect, done, system, audit, client commands, compose, debrief, llm-research). Are there commands or skills missing from the table?
-- **Primitive Selection table:** Is it present? Does it accurately reflect the current primitives in the system?
+- **Routing coverage:** Does the routing table cover the main entry points? (start, done, system, audit, workspace commands, compose, debrief, llm-research). Are there commands or skills missing from the table?
 - **Accumulated cruft:** Are there routing rules or workflow practices that were added but aren't actually being followed or enforced?
 
 ---
@@ -111,7 +110,7 @@ Flag any broken reference (file path that doesn't exist, convention that's chang
 
 ### Area 4: System Architecture Currency
 
-**Read:** `_system/system-architecture.md`
+**Read:** `_system/system-philosophy.md`
 
 **Check in both directions:**
 1. **Listed but missing:** For each entry in the Component Inventory and Folder Structure, verify the file exists. Flag entries pointing to files that don't exist.
@@ -132,21 +131,21 @@ Flag any broken reference (file path that doesn't exist, convention that's chang
 - Priority labels that no longer reflect reality
 - Backlog size: is it growing out of control or well-managed?
 
-**Also check:** The workspace operating backlog(s) — the root `backlog.md` (single-company) and any `projects/[name]/backlog.md` (multi-workspace). Run the same checks on each.
+**Also check:** The workspace operating backlog(s) — the root `backlog.md` (single-company) and any `workspaces/[name]/backlog.md` (multi-workspace). Run the same checks on each.
 
 ---
 
 ### Area 6: Workspace Docs — Identity + Now-State
 
-The kit's base is a two-doc split (`_system/client-folder-convention.md`): `core.md` = durable identity, `operating-lens.md` = current state + watches. Check both, per workspace.
+The kit's base is a two-doc split (`_system/workspace-folder-convention.md`): `core.md` = durable identity, `operating-lens.md` = current state + watches. Check both, per workspace.
 
-**Find the workspaces:** the root (single-company setup) and each `projects/[name]/` that has a corresponding `/[name]` command.
+**Find the workspaces:** the root (single-company setup) and each `workspaces/[name]/` that has a corresponding `/[name]` command.
 
 **For each workspace:**
 
 1. **`core.md` exists** and reads as identity (who we are / who we serve / how we create value / what we do) — not a state dump. It's slow-changing; no tight line cap, but flag it if it has accreted session-by-session churn that belongs in `operating-lens.md`.
 2. **`operating-lens.md` exists** and reads as current state (what's happening now, active direction, watches). This is the volatile doc — it's where caps and re-bloat checks apply (see Area 10).
-3. **Both are read at startup** by the workspace's command (root → `/start` Orient Mode; `projects/[name]/` → `/[name]`).
+3. **Both are read at startup** by the workspace's command (root → `/start` Orient Mode; `workspaces/[name]/` → `/[name]`).
 
 **The standard:** identity and state live in separate docs so the foundation stays clean and the now-state stays current. A workspace missing `operating-lens.md`, or with state jammed into `core.md`, is the drift this area catches.
 
@@ -170,12 +169,12 @@ The kit's base is a two-doc split (`_system/client-folder-convention.md`): `core
 
 ### Area 8: Memory Currency
 
-**Find and read** the memory index file. It lives at `~/.claude/projects/` under a path derived from this project's directory. Look for `MEMORY.md` in the memory folder.
+**Find and read** the memory index file. It lives at `~/.claude/workspaces/` under a path derived from this project's directory. Look for `MEMORY.md` in the memory folder.
 
 **Check:**
 - **Accuracy:** Is the information accurate to current system state? Cross-reference any file paths, convention names, or tool references against what actually exists.
 - **Staleness:** Is anything referencing things that have been removed, renamed, or superseded?
-- **Misrouted content:** Does it contain items that belong in proper homes instead? Conventions belong in `_system/decisions/` or `_system/system-architecture.md`. Methods belong in `blueprints/`. Tasks belong in backlogs. Only operational state (who the operator is, how they prefer to work, external references) belongs in memory.
+- **Misrouted content:** Does it contain items that belong in proper homes instead? Conventions belong in `_system/decisions/` or `_system/system-philosophy.md`. Methods belong in `blueprints/`. Tasks belong in backlogs. Only operational state (who the operator is, how they prefer to work, external references) belongs in memory.
 
 ---
 
@@ -204,7 +203,7 @@ The kit's base is a two-doc split (`_system/client-folder-convention.md`): `core
 
 **Check against budgets:**
 - **Per-command startup reads:** Flag any command exceeding ~10K tokens (~650 lines combined)
-- **Individual file growth:** Flag `_system/backlog.md` > 200 lines, `_system/system-architecture.md` > 450 lines, `operating-lens.md` > 40 lines (the now-state doc is the re-bloat risk — `core.md` identity is slow-changing and not capped the same way)
+- **Individual file growth:** Flag `_system/backlog.md` > 200 lines, `_system/system-philosophy.md` > 450 lines, `operating-lens.md` > 40 lines (the now-state doc is the re-bloat risk — `core.md` identity is slow-changing and not capped the same way)
 - **Skill count:** Count skills in `.claude/skills/`. For each, check whether `disable-model-invocation: true` is set. Flag skills that load at startup but are only invoked manually — these waste description budget
 - **Backlog Done section:** Count entries. Flag if > 20 (should be rotated)
 

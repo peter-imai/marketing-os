@@ -56,7 +56,7 @@ Execute in order. Load one step file at a time. Each step has its own focused co
 
 This skill composes from the operator's existing language. See `01-orient.md` for the full source material loading protocol.
 
-Load the client's foundation docs: positioning (required), buyer personas, product description, messaging candidates. If the client is missing multiple foundation docs, don't work around them — build them first.
+Load the workspace's foundation docs: positioning (required), buyer personas, product description, messaging candidates. If the workspace is missing multiple foundation docs, don't work around them — build them first.
 
 ---
 
@@ -65,7 +65,7 @@ Load the client's foundation docs: positioning (required), buyer personas, produ
 Every composition loads two voice files before writing:
 
 1. `_system/voice-base.md` — operator constants (editorial posture, decision rules, language constraints). Universal.
-2. `clients/[client]/context/voice-kernel.md` — client-specific patterns (audience model, register adjustments, domain vocabulary, transformation examples). Extends the base.
+2. `workspaces/[workspace]/context/voice-kernel.md` — workspace-specific patterns (audience model, register adjustments, domain vocabulary, transformation examples). Extends the base.
 
 Plus a format playbook (loaded per format selection). The stack: base → kernel → playbook.
 
@@ -76,12 +76,12 @@ Plus a format playbook (loaded per format selection). The stack: base → kernel
 | Category | Requirement | Purpose |
 |----------|-------------|---------|
 | Files | Read: `_system/voice-base.md` | Voice base constants |
-| Files | Read: `clients/*/context/voice-kernel.md` | Client voice kernel |
+| Files | Read: `workspaces/*/context/voice-kernel.md` | Workspace voice kernel |
 | Files | Read: `blueprints/criteria/voice.md` | Voice rubric for self-audit |
-| Files | Read: `clients/*/context/*` | Source material, stakeholder maps |
+| Files | Read: `workspaces/*/context/*` | Source material, stakeholder maps |
 | Files | Read: `contacts.yaml` | Contact/recipient lookup (email format) |
-| Files | Write: `clients/*/measure/voice/` | Score logging |
-| Files | Write: `clients/*/artifacts/` | Deliverable output |
+| Files | Write: `workspaces/*/measure/voice/` | Score logging |
+| Files | Write: `workspaces/*/artifacts/` | Deliverable output |
 | MCP | `mcp__google-workspace__search_gmail_messages` | Thread context (email format) |
 | MCP | `mcp__google-workspace__get_gmail_thread_content` | Full thread for replies |
 | MCP | `mcp__google-workspace__draft_gmail_message` | Create Gmail draft (default email delivery) |
@@ -101,7 +101,7 @@ No subagents. The workflow is linear and the operator is in the loop at every st
 
 ## Measurement
 
-Every composition run scores against the voice rubric (Step 4). Scores log to `clients/[client]/measure/voice/index.md` — the living Score Trajectory. This is persistent quality telemetry. If the file doesn't exist yet for a client, create it from the template in Step 4.
+Every composition run scores against the voice rubric (Step 4). Scores log to `workspaces/[workspace]/measure/voice/index.md` — the living Score Trajectory. This is persistent quality telemetry. If the file doesn't exist yet for a workspace, create it from the template in Step 4.
 
 ---
 
