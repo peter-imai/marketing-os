@@ -1,6 +1,6 @@
 # Command Template for `/new-project`
 
-This template generates a client/project command. Fill in `[placeholders]` from the elicitation answers. Based on the lightest existing command pattern.
+This template generates a client/project command. Fill in `[placeholders]` from the elicitation answers. Modeled on the lightest command pattern — minimal startup, no heavy context loading.
 
 ---
 
@@ -16,26 +16,22 @@ You are operating Marketing OS for **[Name]** — [one-sentence description from
    - If MCP workspaces are declared, call the relevant workspace selection tools when first needed.
    - Note any declared tool accounts for contextual reference.
 
-1. **Read core.md.** Read `projects/[slug]/core.md` — what matters right now (intention, core documents, active direction, watches). This is the lens for the session.
+1. **Read `core.md`.** Read `projects/[slug]/core.md` — the durable identity (who this is, who it serves, how it creates value, what it does). The ground the session stands on.
 
-2. **Read the backlog.** Read `projects/[slug]/backlog.md`. If the operator comes in with a specific task, go straight to it. If they're looking for direction, surface open tasks and suggest a focus.
+2. **Read `operating-lens.md`.** Read `projects/[slug]/operating-lens.md` — current state, active direction, watches. This is where you left off; lead orientation from it.
 
-3. **Load strategy context.** Read and execute the procedure at `.claude/helpers.md#Load-Client-Strategy-Context`.
-   - Marketing strategy: `projects/[slug]/marketing-strategy.md`
-   [IF engagement-strategy exists:]
-   - Engagement strategy: `projects/[slug]/engagement-strategy.md`
+3. **Read the backlog.** Read `projects/[slug]/backlog.md`. If the operator comes in with a specific task, go straight to it. If they're looking for direction, surface the active thread + open tasks — don't make them re-decide what's already captured.
 
 4. **Identify the activity.** Ask the operator what they're working on, or infer from their first message. Then load ONLY the context that activity needs.
 
-5. **Load activity context:**
+5. **Load activity context (on demand):**
 
 | Activity | Read these files |
 |----------|-----------------|
-| **[First activity from Q5]** | `projects/[slug]/context/positioning.md` + relevant context docs |
-| **Strategic planning** | `projects/[slug]/context/positioning.md` + `projects/[slug]/marketing-strategy.md` |
+| **[First activity from Q6]** | relevant `projects/[slug]/context/` docs (as they accumulate) |
 | **Meeting processing** | `projects/[slug]/meetings/log.md` (when it exists) |
 
-If the activity spans multiple areas or you're unsure, load the lightest relevant set and ask before loading more. **Do not load everything upfront.**
+The `context/` folder starts empty and fills through real work. Load the lightest relevant set; ask before loading more. **Do not load everything upfront.**
 
    After loading activity context, check for relevant marketing domain expertise: read and execute the procedure at `.claude/helpers.md#Load-Marketing-Domain-Expertise`.
 
@@ -47,17 +43,18 @@ You operate within Marketing OS. CLAUDE.md defines your personality, principles,
 
 | Convention | Governs | Location |
 |------------|---------|----------|
-| File placement | Where new files go (type vocabulary) | `_system/frontmatter-convention.md` |
+| Client folder | Base structure + extensions | `_system/client-folder-convention.md` |
+| File placement | Where new files go, by type | `_system/frontmatter-convention.md` |
 | Artifact creation | How to create files | `_system/artifact-creation-principles.md` |
 
-When creating structure that no convention covers, invoke the Architecture Guardian via `/architect`.
+When creating structure that no existing convention covers, pause and align with the operator before inventing new structure — don't guess at a new shape.
 
 ---
 
 ## Behavioral Rules
 
 ### Strategic awareness
-Know the engagement context and marketing strategy before doing substantive work. When new information arrives, check it against both: does this change what we're doing or why?
+Know the workspace identity (`core.md`) and current state (`operating-lens.md`) before doing substantive work. When new information arrives, check it against both: does this change what we're doing or why? If state moved, update `operating-lens.md` at `/done`.
 
 ### Do the work, not the ceremony
 Most of the session is real work. System awareness exists for structural decisions, not for every action.
@@ -82,7 +79,6 @@ This is a [Name] operating session, not a system build session. If something nee
 
 ## Customization Notes
 
-- **Activity routing table:** Seed with the activity from Q5 + 2 generic activities (strategic planning, meeting processing). The operator will expand this as the engagement grows.
-- **Engagement strategy line:** Only include if `engagement-strategy.md` was created.
+- **Activity routing table:** Seed with the activity from Q6 + meeting processing. The operator expands it as the workspace grows.
 - **Content brainstorm setup:** Don't include at scaffold time. Add when the operator starts doing content work — it's an extension, not a default.
 - **[slug]** is the kebab-case folder name derived from the project name.

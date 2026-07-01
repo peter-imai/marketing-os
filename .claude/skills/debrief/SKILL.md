@@ -13,7 +13,7 @@ Process a meeting transcript into actionable intelligence through interactive di
 | Category | Requirement | Purpose |
 |----------|-------------|---------|
 | Files | Read: `clients/*/meetings/transcripts/**` | Transcript access |
-| Files | Write: `clients/*/meetings/**`, `clients/*/backlog.md`, `clients/*/core.md`, `clients/*/engagement-strategy.md`, `clients/*/marketing-strategy.md` | Update routing targets |
+| Files | Write: `**/meetings/**`, `**/backlog.md`, `**/operating-lens.md`, `**/core.md`, `**/context/**` | Update routing targets |
 | Files | Write: `_system/backlog.md` | System-level backlog updates |
 | MCP | `mcp__google-workspace__manage_task` | Route action items with external deadlines to Google Tasks |
 | MCP | `mcp__google-workspace__list_task_lists` | Find operator's default task list |
@@ -59,21 +59,21 @@ Determine which client this debrief is for. Try in order:
 Once the client is identified, set the routing targets:
 - **Client directory:** `clients/[client]/` (or `clients/[client]/engagements/[engagement]/` if applicable)
 - **Backlog:** `[client-dir]/backlog.md`
-- **Core:** `[client-dir]/core.md`
-- **Strategy docs:** `[client-dir]/engagement-strategy.md`, `[client-dir]/marketing-strategy.md`
+- **Operating lens (now-state):** `[client-dir]/operating-lens.md` — the primary routing target for what a meeting changes
+- **Core (identity):** `[client-dir]/core.md` — only if the meeting changed who/what the workspace is (rare)
+- **Context:** `[client-dir]/context/` — durable knowledge the meeting surfaced (voice, what works, stakeholder reads)
 - **Meeting log:** `[client-dir]/meetings/log.md` (if it exists)
 
 Not all routing targets will exist for every client (especially first run). That's fine — route to what exists, skip what doesn't, note what's missing.
 
-### Step 3: Strategy Loading
+### Step 3: Context Loading
 
-If client strategy context **is not already loaded** in this session (i.e., no client command was run):
+If workspace context **is not already loaded** in this session (i.e., no client command was run):
 
-1. Check if `engagement-strategy.md` and `marketing-strategy.md` exist for this client.
-2. If they exist, read and execute the procedure at `.claude/helpers.md#Load-Client-Strategy-Context` with the appropriate paths.
-3. If they don't exist (new client, first run), proceed without. The debrief protocol works without strategy context — routing is less targeted, but signal analysis and update capture still function.
+1. Read `[client-dir]/core.md` (identity) and `[client-dir]/operating-lens.md` (current state) if they exist — they frame what the meeting changes.
+2. If they don't exist (new workspace, first run), proceed without. The debrief protocol works regardless — routing is less targeted, but signal analysis and update capture still function.
 
-If strategy context **is already loaded**, skip this step entirely.
+If workspace context **is already loaded**, skip this step entirely.
 
 ### Step 4: Preference Loading
 
@@ -85,6 +85,8 @@ Check if `[client-dir]/meetings/debrief-preferences.md` exists.
 ### Step 5: Signal Analysis
 
 Read the full transcript. Not a skim — absorb the conversation dynamics.
+
+**Before presenting, run `.claude/helpers.md#Self-Critique-Gate`.** The bar: am I leading with the *actually* most-important signal, or the most obvious one? Did I preserve where the call had conviction vs. mere suggestion (not flatten them)? Am I overstating anything the transcript doesn't support? Fix, then present flagging what I'm least sure of.
 
 Present 5-8 signal bullets to the operator. Each signal should have conviction: "The most important thing from this meeting is..." not "The meeting covered..."
 
@@ -117,9 +119,9 @@ Together with the operator, identify all updates across these categories:
 
 **b. Backlog — existing item updates.** Cross-reference the transcript against open backlog items. Flag: reprioritization, scope changes, blockers removed, new constraints, nuance additions. This is equally important as new items.
 
-**c. Intelligence updates.** New information about people, preferences, concerns, dynamics, market context. What did we learn about the client, their customers, or their market?
+**c. Context updates.** New durable knowledge about people, preferences, concerns, dynamics, market — what we learned that's worth keeping. Routes to `context/` (e.g., a stakeholder read, a voice note, a market signal).
 
-**d. Strategy doc updates.** Anything that changes the engagement approach or marketing strategy. If a signal changes how we think about the relationship or the market approach, flag it.
+**d. Operating-lens updates.** Anything that moves the current state: a shift in what's happening now, a change in active direction, a new thing to watch. If a signal changes how we see the engagement *right now*, flag it for `operating-lens.md`. (If it changes the workspace's identity — who it is, who it serves — that's a `core.md` change, flagged separately and rare.)
 
 **e. Growth hypotheses.** Market signals, new audiences, channel opportunities, activation ideas. Route to `growth-hypotheses.md` if one exists for this client.
 
@@ -135,24 +137,26 @@ Present all proposed updates to the operator. Wait for confirmation or correctio
 
 Execute all confirmed updates:
 
-1. **File updates** — backlog additions/modifications, intelligence updates, strategy doc updates, growth hypotheses, meeting log entry. Make the changes. Don't just list them.
+1. **File updates** — backlog additions/modifications, context updates, operating-lens updates, meeting log entry. Make the changes. Don't just list them.
 
 2. **Google Tasks** — for action items with external deadlines, read and execute the procedure at `.claude/helpers.md#Route-Action-Items-To-Tasks`.
 
 3. **Knowledge routing** — if reusable knowledge surfaced (marketing domain insight, practitioner convention, architecture pattern), read and execute the procedure at `.claude/helpers.md#Route-Knowledge-To-Destination`.
 
-### Step 8b: Core.md Check
+### Step 8b: Operating-lens + Core Check
 
-Check if `core.md` exists for the active scope (engagement, client, or system level).
+Check if `operating-lens.md` exists for the active workspace (root or `projects/[name]/`).
 
 **If it exists:** Read it. Compare against what this meeting revealed:
-- Did the meeting surface a new concern or risk? → Suggest adding to Watches or Primary concern: "This meeting surfaced [X]. Should I add it to core.md?"
-- Did the meeting resolve an existing concern? → Suggest replacing: "Core.md lists [concern] as the primary worry, but this meeting seemed to address it. Replace with [new concern], or remove?"
-- Did the meeting shift what's happening or what success looks like? → Suggest updating Intention: "It sounds like the engagement has shifted from [X] to [Y]. Update core.md?"
+- Did the meeting surface a new concern or risk? → Suggest adding to **Watches**: "This meeting surfaced [X]. Add it to operating-lens.md Watches?"
+- Did the meeting resolve a watch? → Suggest removing: "operating-lens.md watches [X], but this meeting seemed to settle it. Drop it?"
+- Did the meeting shift what's happening now or the active direction? → Suggest updating: "Sounds like the focus moved from [X] to [Y]. Update operating-lens.md?"
 
-**If it doesn't exist:** Note the gap in the summary. Don't create one — that's an operator action.
+**Core.md (identity) — only if it genuinely moved:** Did the meeting reveal a change in who the workspace is, who it serves, or how it creates value? That's rare — flag it separately: "This meeting suggests the business itself is shifting toward [Y]. Update core.md identity?"
 
-**Write protection:** Suggest changes, present them, wait for explicit approval. Never write to core.md without the operator saying yes.
+**If neither exists:** Note the gap in the summary. Don't create one — that's an operator action.
+
+**Write protection:** Suggest changes, present them, wait for explicit approval. Never write to `operating-lens.md` or `core.md` without the operator saying yes.
 
 ### Step 9: Summary + Email Suggestion
 

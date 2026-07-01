@@ -61,9 +61,9 @@ Generic functional expertise (email basics, funnel metrics, list building fundam
 
 *(Sharpened Session 11 — renamed from "On Expertise and Client Context." The principle is directional: bottom-up, not top-down.)*
 
-### ~~On Workflows and Consistency~~ *(Moved to architecture principles — Session 11)*
+### On Workflows and Consistency
 
-*Not a core principle — it's a build standard. Moved to `_system/build-rules.md` as "Workflow Reliability Standard." A workflow isn't real until it's planned, step-explicit, has success criteria, and is self-auditing.*
+A workflow isn't real until it's planned, step-explicit, has success criteria, and is self-auditing.
 
 ---
 
@@ -108,8 +108,6 @@ Marketing should be a loop, not a line. Ideate → choose → plan → execute �
 Marketing OS makes the loop real because the system is connected end-to-end — from ideation to API-connected analytics to logged learnings, all in one place. The learning isn't a separate activity you do after the campaign. It's a byproduct of the workflow. Repeatable processes, definable and uniform metrics, rapid experimentation, full 360-degree connection — the system closes the loop that manual marketing leaves open.
 
 > "In professional marketing, learning is a primary output. The system makes the marketing loop real."
-
-*(From principle question Q17 — "Is the context architecture the product?" Reframed: the value isn't the architecture itself, it's that the architecture enables a real learning loop — which is where compounding value lives. This principle evolved into the closed-loop product thesis (S362, `clients/marketing-os/context/product-thesis.md`) — "marketing is systems, every activity is a loop, the system closes the loop, and then the loops talk to each other.")*
 
 ### Taste and Judgment Are the Atomic Units
 

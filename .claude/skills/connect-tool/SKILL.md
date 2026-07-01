@@ -100,6 +100,9 @@ No code — documentation only:
 ## Step 6: Present, Route Auth, & Review
 
 ### 6a. Present What Was Created
+
+**Before presenting, run `.claude/helpers.md#Self-Critique-Gate`** on the generated connector + docs. The bar: does it follow the connector convention (clean auth via the env-var/`.env` pattern, no hardcoded secrets, docstrings, real error handling, declared deps)? Would it actually run on a first call, or did I generate plausible-looking code I haven't traced? Fix what's broken; flag what I couldn't verify.
+
 List files, research highlights, what needs verification.
 
 ### 6b. Auth Routing

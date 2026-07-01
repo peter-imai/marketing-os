@@ -146,6 +146,8 @@ Write `03-synthesis.md` — the final artifact. Not a summary of three models. A
 - Resolves contradictions with a clear position
 - Identifies what's actionable vs. what needs more thinking
 
+**Before presenting, run `.claude/helpers.md#Self-Critique-Gate`.** The bar: is every claim in the synthesis traceable to a model output or the operator's input — or did I smuggle in my own unsupported assertions? Did I represent where the models genuinely *disagreed*, or flatten it into false consensus? Is the position actually a position, or a hedge? Fix, then present flagging what's least grounded.
+
 Present to operator.
 
 ### Step 7: Capture Learnings

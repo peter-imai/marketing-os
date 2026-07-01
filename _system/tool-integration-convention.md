@@ -226,7 +226,7 @@ Enrichment is composable pieces, not monolithic pipelines.
 
 3. **Pipeline waterfalls own sequencing and caching.** Each step writes results to JSONL. Resume reads the cache and picks up where it left off. The pipeline script is the orchestrator.
 
-4. **Tool selection is data-subject-first.** Before picking a tool, ask: "What kind of business is this, and where does the data I need naturally live?" Local service businesses → Google Maps (Serper). Enterprise B2B → LinkedIn (BlitzAPI) + website (Pako). The business context determines the tool. (Validated S457 — Serper 87% vs Pako 3% for interior designer addresses.)
+4. **Tool selection is data-subject-first.** Before picking a tool, ask: "What kind of business is this, and where does the data I need naturally live?" Local service businesses → Google Maps (Serper). Enterprise B2B → LinkedIn (BlitzAPI) + website (Pako). The business context determines the tool. (Validated in practice — Serper 87% vs Pako 3% for interior designer addresses.)
 
 ### The Recipe Pattern
 
@@ -268,11 +268,11 @@ Each recipe declares what goes up, what runs, what comes back, and how long it t
 ## Anti-Patterns
 
 ### Hardcoded credentials
-**Precedent:** `tools/pako/client.py` — API key was hardcoded in source until S274 conformance pass. Key was in git, couldn't be rotated without a code change, couldn't be scoped per-client. Fixed: migrated to `PAKO_API_KEY` env var with standard `_load_env()`.
+**Precedent:** `tools/pako/client.py` — API key was hardcoded in source until a later conformance pass. Key was in git, couldn't be rotated without a code change, couldn't be scoped per-client. Fixed: migrated to `PAKO_API_KEY` env var with standard `_load_env()`.
 **Rule:** All credentials in env vars via `_load_env()`. No exceptions.
 
 ### Rate limit discovery in production
-**Precedent:** BlitzAPI email endpoint (S444). Default 4.5 req/sec caused constant 429s; sustainable rate was 2.5 req/sec. ~30% of a long run wasted on retry overhead.
+**Precedent:** BlitzAPI email endpoint. Default 4.5 req/sec caused constant 429s; sustainable rate was 2.5 req/sec. ~30% of a long run wasted on retry overhead.
 **Rule:** Start at 50% of documented limit. Record production-validated rates in the tool profile. Add per-endpoint overrides when endpoints have different limits.
 
 ### Duplicated retry logic
@@ -289,13 +289,4 @@ Each recipe declares what goes up, what runs, what comes back, and how long it t
 
 ### Hardcoded file paths in scripts
 **Precedent:** Enrichment scripts that write to fixed output paths break when reused across projects or when folder conventions change.
-**Rule:** Scripts that produce data files MUST accept `--input`/`--output` arguments. The agent passes convention-correct paths at invocation time. Scripts are dumb about where files live — the data project's own conventions own that. `/connect-tool` enforces this for new connectors.
-
----
-
-## Revision Log
-
-| Version | Session | What Changed | Trigger |
-|---------|---------|-------------|---------|
-| v0.1 | S459 | Initial design — connector shape, auth scoping, composition model, anti-patterns from 14 existing integrations | T-268 convention design from observed patterns |
-| v0.2 | S468 | Per-client auth mechanics — auth.yaml manifest, with-auth.sh wrapper, layered sourcing for agency pattern | T-277, C1. Triggered by multiple clients needing credential isolation |
+**Rule:** Scripts that produce data files MUST accept `--input`/`--output` arguments. The agent passes convention-correct paths at invocation time. Scripts are dumb about where files live — the data project convention (`_system/data-workspace-convention.md`) owns that. `/connect-tool` enforces this for new connectors.

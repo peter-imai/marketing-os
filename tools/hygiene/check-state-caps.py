@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-State-layer cap + register checker (T-514, Phase 2 spec § Enforcement model).
+State-layer cap + register checker.
 
 Checks auto-loaded state files against:
   - per-file line cap (from frontmatter cap-lines, or fallback registry)
@@ -25,7 +25,11 @@ ROOT = os.environ.get("CLAUDE_PROJECT_DIR", os.getcwd())
 # token_budget: counts toward the ~10K aggregate auto-loaded target.
 SYSTEM_FILES = [
     ("CLAUDE.md", 200, True),
-    ("_system/core.md", 60, True),
+    # Light base (single-company): core.md = slow-changing identity (loose cap),
+    # operating-lens.md = volatile now-state (the re-bloat risk — tighter cap).
+    ("core.md", 60, True),
+    ("operating-lens.md", 40, True),
+    ("_system/core.md", 60, True),  # system governance core, if present
     ("_system/backlog-index.md", 120, True),
     ("MEMORY.md", 200, False),  # harness-managed; counted but frontmatter-exempt
 ]
@@ -104,9 +108,10 @@ def check_file(relpath, fallback_cap, counts_toward_budget):
 def run(client=None, quiet=False):
     targets = list(SYSTEM_FILES)
     if client:
-        base = f"clients/{client}"
+        base = f"projects/{client}"
         targets += [
             (f"{base}/core.md", 60, True),
+            (f"{base}/operating-lens.md", 40, True),
             (f"{base}/backlog-index.md", 120, True),
         ]
 

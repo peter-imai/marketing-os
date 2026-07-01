@@ -4,7 +4,7 @@ Structured feedback about your experience with Marketing OS. This file captures 
 
 **How this works:** At key moments (post-onboard, post-client-setup, periodically during use), the system will ask for your honest feedback. Your observations help improve the system for everyone.
 
-**How to send feedback:** When you're ready to share, zip this file and send it back to the team. The structured format makes it immediately actionable on our end.
+**How to use this:** Keep notes here as you go — what's working, what's clunky, what you wish it did. It's your own record; revisit it when you tune the system. If you want to share feedback with the project, open an issue on the kit's repo.
 
 ---
 

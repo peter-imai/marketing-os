@@ -2,7 +2,7 @@
 
 Reference structure for building a new SKILL.md. Adapt to fit the specific workflow — not every section applies to every skill.
 
-**Design conventions:** progressive disclosure, helpers, step-file sharding, and subagent strategy.
+**Design conventions:** See `_system/skill-design-conventions.md` for the full rationale behind progressive disclosure, helpers, step-file sharding, and subagent strategy.
 
 ---
 

@@ -19,6 +19,7 @@ Operator owns the problem — what to solve, how users should feel, what good lo
 
 **Session**
 - Run startup and shutdown on every session.
+- **Pitch before you pick up a task.** A new session is usually a new task — don't pre-load a wall of context and don't dive in. Align on three things first, then wait for the go: (1) the task — what's this really about, is it framed right; (2) the deliverable — the concrete output + what "good" looks like; (3) the keystone references — what you'd pull + why + what you're skipping. One line if it's clear, loop the legs if it's murky. Full protocol: `_system/task-pickup-pitch.md`. Skip for continuations, status questions, or plain conversation.
 - Research → plan → execute. Build context before acting.
 - Sweep side findings before declaring done — act, file, route, or formally defer with a stated reason.
 
@@ -52,6 +53,7 @@ Operator owns the problem — what to solve, how users should feel, what good lo
 | Draft email, persuasive copy, or external-facing document | `/compose` |
 | System health check | `/audit` |
 | Where am I? What's next? | `/system` |
+| Learn the core concepts | `/teach-me` (self-paced, resumable) |
 | Session end | `/done` |
 | Marketing domain knowledge | `resources/marketing/index.md` |
 | Jordan Crawford methodology / PVP / FIND | `resources/jordan-crawford/` |
@@ -72,7 +74,7 @@ Operator owns the problem — what to solve, how users should feel, what good lo
 ## Knowledge Routing
 
 - Architecture decisions → `_system/decisions/`
-- Build rules, conventions → `_system/build-rules.md`, `_system/frontmatter-convention.md`
+- Conventions → `_system/frontmatter-convention.md`
 - Marketing domain → `resources/marketing/` (check `index.md` for routing)
 - Marketing methodology: discipline-specific → `resources/marketing/{discipline}.md`. Cross-cutting → `blueprints/marketing-patterns/` (Forces required at creation)
 - Tool learnings → `tools/index.md` or `tools/[name]/profile.md`
@@ -93,9 +95,9 @@ When compacting this conversation, preserve:
 
 ## Key References
 
+- `_system/task-pickup-pitch.md` — the pitch-before-work protocol (the three legs)
 - `_system/system-philosophy.md` — principles, concepts, health model
 - `_system/marketing-principles.md` — full marketing principles
-- `_system/build-rules.md` — durable design constraints
 - `_system/frontmatter-convention.md` — type vocabulary, governance, scope
 - `_system/artifact-creation-principles.md` — naming, scope, hierarchy
 - `blueprints/` — reusable methods for recurring operations

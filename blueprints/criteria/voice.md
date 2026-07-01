@@ -7,7 +7,7 @@ consumers:
   - "Voice kernel tuning (correction feedback loop)"
   - "Format playbook development"
 status: working-draft
-convention: _system/frontmatter-convention.md
+convention: blueprints/frontmatter-convention.md
 ---
 
 # Voice Evaluation Rubric

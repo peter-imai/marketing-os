@@ -1,6 +1,10 @@
 # Start Here
 
-This is Marketing OS — a system that turns your marketing into compounding loops. Campaigns, meetings, research, outreach — every activity becomes a closed loop: execute → measure → learn → feed back → next cycle is sharper. And the loops connect: what you learn from a campaign feeds the next; a client meeting changes how you write their next email.
+This is Marketing OS — an **operations command center** for your work. For anything you do that repeats — campaigns, meetings, research, outreach, content — the system learns your context and starts handling it the way you would. Every activity becomes a closed loop: execute → measure → learn → feed back → next cycle is sharper. And the loops connect: what you learn from a campaign feeds the next; a client meeting changes how you write their next email.
+
+**Marketing is operations here — the same thing, not a subset.** The depth that ships in the box leans marketing, but the structure holds any repeatable work you run. Set it up once and you start doing the work of five.
+
+**You start from real work, not setup.** You don't write a pile of strategy docs before the system helps you — `/start` learns who you are in a few minutes, then goes straight to a real piece of your work. The structure fills as you go.
 
 You'll be slower before you're faster. The first week feels like infrastructure. Then the backlog starts remembering what you forgot, last week's voice corrections show up in this week's drafts without asking, and the system holds you to the standard you set on your best day — even when you're rushing.
 
@@ -10,11 +14,11 @@ Read this once. Then start.
 
 ## Install
 
-1. **Clone or download this repo somewhere stable.** Any folder you'll remember works — `~/marketing-os/` is a sensible default.
-2. **Open the folder in VS Code** (with the Claude Code extension installed). If you don't have Claude Code yet: [docs.claude.com/claude-code](https://docs.claude.com/claude-code).
+1. **Put the folder somewhere stable.** `~/marketing-os/` is a sensible default. (Clone the repo, or download the ZIP and unzip — either works.)
+2. **Open the folder in Claude Code** — the terminal CLI, or VS Code / your IDE with the Claude Code extension. If you don't have Claude Code yet: [docs.claude.com/claude-code](https://docs.claude.com/claude-code).
 3. **Start a Claude Code session and run `/start`.**
 
-`/start` handles everything else — output style setup, your profile, your first client, your tools. It explains what it's doing as it goes.
+`/start` handles everything else — output style setup, a short identity interview, your tools, and your first real piece of work. It explains what it's doing as it goes. If you work with one company, `/start` becomes your daily entry too; if you work with several, it'll set up the first and show you how to add the rest.
 
 ---
 
@@ -32,7 +36,7 @@ Three rules:
 
 ## Every session has a shape
 
-**Open with a command.** `/[client-name]` for client work, `/architect` for system improvements. Startup loads that client's strategy, backlog, and where you left off.
+**Open with a command.** `/start` if you work with one company, `/[client-name]` if you've set up several, `/architect` for system improvements. Startup loads that workspace's identity, current state, backlog, and where you left off.
 
 **Box one piece of work.** Pick the focus before you start.
 
@@ -40,7 +44,7 @@ Three rules:
 
 **Close with `/done`.** Every time.
 
-New client? Run `/new-project`. It scaffolds the folder, asks the foundation questions, creates a `/[client-name]` command. Next session you open them by name.
+Adding a second company or a separate area of work? Run `/new-project`. It scaffolds the light workspace (identity + current state + backlog) and a `/[client-name]` command. No foundation-doc homework — it fills as you work. Next session you open it by name.
 
 ---
 
@@ -48,11 +52,12 @@ New client? Run `/new-project`. It scaffolds the folder, asks the foundation que
 
 | Command | When |
 |---|---|
-| `/start` | Once, first time — system onboarding |
-| `/[your-client-name]` | Every session of client work (e.g., `/acme`) |
-| `/new-project` | New client or workspace |
+| `/start` | First-time setup — and your daily entry if you work with one company |
+| `/[your-client-name]` | Every session for a given workspace, once you've set up several (e.g., `/acme`) |
+| `/new-project` | Add a second company or separate area of work |
 | `/architect` | Improving the system itself |
 | `/done` | Every session, always |
+| `/teach-me` | Walk the core concepts, self-paced — run it anytime |
 | `/debrief` | After a meeting — drop the transcript, get signals routed |
 | `/compose` | Drafting emails, copy, data writeups — voice-engineered |
 | `/align` | When you want the system to interrogate your thinking before you commit |
@@ -69,7 +74,7 @@ You'll learn the others through use.
 
 **Correct with a reason.** "This is wrong because we don't position this way — we lead with X, not Y." The reason is the instruction — it generalizes; "make it better" doesn't.
 
-**Make the implicit explicit.** If the system keeps getting the same thing wrong, it's correctly following incomplete instructions. Add the rule to CLAUDE.md or the client's strategy doc. Closed gap, permanent improvement.
+**Make the implicit explicit.** If the system keeps getting the same thing wrong, it's correctly following incomplete instructions. Add the rule to CLAUDE.md, or capture the fact in the workspace's `operating-lens.md` / `context/`. Closed gap, permanent improvement.
 
 **Reset when the conversation is too long.** If it's forgetting what you told it earlier, the session has stretched. Save progress to the backlog, run `/done`, start fresh.
 

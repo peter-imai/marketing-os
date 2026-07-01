@@ -120,19 +120,22 @@ This step teaches one concept per shutdown — never more. Your job is to name w
 
 Two-phase check. **Phase 1:** Find the first un-introduced concept whose first exposure trigger fired. **Phase 2:** If none, find the first un-reinforced concept whose reinforcement trigger fired. One concept max.
 
+Concepts, definitions, and triggers live in **`curriculum/concepts.md`** (the single registry — shared with `/teach-me`). The table below is the push-timing summary; pull the concept's full definition + example from the registry when you teach.
+
 | # | Concept | First Exposure Trigger | Reinforcement Trigger |
 |---|---------|----------------------|----------------------|
-| 1 | The loop | This is a `/done` run | Session count ≥ 2 |
-| 2 | How to work | Operator captured/referenced a backlog item | Backlog interaction in 2+ sessions |
-| 3 | Quality gates | Operator corrected system output | Session count ≥ 5 |
-| 4 | Cross-loop compounding | 2+ client directories exist with context | Intelligence flowed between capabilities |
-| 5 | System hygiene | Session count ≥ 8 | First `/audit` run |
+| 1 | The loop — close with `/done` | This is a `/done` run | Session count ≥ 2 |
+| 2 | The backlog is your brain | Operator captured/referenced a backlog item | Backlog interaction in 2+ sessions |
+| 3 | Quality gates — how to talk to the system | Operator corrected/pushed back on output | Session count ≥ 5 |
+| 4 | You direct it — pitch before the work | System pitched a task, or operator redirected a dive-in | Across 2+ sessions |
+| 5 | Cross-loop compounding | 2+ workspaces/contexts exist | Intelligence flowed between pieces |
+| 6 | System hygiene | Session count ≥ 8 | First `/audit` run |
 
 **Fallback:** If core concepts (1-3) haven't been introduced by session ~5, deliver with general framing.
 
 ### Teaching
 
-Compose a brief message (30-60 seconds) that names the concept, connects to this session's work, explains why it matters, and points to `/system`.
+Pull the concept's definition + example from `curriculum/concepts.md`, then compose a brief message (30-60 seconds) that names the concept, connects to this session's work, explains why it matters, and points to `/system`. Don't paste the registry — teach in your own words.
 
 ### Update the Onboard Log
 
@@ -149,12 +152,12 @@ Hold the teaching message — deliver it in the wrap-up (Step 7).
 - **Update system backlog:** Add new items, update statuses. `_system/backlog.md`. Detailed design notes → `_system/task-notes.md`.
 - **Backlog maintenance:** Mark completed cluster tasks `[x]` with date. If all tasks in a cluster are done, move cluster to Done section. Move done standalone tasks to Done section. Unblock items whose blockers are done. **Done section rotation:** Keep 20 most recent, clear older.
 - **Cross-reference update:** For each task completed, check whether other items reference it (by ID, as blocker, or dependency). Update their status. Note next sequenced step in active cluster — surfaces in wrap-up.
-- **File growth check:** Flag if exceeded: `_system/backlog.md` > 200 lines, `_system/system-philosophy.md` > 450 lines, any strategy doc > 100 lines. Trim before committing.
+- **File growth check:** Flag if exceeded: `_system/backlog.md` > 200 lines, `_system/system-architecture.md` > 450 lines, any strategy doc > 100 lines. Trim before committing.
 - **Update client backlog (if operating session):** Mark completed tasks, update statuses, add new items. Move completed to Done table with date.
 
 ### Architecture sessions additionally:
 
-- **Update system architecture:** If the architecture narrative doc is present (`_system/system-philosophy.md`), update it — component inventory, folder tree, conventions. If concepts/principles changed, update narrative sections.
+- **Update system architecture:** `_system/system-architecture.md` — component inventory, folder tree, conventions. If concepts/principles changed, update narrative sections.
 
 ### Operating sessions additionally:
 
@@ -200,15 +203,6 @@ Runs every `/done`. No gate — state coherency matters even when no task was co
 | **core.md suggestion** | Question, never auto-applied. | Operator answers. Agent updates only on yes. |
 
 **Rules:** Err toward flagging. Never modify backlog or core.md without explicit operator approval.
-
-## 4c. Doc Log Entries
-
-Read and execute the procedure at `.claude/helpers.md#Check-For-Doc-Logs` with:
-- **Touched files list:** `git diff --name-only` output
-- **Session number:** current session
-- **Trigger source:** `session`
-
-The helper handles detection, drafting, and approval. In the wrap-up, reflect any applied entries in the routed section.
 
 ## 5. Update Session Log
 

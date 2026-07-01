@@ -18,7 +18,7 @@ COMPACTION RECOVERY (hook: compact-reinject) — Context was just compacted. Cri
 - Current session: Check git log --oneline -5 to see recent work
 - Marketing expertise index: resources/marketing/index.md (knowledge routing destination)
 - System backlog: _system/backlog.md (task tracking)
-- System architecture: _system/system-philosophy.md (how the system is built, conventions)
+- System architecture: _system/system-architecture.md (what exists, conventions)
 
 If you've lost track of the current activity, state what you remember and ask the operator to fill gaps. Do NOT guess or reconstruct from assumptions.
 

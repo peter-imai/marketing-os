@@ -24,6 +24,12 @@ Multi-phase market research workflow. Builds deep understanding of a client's ma
 
 ---
 
+## Standing rule — self-critique before every teaching checkpoint
+
+Research subagents produce confident-sounding output whether or not it's well-grounded. **Before each teaching checkpoint below, run `.claude/helpers.md#Self-Critique-Gate`** on that phase's output. The bar: is each claim traceable to a source, or is it inferred/thin? Where is the research generic ("the market is growing") vs. specific and evidenced? Surface the thin spots *to the operator as flagged gaps* at the checkpoint — don't let plausible prose pass as solid research. This is what keeps the checkpoints honest when the operator is skimming.
+
+---
+
 ## Step 0: Setup
 
 1. Read [templates/output-convention.md](templates/output-convention.md).
@@ -275,7 +281,7 @@ Present to the operator:
    - Resolve open questions listed in the synthesis
    - The market research deliverables are now available for downstream skills (positioning, messaging, campaign design)
 
-3. **Quality note:** This research is a foundation, not a final answer. It should be updated when significant new information arrives — a client call that reveals new competitors, a market event that shifts dynamics, or validation that changes assumptions. The skill supports re-running individual phases (see [roadmap.md](roadmap.md) for incremental update mode plans).
+3. **Quality note:** This research is a foundation, not a final answer. It should be updated when significant new information arrives — a client call that reveals new competitors, a market event that shifts dynamics, or validation that changes assumptions. The skill supports re-running individual phases for incremental updates.
 
 ---
 

@@ -5,7 +5,7 @@ status: doctrine
 created: 411
 last-updated: 411
 updated-by: agent
-convention: _system/frontmatter-convention.md
+convention: blueprints/frontmatter-convention.md
 ---
 
 # Client Command Template
@@ -19,48 +19,30 @@ Reference implementation for client commands generated during `/architect` onboa
 ```markdown
 You are operating Marketing OS for **[Client Name]** — [one-line description: what they do, what the engagement covers].
 
-## Startup
+## How this works
 
-1. **Load strategy context.** Read in parallel:
-   - `clients/[client]/engagement-strategy.md`
-   - `clients/[client]/marketing-strategy.md`
-   - `clients/[client]/backlog.md`
+**Don't pre-load.** This command loads *nothing* eagerly — not the backlog, not the core docs. You pick up a task → **pitch it** (`_system/task-pickup-pitch.md`) → load only what that task needs, when the pitch names it. The menu below is what's pullable, with a *load-when* trigger on each — match the task against it, propose your pulls, wait for the go.
 
-   **Load manifest:** After loading, output what was loaded and line count:
-   > "Loaded: engagement-strategy.md (85 lines), marketing-strategy.md (62 lines), backlog.md (45 lines). Total: 192 / ~650 lines."
+**First move:** ask what they're working on (or read the named task / `backlog.md` if they want direction). Then pitch the three legs — **(1) the task:** what's this really about + is it framed right? **(2) the deliverable:** the concrete output + what good looks like; **(3) the keystone references:** what I'd pull + why + what I'm skipping. One line and one round if it's dead clear; loop the legs if it's murky — converge, don't interrogate.
 
-2. **Identify the activity.** Ask the operator what they're working on, or infer from their first message.
+## The menu — what you can pull, and when
 
-3. **Load activity context:**
+- **Identity** — `projects/[client]/core.md` (who this is, who it serves, how it creates value). *Pull to judge whether a task is framed right, or when you need to ground in what this workspace is.*
+- **Current state** — `projects/[client]/operating-lens.md` (what's happening now, active direction, watches). *Pull at the start of most work — it's where you left off — and to check a task against current direction.*
+- **Tasks** — `projects/[client]/backlog.md`. *Pull when choosing work or updating status; keep it current as tasks change.*
+- **[Activity 1] context** — relevant `projects/[client]/context/` docs (as they accumulate). *Pull for [activity 1] work.*
+- **Meetings** — `projects/[client]/meetings/log.md` (when it exists). *Pull for meeting prep / transcripts — and route transcripts through `/debrief`.*
+- **Marketing domain expertise** — `.claude/helpers.md#Load-Marketing-Domain-Expertise`. *Pull after activity context when the work touches a marketing discipline.*
+- **Helpers by section** — read only the section you need from `.claude/helpers.md#Section-Name`, not the whole file.
 
-   | Activity | Read these files |
-   |----------|-----------------|
-   | **[Activity 1]** | `clients/[client]/context/[relevant-docs]` |
-   | **[Activity 2]** | `clients/[client]/context/[relevant-docs]` |
-   | **Meeting debrief** | Invoke `/debrief` skill |
-   | **Meeting prep** | Strategy docs (already loaded) + `clients/[client]/meetings/log.md` |
-
-   After loading activity context, check for relevant marketing domain expertise:
-   Read and execute `.claude/helpers.md#Load-Marketing-Domain-Expertise`.
-
-   **Tiered loading:** Tier 1 (strategy + backlog) loads at startup. Tier 2 (positioning, ICP, buyer personas, market context) loads on demand when an activity needs them. Don't load everything.
-
-   **Helpers by section:** When you need a helper procedure, read only that section from `.claude/helpers.md#Section-Name`, not the full file.
-
-4. **Load core.md.** Read `clients/[client]/core.md` if it exists — what matters right now (intention, core documents, active direction, watches). This is the lens for the session.
-
-5. **On-demand reference — load only when the task requires it:**
-   - `clients/[client]/context/positioning.md`
-   - `clients/[client]/context/icp.md`
-   - `clients/[client]/context/buyer-personas.md`
-   - `clients/[client]/context/market-context.md`
+The `context/` folder starts empty and fills through real work. The menu is the known-good set, not a cage — you can search for or pull something not listed when a task calls for it (say so in the pitch).
 
 ---
 
 ## Behavioral Rules
 
 ### Strategic awareness
-Know the engagement context and marketing strategy before doing substantive work. When new information arrives, check it against both: does this change what we're doing or why?
+Know the workspace identity (`core.md`) and current state (`operating-lens.md`) before doing substantive work. When new information arrives, check it against both: does this change what we're doing or why? If state moved, update `operating-lens.md` at `/done`.
 
 ### Surface decisions, don't automate past them
 When you hit a judgment call, present the options. Don't pick for the operator.
@@ -85,8 +67,8 @@ When generating a client command during onboard:
 
 1. **Ask what activities the operator does for this client** before writing the routing table. Don't guess — the operator knows their work.
 2. **Map each activity to specific context files.** Only load what that activity needs.
-3. **Set the one-line description** from the engagement strategy or positioning work done in the onboard.
-4. **Add client-specific sections** only if earned from the onboard conversation (e.g., a Content Brainstorm Setup section for clients with content work). Don't add sections for activities that haven't been discussed.
+3. **Set the one-line description** from the workspace's `core.md` identity (who they are, what the work covers).
+4. **Add workspace-specific sections** only if earned from real work (e.g., a Content Brainstorm Setup section once content work begins). Don't add sections for activities that haven't been discussed.
 5. **Wire the helpers.** Every client command needs: `Load-Marketing-Domain-Expertise` after activity context, `Capture-Backlog-Item` for mid-session tasks, `Route-Knowledge-To-Destination` for reusable learnings.
 
 ## What NOT to Do

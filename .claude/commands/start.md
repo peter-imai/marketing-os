@@ -1,19 +1,32 @@
-System onboarding for Marketing OS.
+Entry point for Marketing OS. **Dual-mode:**
 
-**This command explains what it's doing as it builds.** The onboard is a teaching moment — the operator should understand the system, not just have it installed.
+- **First run** (no `core.md` at the system root yet) → set up the workspace, then roll straight into a first real piece of work.
+- **Later runs** (single-company users who use `/start` as their daily entry) → orient ("here's where you left off") and invite the next piece of work.
+
+**This command explains what it's doing as it goes.** Setup is a teaching moment — the operator should understand the system, not just have it installed. But the teaching is light: you do **not** front-load market/audience/positioning knowledge to get value. The operator starts from real work; the structure fills as they go.
+
+**Detect the mode first.** Check whether `core.md` exists at the system root.
+- Exists → go to **Orient Mode** (bottom of this file).
+- Doesn't exist → run **Setup Mode** (Steps 0–8 below).
 
 ---
+
+# SETUP MODE
 
 ## Step 0: Install Base output style
 
 Before anything else: verify `~/.claude/output-styles/base.md` exists. If it doesn't, create it.
 
-This file is what tells Claude Code that sessions in this workspace are marketing work, not coding work. Without it, every session runs with software-engineering instructions in the background and writing quality silently degrades. The kit's `settings.json` already points to this style — the file just needs to exist on the operator's machine.
+This file tells Claude Code that sessions in this workspace are marketing/operations work, not coding work. Without it, every session runs with software-engineering instructions in the background and writing quality silently degrades. The kit's `settings.json` already points to this style — the file just needs to exist on the machine.
 
-**Check, then act:**
+**Check, then act** (clean if/else — don't let the check short-circuit the create):
 
 ```bash
-test -f ~/.claude/output-styles/base.md && echo "exists" || mkdir -p ~/.claude/output-styles && cat > ~/.claude/output-styles/base.md << 'EOF'
+if [ -f ~/.claude/output-styles/base.md ]; then
+  echo "exists"
+else
+  mkdir -p ~/.claude/output-styles
+  cat > ~/.claude/output-styles/base.md << 'EOF'
 ---
 name: Base
 description: Marketing OS base — suppresses coding instructions for strategy, writing, and analysis sessions
@@ -21,119 +34,135 @@ keep-coding-instructions: false
 ---
 
 Think strategically. Push back on weak reasoning.
+
+Pitch before you pick up a task: name the task, the deliverable, and the keystone references you'd pull — then wait for the go. Don't pre-load context; don't dive in.
 EOF
+fi
 ```
 
-Tell the operator briefly what you just did and why:
+Tell the operator briefly:
 
-> "First thing — I installed the Base output style at `~/.claude/output-styles/base.md`. This is what tells Claude Code that sessions here are marketing work, not coding work. One-time setup; you won't have to think about it again."
+> "First thing — I installed the Base output style at `~/.claude/output-styles/base.md`. This tells Claude Code that sessions here are marketing work, not coding work. One-time setup; you won't think about it again."
 
 If the file already existed, say so and move on.
 
----
+## Step 1: Welcome + orient
 
-## Step 1: Welcome + Orient
-
-Explain what Marketing OS is and how this onboard works:
-
-> "This is Marketing OS — a system that turns your marketing activities into compounding loops. Every activity you run (campaigns, meetings, research, outreach) becomes a closed loop: execute → measure → learn → feed back → next cycle is better. And the loops connect — what you learn from campaign responses feeds into meeting prep, what you learn from research feeds into messaging.
+> "This is Marketing OS — an **operations command center** for your work. The idea is simple: for anything you do that repeats — outreach, content, meetings, research, campaigns — the system learns your context and starts handling it the way you would. Set it up once, and you start doing the work of five people.
 >
-> The directory structure is already in place. This onboard personalizes it — your identity, your clients, and queues up the client-specific setup for separate sessions.
+> Marketing *is* operations here — same thing, not a subset. The depth that ships in the box leans marketing, but the structure holds any repeatable work you do.
 >
 > Three things to know upfront:
-> 1. **Context quality compounds.** The better your client foundation docs are, the better the system works over time.
-> 2. **`/done` is mandatory.** Every session ends with `/done`. It routes knowledge, updates backlogs, commits to git. Skip it and the session's work evaporates.
-> 3. **`/architect` is your system builder.** When you want to improve how the system works — new workflows, new conventions, resolving problems — that's `/architect`.
+> 1. **You start from real work, not setup.** You don't write a pile of strategy docs before the system helps you. We set up who you are in a few minutes, then go straight to a real piece of your work. The structure fills as you go.
+> 2. **`/done` closes every session.** It routes what you learned, updates your state, commits to git, and sets up next time. Skip it and the session's work evaporates. This is the most important habit.
+> 3. **You grow it through use.** The system gets sharper the more you work in it — it remembers your voice, your context, what's worked. You don't build the whole thing in a day.
 >
-> Let's get you set up."
+> Let's get you set up — this part is quick."
 
-## Step 2: Elicit Operator Identity
+## Step 2: Light identity interview
 
-Ask these questions. Take each answer before moving on:
+This seeds `core.md` — the durable identity of your work. Keep it conversational and brief. Take each answer before moving on.
 
+**Who you are:**
 1. **What's your name?**
-2. **What's your primary email address?** (Used for contact registry and email skill configuration)
-3. **How many clients do you work with right now? What are their names?**
-4. **Where is your current working directory?** (The folder you've been using with Claude Code. We'll reference it during client onboarding to import existing files.)
+2. **What's your primary email?** (Used for the contact registry and the email skill.)
 
-## Step 3: Elicit Operator's Practice
+**What the work is** (this becomes `core.md`):
+3. **In a sentence or two — what's the business or practice you're running here?** (Who you are.)
+4. **Who's on the other end of the work — who do you serve?** (Push for the situational version: "someone who is [situation] and needs [outcome]," not just a demographic.)
+5. **What do you actually do for them, and why does it matter?** (How you create value.)
+6. **What's the work that repeats?** (The activities the system will help you operate — outreach, content, reporting, etc.)
 
-Before setting up clients, understand how the operator works. Ask:
+**How you work** (light — for context, not a full audit):
+7. **What does a typical week look like?** (Cadence — meetings, campaign cycles, reporting rhythms.)
+8. **Anything already set up in Claude Code worth knowing about?** (Skills, commands, SOPs — don't try to replicate it; just note what's relevant.)
+9. **Do you use Google Workspace?** (Gmail, Tasks — affects which integrations are immediately useful.)
 
-1. **What does your typical week look like across clients?** (Meeting cadence, campaign cycles, reporting rhythms)
-2. **What skills or workflows do you already have set up in Claude Code?** (Skills, commands, SOPs — anything we should know about or potentially port over)
-3. **Do you use Google Workspace?** (Gmail for client email, Google Tasks for action items — affects which integrations are immediately useful)
+Don't interrogate. If an answer is thin, take it and move on — `core.md` is allowed to start light and sharpen through use.
 
-Don't try to replicate their existing setup. Listen, understand, and note what's relevant for the system.
+## Step 3: Configure API access (light)
 
-**After collecting Steps 2-3:** Write the operator's practice context to `_system/operator-profile.md`:
+> "What external tools and APIs do you work with? Anything with an API you'll want the system to call — a CRM, an email or outreach platform, data or enrichment sources, project and docs tools. (If you run a marketing stack, that often means something like Instantly or Smartlead for email, Clay or Apollo for enrichment — but it's whatever *you* actually use.)
+>
+> I ask because the system runs in a sandbox that blocks network calls to domains that aren't explicitly allowed. I'll add yours now so nothing breaks later."
+
+For each tool named:
+1. Identify the API domain (e.g., `api.instantly.ai`, `api.fullenrich.com`).
+2. **Verify the domain** — check the tool's API docs or ask the operator to confirm. Do not guess domains from training data; wrong guesses cause opaque sandbox failures.
+3. Add verified domains to `.claude/settings.json` under `sandbox.network.allowedDomains`.
+
+If they don't know yet: "No problem — when we set up a tool later, I'll add its domain before we use it."
+
+## Step 4: Seed the workspace
+
+Write the workspace base per `_system/client-folder-convention.md` (the light base — `core.md` + `operating-lens.md` + `backlog.md` + `context/`).
+
+1. **Write `core.md`** at the system root, from the Step 2 answers, using the `core.md` template in `_system/client-folder-convention.md`. Who we are · who we serve · how we create value · what we do. Keep it short — identity, not a strategy treatise.
+
+2. **Write `operating-lens.md`** at the system root, using the template. Seed it lightly: "What's happening now" = "Just set up — about to run a first piece of work." Active Direction and Watches can start near-empty; they fill through use.
+
+3. **Write `_system/operator-profile.md`** from the practice answers (Steps 2 Q7–9):
 
 ```markdown
 # Operator Profile
 
-- **Name:** [from Step 2]
-- **Previous working directory:** [from Step 2 Q4, if any]
-- **Weekly rhythm:** [from Step 3 Q1 — meeting cadence, campaign cycles, reporting rhythms]
-- **Existing skills/workflows:** [from Step 3 Q2 — what they had before]
-- **Google Workspace:** [yes/no from Step 3 Q3]
+- **Name:** [Q1]
+- **Weekly rhythm:** [Q7]
+- **Existing skills/workflows:** [Q8]
+- **Google Workspace:** [yes/no, Q9]
 
 *Written by /start, Session 1.*
 ```
 
-This file persists across sessions — `/architect` references it during client onboard (import step, integration decisions).
+4. **Write `contacts.yaml`** with the operator's name, email, and any send-from accounts.
 
-## Step 4: Configure API Access
+5. **Create the empty homes with charters.** Ensure `context/` exists with a one-line charter note (a `context/README.md` or a charter line — "workspace-specific knowledge accumulates here as you work"). Do not pre-build `content/`, `data/`, etc. — those are extensions earned by real work.
 
-Ask what external tools and APIs the operator uses. Keep it light:
+## Step 5: Single-company simplification (taught as a lesson)
 
-> "What external tools and APIs do you work with? Email sending platform (Instantly, Smartlead, Lemlist), enrichment providers (FullEnrich, Clay, Apollo), CRM — anything with an API you'll want the system to call.
->
-> I'm asking because the system runs in a sandbox that blocks network calls to domains that aren't explicitly permitted. I'll add yours now so nothing breaks when we start building."
+Ask: **"Do you work with just this one company/practice, or several?"**
 
-For each tool they name:
-1. Identify the API domain (e.g., `api.instantly.ai`, `api.fullenrich.com`, `api.clay.com`)
-2. **Verify the domain** — check the tool's API documentation or ask the operator to confirm. Do not guess API domains from training data — they may be incorrect and will cause opaque sandbox failures.
-3. Add verified domains to `.claude/settings.json` under `sandbox.network.allowedDomains`
+- **One** → teach it, don't just configure it:
+  > "Then you don't need anything fancier than this. **`/start` is your entry, `/done` is your exit.** Every working session: open with `/start` — it'll show you where you left off and tee up the next thing — and close with `/done`. That's the whole rhythm. No per-client commands to juggle."
 
-If they don't know yet: "No problem. When we set up a tool later, I'll add its domain before we use it."
+  No `/[client]` command is created. `/start`'s Orient Mode (below) becomes their daily entry.
 
-## Step 5: Create Contacts + Queue Client Onboards
+- **Several** → 
+  > "Then each company gets its own workspace so they don't bleed into each other. Run `/new-project` when you're ready to add the next one — it scaffolds a clean workspace and a `/[name]` command to drop into it. We'll set up this first one now and you can add the others as you need them."
 
-1. **Write `contacts.yaml`** with the operator's name, email, and account mappings. If they have multiple send-from addresses (e.g., different domains per client), capture them in the accounts section.
+  Note one `/new-project` task per additional company in `backlog.md` (light — a one-line charter each, not foundation-doc homework).
 
-2. **Update `_system/backlog.md`** with onboard tasks:
-   - One task per client: `T-1: Onboard [Client Name] — produce foundation docs, create client command`
-   - **If multiple clients:** Ask "Which client do you want to onboard first?" That client gets P0, rest get P1. Starting with the most active client gives the fastest payoff.
-   - Number sequentially: T-1, T-2, T-3...
-   - Update the task counter at the bottom
+## Step 6: The first-work invitation (the make-or-break)
 
-3. **If the operator mentioned existing skills or workflows worth porting:** Add a P1 task: `T-N: Review existing skills for system integration` with a note about what they described.
+This is where setup ends and real work begins — **in this same session.** Don't hand the operator off to go build foundation docs. **Lead** them into a first real piece of work.
 
-## Step 6: Orient the Operator
+Ask: **"Do you know what you want to work on right now?"**
 
-Give the operator the 3 things they need to know right now. Save the full walkthrough for `/architect` — they'll see the system in action there.
+- **Yes** → facilitate that piece directly. Run it as a real session. Use the relevant skill if one fits (`/compose` for an email, `/debrief` for a transcript, `/market-research` for research).
 
-> **Three things to remember:**
->
-> 1. **`/done` closes every session.** It routes decisions, updates backlogs, commits to git. Skip it and the session's work doesn't persist. This is the most important habit.
->
-> 2. **`/architect` is your next step.** Start a fresh session, run `/architect`. It will see your client onboard tasks and guide you through setting up your first client. One client per session.
->
-> 3. **Skills work from any session.** `/debrief` processes meeting transcripts, `/compose` drafts emails and writeups in your voice, `/llm-research` runs deep multi-model research. You don't need to memorize these — they'll come up naturally.
->
-> The system has more depth — hooks, knowledge routing, domain expertise, blueprints — but you'll learn that through use, not a walkthrough. `/architect` will introduce concepts as they become relevant.
+- **Not sure** → don't present a blank menu. Probe **"What's something you do on a regular basis?"** and use the identity you just learned in Step 2 to **propose two or three candidate first pieces.** Bias toward a strong first piece — by this test:
 
-## Step 7: Initialize Tracking
+  **The good-first-work heuristic:** a strong first piece of work
+  1. produces a **tangible artifact the operator actually wants** (a draft, a brief, a cleaned list) — not internal plumbing,
+  2. is **self-contained** — one loop, visible end, no dependencies to set up first,
+  3. **shows the compounding idea once** ("see how it kept your voice / remembered your context?"),
+  4. is **low-setup** — no API connection or foundation doc required to work.
+
+  Good candidates: "draft this email in your voice," "turn this messy thing into a clean one," "write the first version of [a recurring piece]." Weak starters: anything that needs a transcript on hand, an API wired up, or a foundation doc written first.
+
+Once they pick, **do the work with them.** The goal of the first session is one closed loop and one tangible artifact they wanted — that's what teaches the system better than any walkthrough.
+
+## Step 7: Initialize tracking
 
 **Session log.** Write the first entry to `_system/session-log.md`:
 
 ```
-| YYYY-MM-DD | Session 1 | start | System onboard — [operator name] |
+| YYYY-MM-DD | Session 1 | start | System setup + first work — [operator name] |
 ```
 
-This initializes session numbering. All future sessions increment from here.
+This initializes session numbering. Future sessions increment from here.
 
-**Onboard log.** Create `_system/onboard-log.md`:
+**Onboard log.** Create `_system/onboard-log.md` to track teaching progress. The concept definitions live in `curriculum/concepts.md` (the single registry); this log just tracks introduced/reinforced state per the `/done` micro-teaching and `/teach-me`:
 
 ```markdown
 # Onboard Log
@@ -142,50 +171,55 @@ This initializes session numbering. All future sessions increment from here.
 **Setup completed:** Session 1, [today's date]
 **Graduated:** —
 
+Concept definitions: `curriculum/concepts.md`. This log tracks which concepts have been introduced/reinforced — `/done` drips one per session, `/teach-me` walks them on demand. Both read the registry; neither re-teaches an introduced concept.
+
 ## Concepts
 
 | # | Concept | Introduced | Reinforced | Notes |
 |---|---------|-----------|------------|-------|
-| 1 | The loop | Session 1 | — | First /done completed during setup |
-| 2 | How to work | — | — | |
-| 3 | Quality gates | — | — | |
-| 4 | Cross-loop compounding | — | — | |
-| 5 | System hygiene | — | — | |
+| 1 | The loop — close every session with /done | Session 1 | — | Experienced during setup |
+| 2 | The backlog is your brain | — | — | |
+| 3 | Quality gates — how to talk to the system | — | — | |
+| 4 | You direct it — pitch before the work | — | — | |
+| 5 | Cross-loop compounding | — | — | |
+| 6 | System hygiene | — | — | |
+
+(Concepts, definitions, and triggers live in `curriculum/concepts.md` — the single registry, shared with `/teach-me` and `/done` micro-teaching. Concepts 1–3 are core/graduation-gating.)
 
 ## Milestones
 
-- [Session 1] Setup completed. First /done run.
+- [Session 1] Setup completed. First piece of work run. First /done.
 ```
 
-Concept 1 is marked as introduced because the operator just experienced the mechanism — they ran `/done` and saw what it captured. Reinforcement comes when they start a fresh session and the system loads today's context.
+Concept 1 is marked introduced because the operator will experience the mechanism — they'll run `/done` at the end of this session and see what it captures.
 
-This file activates the onboarding system: `/done` will deliver micro-teachings at shutdown, and the startup hook will surface concept nudges. Run `/system` to see your progress anytime.
+## Step 8: Close setup
 
-## Step 8: Close System Onboard
-
-> "System is set up. Your backlog has onboard tasks for each client.
+> "You're set up — and you've got [the artifact from Step 6] to show for it. Here's the whole rhythm from here:
 >
-> **What happens next:**
-> 1. Start a fresh session. Run `/architect`.
-> 2. The architect will see the P0 backlog items and guide you through your first client onboard.
-> 3. One client per session — start with your most active client, the one you'll benefit from most immediately.
-> 4. Client onboard produces your foundation docs: positioning, ICP, market context, buyer personas, marketing strategy, engagement strategy. This is where the system gets smart about your clients.
+> - **`/start`** opens a session — it'll show you where you left off and tee up the next thing.
+> - **`/done`** closes it — that's mandatory; it's what makes the system remember.
+> - Skills come up naturally: `/compose` to write in your voice, `/debrief` for meeting transcripts, `/market-research` for research. You don't need to memorize them.
 >
-> The onboard is an investment — the foundation docs take real thought. But every session after that benefits from the context you build now."
+> The system has more depth — knowledge routing, hooks, blueprints, domain expertise — but you'll meet that through use, not a lecture. Want me to walk you through the core concepts now? Run `/teach-me` anytime — it's self-paced and you can stop whenever.
+>
+> Let's close this session with `/done`."
 
-## Step 9: Capture Onboard Feedback
+Run `/done` to close. (The first `/done` reinforces Concept 1 live.)
 
-Before closing, ask the operator for feedback on the onboard experience. Explain why:
+---
 
-> "Quick feedback request — your experience with this setup process helps us improve the system for everyone. I'll capture your answers in `_system/feedback.md`. When you're ready to share, you can zip that file and send it back."
+# ORIENT MODE
 
-Ask:
-1. How long did this take?
-2. What was clear about the process?
-3. What was confusing or felt unnecessary?
-4. What was missing that you expected to see?
-5. What would you change?
+`core.md` already exists — this is a returning single-company operator using `/start` as their daily entry. **Don't pre-load.** Same discipline as the workspace commands: load nothing eagerly, pick up the task, **pitch it**, pull on cue. (`_system/task-pickup-pitch.md`.)
 
-Write their answers to the "System Onboard Feedback" section of `_system/feedback.md`.
+1. **First move — find the task.** Ask what they're working on. If they came in with a specific task, take it. If they want direction, *now* pull `operating-lens.md` (where you left off) + `backlog.md` and surface the active thread first, then other high-priority items — don't make them re-decide what's already captured.
 
-Run `/done` to close this session.
+2. **Pitch the task before you build it.** Once there's a task, pitch the three legs and wait for the go:
+   - **The task** — what's this really about, in your own words; is it framed right?
+   - **The deliverable** — the concrete output + what "good" looks like, so "done" is checkable.
+   - **The keystone references** — what you'd pull (`core.md` for identity, the relevant `context/` docs, the backlog item detail) + why + what you're skipping.
+
+   One line and one round if it's dead clear; loop the legs if it's murky — converge, don't interrogate.
+
+3. **Run the session** on the go-ahead. Use the right skill for the activity. Close with `/done` — which updates `operating-lens.md`, routes learnings, and (if onboarding isn't graduated) drips the next concept.

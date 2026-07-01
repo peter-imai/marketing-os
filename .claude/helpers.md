@@ -18,8 +18,8 @@ Determine where a piece of knowledge belongs in the system and route it there. U
 1. Identify what kind of knowledge this is:
    - **Marketing domain knowledge** (how cold email works, campaign strategy, market dynamics) → Check `resources/marketing/index.md` for the relevant domain. Add to the domain file, or create one if it doesn't exist. Update the expertise index entry (depth, coverage, gaps).
    - **Practitioner convention** (a pattern for how to work, a session management technique, a quality pattern) → Route to a relevant blueprint or system doc. General patterns go in `blueprints/`.
-   - **Architecture insight** (a design decision, a principle, a system pattern) → Route to `_system/decisions/` if it's a decision, `_system/system-philosophy.md` if it's a structural insight, CLAUDE.md if it's a behavioral rule.
-   - **Client intelligence** (what we learned about a specific client, their market, their preferences) → Route to the relevant context document (engagement-strategy.md, marketing-strategy.md, or context/ files).
+   - **Architecture insight** (a design decision, a principle, a system pattern) → Route to `_system/decisions/` if it's a decision, `_system/system-architecture.md` if it's a structural insight, CLAUDE.md if it's a behavioral rule.
+   - **Workspace intelligence** (what we learned about a specific workspace, its market, its people) → durable knowledge goes to `context/` files; a change in current state goes to `operating-lens.md`; a change in identity goes to `core.md` (rare).
    - **Tool learning** (how a tool behaves, limitations, cost data, gotchas) → Route to `tools/index.md` for selection-relevant info, or `tools/[name]/profile.md` for operational depth.
 
 2. If the destination file exists, read it first. Add the knowledge in the right section. Don't duplicate what's already there — update or extend existing entries.
@@ -38,7 +38,7 @@ Add a new task to the appropriate backlog with proper formatting.
 
 1. Determine which backlog:
    - **System-level** (architecture, conventions, skills) → `_system/backlog.md`
-   - **Client-level** (deliverables, campaigns, client-specific work) → `clients/[client]/backlog.md`
+   - **Workspace-level** (deliverables, campaigns, workspace-specific work) → the root `backlog.md` (single-company) or `projects/[client]/backlog.md` (multi-workspace)
 
 2. Assign the next task number (check the task counter at the bottom of the backlog). Include: priority (P0-P3), status (`ready` unless it has dependencies), date added.
 
@@ -54,45 +54,37 @@ Add a new task to the appropriate backlog with proper formatting.
 
 ---
 
-## Load-Client-Strategy-Context
+## Load-Workspace-Context
 
-Load the governing strategy documents for the active client engagement. Commands supply the specific file paths — this helper provides the procedure.
+Load the light base for the active workspace — durable identity + current state. Commands supply the workspace path; this helper provides the read procedure and the staleness/trust calibration. (Replaces the old strategy-doc loader; the kit's base is `core.md` + `operating-lens.md`, per `_system/client-folder-convention.md`.)
 
 **Inputs (provided by the calling command):**
-- Engagement strategy path (e.g., `clients/acme/engagement-strategy.md`)
-- Marketing strategy path (e.g., `clients/acme/marketing-strategy.md`)
-- Any additional context files the command specifies
+- Workspace path (root for single-company; `projects/[name]/` for multi-workspace)
 
 **Procedure:**
 
-1. Read the **engagement strategy** document. This is the relationship layer — goals, stakeholders, dynamics, success criteria, concerns. Internalize the people and the politics, not just the deliverables.
+1. Read **`core.md`** — the durable identity: who this is, who it serves, how it creates value, what it does. The ground the session stands on. Slow-changing.
 
-2. Read the **marketing strategy** document. This is the execution brain — positioning, product understanding, audience, content strategy, growth thesis, active hypotheses.
+2. Read **`operating-lens.md`** — the current state: what's happening now, active direction, watches. This is where you left off; lead orientation from it.
 
-3. **Parse frontmatter on both documents.** Each should have a YAML frontmatter block. Extract `status`, `last-updated`, and `updated-by`. Then apply these checks:
+3. **Parse frontmatter on both.** Extract `status`, `last-updated`, `updated-by`. Apply:
 
-   **Staleness check:** Compare `last-updated` to the current session number. Strategy docs have a 15-session staleness threshold.
-   - If the gap exceeds the threshold → flag: `"⚠️ [Doc title] last updated Session {N} ({gap} sessions ago). May need review."`
-   - If within threshold → no flag needed.
+   **Staleness check:** Compare `last-updated` to the current session number. `core.md` (identity) is slow-changing — a 40-session threshold. `operating-lens.md` (now-state) should be fresh — a 5-session threshold; if it's older, the "current state" probably isn't current.
+   - Gap exceeds threshold → flag: `"⚠️ [Doc] last updated Session {N} ({gap} sessions ago). May need review."`
+   - Within threshold → no flag.
 
    **Trust calibration from `status`:**
-   - `working-notes` → Unreviewed. May contain gaps or assumptions. Treat as directional, not authoritative.
-   - `operator-reviewed` → Validated. Treat as current doctrine unless contradicted.
-   - `doctrine` → Established and stable. Changes require explicit operator decision.
+   - `working-notes` → unreviewed; directional, not authoritative.
+   - `operator-reviewed` → validated; current unless contradicted.
+   - `doctrine` → established; changes require an explicit operator decision.
 
    **Trust calibration from `updated-by`:**
-   - If `agent` and status is not `doctrine` → note: `"Last update was agent-synthesized — operator hasn't validated."`
-   - If `operator` or `joint` → no flag.
+   - `agent` and status not `doctrine` → note: `"Last update was agent-synthesized — operator hasn't validated."`
+   - `operator` or `joint` → no flag.
 
-4. After reading both, you should be able to articulate:
-   - What is this engagement trying to accomplish?
-   - What are the key stakeholder concerns?
-   - What marketing approach are we taking and why?
-   - What hypotheses are we testing?
+4. After reading both, you should be able to articulate: what this workspace is, who it serves, and what's happening with it right now. If you can't, flag the gap.
 
-   If you can't, flag the gap.
-
-5. Throughout the session, when new information arrives, check it against both levels: does this change how we think about the engagement or the strategy?
+5. Throughout the session, when new information arrives, check it against both: does it change the identity (`core.md`, rare) or the current state (`operating-lens.md`, common)?
 
 ---
 
@@ -114,6 +106,26 @@ After identifying the session's activity, check whether the system has accumulat
    - Note: "We don't have deep domain expertise for [domain] yet. If this session produces reusable knowledge, we can start building it."
 
 5. If no domains are relevant, skip silently.
+
+---
+
+## Self-Critique-Gate
+
+Before presenting any deliverable, critique your own work first. This is the move the operator makes constantly ("critique your work and flag anything that isn't great") — the gate builds it in so it doesn't depend on the operator catching gaps. Invoked by deliverable-producing skills right before they present.
+
+**Input (from the calling skill):** the **bar** — what "good" looks like for this specific deliverable.
+
+**Procedure:**
+
+1. **Stop before presenting.** Re-read the deliverable as a first-time reader who wasn't in this session — someone who only sees the output, none of the reasoning that produced it.
+
+2. **Against the bar, name 2-3 SPECIFIC weaknesses.** Concrete, not "looks good." Where is it thin, generic, unsupported, off-target, or hedged? Point at the actual passage. If you genuinely find nothing, you haven't looked hard enough — the bar for "nothing to flag" is high.
+
+3. **Fix what you can fix now.** For what needs the operator's judgment (a taste call, a missing fact only they have), don't fix — flag it.
+
+4. **Present the deliverable leading with what you flagged:** "Here it is. Two things I'd push on: [X], [Y]." Don't bury the critique under the work.
+
+**The point is real critique, not a performed ritual.** A gate that always concludes "looks good" is a failed gate — the same failure mode as a pitch that fills the slots without thinking. If you catch yourself rubber-stamping, stop and actually read it cold.
 
 ---
 
@@ -192,9 +204,9 @@ Build validated binary scoring criteria for a marketing artifact or workflow out
 
 **Procedure:**
 
-1. **Classify the application** (artifact optimization / analytical sharpening / system infrastructure / adversarial resilience). Determine the spectrum level (2-3 self-audit / 10-20 scored / 50-100 overnight) based on how much the output quality matters and how cheaply it can be re-run. Present recommendation to operator: "This looks like [family] at [level] because [reasons]. Worth building criteria?"
+1. **Consult the decision matrix.** Read `blueprints/scored-iteration-decision-matrix.md` if it exists. Classify the application (artifact optimization / analytical sharpening / system infrastructure / adversarial resilience). Score the 5 heuristics. Determine spectrum level (2-3 self-audit / 10-20 scored / 50-100 overnight). Present recommendation to operator: "This looks like [family] at [level] because [reasons]. Worth building criteria?"
 
-2. **Develop the criteria.** Execute all 4 phases in order:
+2. **Follow the criteria development blueprint.** Read `blueprints/criteria-development.md` if it exists. Execute all 4 phases in order:
    - Phase 1 (15 min): Define artifact job + 5 failure modes + spectrum position
    - Phase 2 (20 min): Select patterns from the 5-pattern menu, draft criteria
    - Phase 3 (15 min): Tier into prerequisites/optimizers, write in yes/no format
@@ -221,62 +233,6 @@ Convention for quality experiment integration in deliverable-producing skills. R
 - The operator decides: **keep** (promote to permanent instruction in SKILL.md, clear from map), **modify** (adjust the map entry), or **drop** (clear from map, note what didn't work)
 
 If no experiment is active for this skill, skip.
-
----
-
-## Check-For-Doc-Logs
-
-Detect parent docs with companion `*-log.md` files that were touched this session, draft a log entry per detected pair, and surface as a proposal. Both `/done` and `/debrief` invoke this procedure — one source of truth for log-write detection.
-
-**Inputs (provided by the calling command/skill):**
-- **Touched files list** — output of `git diff --name-only` or explicit list of files modified.
-- **Session number** — current session for the entry header.
-- **Trigger source** — `session` (from `/done`) or `meeting` (from `/debrief`). Determines entry framing.
-
-**Procedure:**
-
-1. **Build the parent-log map.** For each touched file, check whether a sibling file exists at `{parent-folder}/{parent-name}-log.md`. Rule: `core.md` → `core-log.md`, `engagement-strategy.md` → `engagement-strategy-log.md`.
-
-   Derive the candidate log path by inserting `-log` before `.md`. Verify it exists.
-
-2. **Skip non-parent touches.** A touched file with no sibling log is not in scope. Skip silently.
-
-3. **Verify the log file is `type: log`.** Read the candidate log's frontmatter. If `type` is not `log`, skip — it's a name collision.
-
-4. **Draft one entry per detected pair.** Format:
-
-   ```
-   ### YYYY-MM-DD · S{N} · {Type}
-   **What:** One-line fact about what changed in the parent doc.
-   **Why:** Reasoning — what drove the change.
-   **Implication:** Forward hook — what this enables or changes downstream.
-   ```
-
-   **Type selection** (`Decision` | `Hypothesis` | `Signal` | `Shift` | `Dead end`):
-   - **Decision** — a choice was made
-   - **Hypothesis** — trying something, outcome unknown
-   - **Signal** — observation changed understanding
-   - **Shift** — direction change at the meta level
-   - **Dead end** — tried X, didn't work, here's why
-   - Skip `Snapshot` — that type is for retroactive bootstrap only
-
-5. **Surface the draft(s) for approval:**
-
-   > "{Parent doc name} touched. Propose log entry:
-   > [draft entry]
-   > Apply / edit / skip?"
-
-   - **Apply** → Find the `<!-- log-insert -->` sentinel in the log file. Insert the new entry on the line immediately after the sentinel. Update the log's `last-updated` field.
-   - **Edit** → Accept the operator's wording, write that.
-   - **Skip** → Do not write.
-
-6. **Write protection.** Never write to a log without explicit operator approval.
-
-7. **If no parent-log pairs detected, skip silently.**
-
-**When invoked:**
-- `/done` shutdown (session-driven entries)
-- `/debrief` wrap-up (meeting-driven entries)
 
 ---
 
@@ -317,7 +273,7 @@ Create a new Claude Code hook — event-triggered shell script that runs at sess
 
 6. **Test manually:** `bash .claude/hooks/{name}.sh`
 
-7. **Update `_system/system-philosophy.md`** — add the hook with a one-line description.
+7. **Update `_system/system-architecture.md`** — add the hook with a one-line description.
 
 **Failure modes to avoid:**
 - Non-executable script (silent failure)
